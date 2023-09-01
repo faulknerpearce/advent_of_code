@@ -3,9 +3,8 @@ visited_houses = set()
 visited_houses.add((0, 0)) # Santa starts by delivering a present at his starting location
 
 def get_directions():
-    file = open("text.txt", "r")
-    text = file.read()
-    file.close()
+    with open("text.txt") as file:
+        text = file.read()
     return text
 
 def walk_to(direction, houses):
