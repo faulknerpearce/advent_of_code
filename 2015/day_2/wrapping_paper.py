@@ -1,8 +1,7 @@
 # This function formats the content of a text file to a string. 
 def format_string():
-    file = open("text.txt", "r")
-    text = file.read()
-    file.close()
+    with open("text.txt") as file:
+        text = file.read()
     return text
 
 # This function will takes a string that contains numbers and format them to a list of integers.
