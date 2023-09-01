@@ -1,9 +1,8 @@
 
 # This function converts a file to a string 
 def convert_to_string():
-    file = open("text.txt", "r")
-    text = file.read()
-    file.close()
+    with open("text.txt") as file:
+        text = file.read()
     return text
 
 # This function seperates string into a list of characters
