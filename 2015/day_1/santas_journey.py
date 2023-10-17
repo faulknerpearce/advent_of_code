@@ -1,10 +1,3 @@
-
-# This function converts a file to a string 
-def convert_to_string():
-    with open("text.txt") as file:
-        text = file.read()
-    return text
-
 # This function seperates string into a list of characters
 def convert(my_string):
     my_list = []
@@ -15,6 +8,14 @@ def convert(my_string):
             my_list.append(my_char)
     return my_list
 
+# This function converts a file to a string 
+def read_file():
+    with open("text.txt") as file:
+        text = file.read()
+
+        chars = convert(text)
+        return chars
+    
 # This function will return the floor santa must go to and returns the index of the list that brings santa to the basement. 
 def floor_count(my_chars):
     floor = 0
@@ -34,9 +35,9 @@ def floor_count(my_chars):
         
     return floor, basement_position
 
-# Main script
-my_text = convert_to_string()
-chars = convert(my_text)
+# Main 
+chars = read_file()
+
 floors, basement = floor_count(chars)
 
 print("Santans Floor:  " + str(floors) + "\n" + "Basement position: " + str(basement))
