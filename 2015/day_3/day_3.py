@@ -1,28 +1,40 @@
-# Day 3 Part 1 
-visited_houses = set()
-visited_houses.add((0, 0)) # Santa starts by delivering a present at his starting location
-
 def get_directions():
     with open("text.txt") as file:
         text = file.read()
     return text
 
-def walk_to(direction, houses):
-    x, y = 0, 0  # Starting coordinates
-    for step in direction:
-        if step == "^":
-            y += 1
-        elif step == "v":
-            y -= 1
-        elif step == ">":
+def deliver_presents_with_robot(directions, robot=True):
+    santa_x, santa_y, robo_x, robo_y = 0, 0, 0, 0
+    visited_houses = set()
+    visited_houses.add((0, 0))
+
+    for i, direction in enumerate(directions):
+        if robot and i % 2 != 0:
+            # Robo-Santa's turn (if robot is True and it's an odd step)
+            x, y = robo_x, robo_y
+        else:
+            # Santa's turn (if robot is False or it's an even step)
+            x, y = santa_x, santa_y
+
+        if direction == '>':
             x += 1
-        elif step == "<":
+        elif direction == '<':
             x -= 1
-        # After each step, add the house to the visited_houses set if, it is a new number
-        houses.add((x, y))
-        
-    return len(houses)
+        elif direction == '^':
+            y += 1
+        elif direction == 'v':
+            y -= 1
+
+        visited_houses.add((x, y))
+
+        if robot and i % 2 != 0:
+            robo_x, robo_y = x, y
+        else:
+            santa_x, santa_y = x, y
+
+    return len(visited_houses)
 
 directions = get_directions()
 
-print(walk_to(directions, visited_houses))
+result = deliver_presents_with_robot(directions)
+print("Result:", result)
