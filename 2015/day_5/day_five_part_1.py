@@ -6,8 +6,8 @@ def read_file():
         text_lines = text_file.split('\n')
         return text_lines
 
-# Check if a line contains at least three vowels         
-def check_vowels(my_line):
+# Checks if a line contains at least three vowels.        
+def has_vowels(my_line):
     vowels = 'aeiou'
     count = 0
     for char in my_line:
@@ -18,8 +18,8 @@ def check_vowels(my_line):
     else: 
         return False
 
-# Check for 'naughty' pairs and return False if any found
-def check_for_naughty_strings(my_line):
+# Checks for Naughty pairs and return False if any found.
+def has_no_naughty_strings(my_line):
     naughty = ['ab', 'cd', 'pq', 'xy']
     last_char = ''
     for letter in my_line:
@@ -30,8 +30,8 @@ def check_for_naughty_strings(my_line):
             last_char = letter
     return True
 
-# Check for consecutive double characters in a line
-def check_for_double(my_line):
+# Checks for at least one letter that appears twice in a row.
+def has_pair(my_line):
     last = ''
     count = 0
     for char in my_line:
@@ -43,15 +43,15 @@ def check_for_double(my_line):
         return True 
     return False 
 
-# Count the number of nice strings in a list of lines
-def count_nice_strings(my_list):
-    nice_list_count = 0
+# Count the number of nice strings in a list of lines for the requirements of part one. 
+def count_nice_strings_part_one(my_list):
+    count = 0
     for line in my_list:
-        if check_for_naughty_strings(line) and check_for_double(line) and check_vowels(line):
-            nice_list_count += 1
-    return nice_list_count
+        if has_no_naughty_strings(line) and has_pair(line) and has_vowels(line):
+            count += 1
+    return count
 
-# Main 
-the_lines = read_file()
-result = count_nice_strings(the_lines)
-print(f'The number of nice strings are: {result}')
+# Part one. 
+strings_list = read_file()
+part_one_result = count_nice_strings_part_one(strings_list)
+print(f'The number of nice strings for part one are: {part_one_result}')
