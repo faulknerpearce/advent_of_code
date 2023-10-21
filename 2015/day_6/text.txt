@@ -1,0 +1,5 @@
+turn on 8,5 through 9,6
+turn on 4,3 through 8,4
+turn off 5,2 through 5,9
+turn off 3,8 through 6,8
+turn off 1,4 through 3,9
