@@ -4,50 +4,62 @@ def get_instructions():
     with open('text.txt', 'r') as text:
         my_string = text.read()
         cleaned_string = re.sub(r'\s+|,', ' ', my_string)  # Replace multiple spaces with a single space
-        removed_words = re.sub(r'turn|through|', '', cleaned_string)  # Remove 'turn', 'through'
+        removed_words = re.sub(r'turn|through|', '', cleaned_string)  # Remove words (turn) and (through)
         instructions = removed_words.split()
         return instructions
 
-# This will create a two dimensional list.
+# This will create a two-dimensional list.
 def create_grid(length, height):
     grid = [[0 for i in range(length)] for i in range(height)]
-    return grid 
+    return grid
 
-# Set the specified rectangular range of lights to the 'on' state in the grid.
-def set_lights(grid, start_row, start_col, end_row, end_col):
-    for row in range(start_row, end_row): # Iterate through the rows within the specified range
-        for col in range(start_col, end_col): # Iterate through the columns within the specified range
-            grid[row][col] = 1 # change this to be a state that will be passes to the function. 
+# Set the specified rectangular range of lights to the 'on' or 'off' state in the grid.
+def set_lights(light_grid, start_row, start_col, end_row, end_col, power):
+    if power == 'on':
+        position = 1
+    else:
+        position = 0
+    for row in range(start_row, end_row+1):
+        for col in range(start_col, end_col+1):
+            light_grid[row][col] = position
+    return light_grid
 
-def toggle_lights(start, end):
-    pass
+# Toggle the specified rectangular range of lights.
+def toggle_lights(light_grid, start_row, start_col, end_row, end_col):
+    for row in range(start_row, end_row+1):
+        for col in range(start_col, end_col+1):
+            if light_grid[row][col] == 0: 
+                light_grid[row][col] = 1
+            else: 
+                light_grid[row][col] = 0
+    return light_grid
 
-def follow_instructions():
-    # check state (on, off, or toggle) and call the appropriate function (set lights or toggle_lights)
-    pass
+# Count the number of lights that are turned on.
+def count_lights(light_grid):
+    result = 0
+    for row in light_grid:
+        for num in row:
+            result += num 
+    return result
 
-def read_instructions(instructions_list):
-    for index in range(0, len(instructions_list), 5):
-        state = instructions_list[index]
-        the_start_row = instructions_list[index+1]
-        the_start_col = instructions_list[index+2]
-        the_end_row = instructions_list[index+3]
-        the_end_col = instructions_list[index+4]
-        
-        print(f'Our instructions are. State: {state}. start row: {the_start_row}. start col: {the_start_col}. end row: {the_end_row}. end col: {the_end_col}.')
-        # Call follow instructions. 
+# Follow the provided instructions and return the adjusted light grid.
+def follow_instructions(instructions_list, light_grid):
+    for i in range(0, len(instructions_list), 5):
+        power, the_start_row, the_start_col, the_end_row, the_end_col = instructions_list[i:i+5]
 
-lights = create_grid(5, 5)
+        if power == 'on' or power == 'off':
+            light_grid = set_lights(light_grid, int(the_start_row), int(the_start_col), int(the_end_row), int(the_end_col), power)
+            #print(f'{show_grid(light_grid)}\n')
+        else:
+            light_grid = toggle_lights(light_grid, int(the_start_row), int(the_start_col), int(the_end_row), int(the_end_col))
+            #print(f'{show_grid(light_grid)}\n')
+    return light_grid
 
 instructions = get_instructions()
 
-read_instructions(instructions)
+my_light_grid = create_grid(1000, 1000)
 
+adjusted_lights = follow_instructions(instructions, my_light_grid)
 
+print(count_lights(adjusted_lights))
 
-
-
-
-
-
- 
