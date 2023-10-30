@@ -10,28 +10,24 @@ def get_instructions():
 
 # This will create a two-dimensional list.
 def create_grid(length, height):
-    grid = [[0 for i in range(length)] for i in range(height)]
+    grid = [[0 for i in range(length)] for j in range(height)]
     return grid
 
 # Set the specified rectangular range of lights to the 'on' or 'off' state in the grid.
-def set_lights(light_grid, start_row, start_col, end_row, end_col, power):
+def set_lights_two(light_grid, start_row, start_col, end_row, end_col, power):
     if power == 'on':
-        position = 1
+        adjustment = 1
     else:
-        position = 0
+        adjustment = -1
     for row in range(start_row, end_row+1):
         for col in range(start_col, end_col+1):
-            light_grid[row][col] = position
+            light_grid[row][col] = max(light_grid[row][col] + adjustment, 0)
     return light_grid
 
-# Toggle the specified rectangular range of lights.
-def toggle_lights(light_grid, start_row, start_col, end_row, end_col):
+def toggle_lights_two(light_grid, start_row, start_col, end_row, end_col):
     for row in range(start_row, end_row+1):
         for col in range(start_col, end_col+1):
-            if light_grid[row][col] == 0: 
-                light_grid[row][col] = 1
-            else: 
-                light_grid[row][col] = 0
+            light_grid[row][col] += 2
     return light_grid
 
 # Count the number of lights that are turned on.
@@ -48,10 +44,10 @@ def follow_instructions(instructions_list, light_grid):
         power, the_start_row, the_start_col, the_end_row, the_end_col = instructions_list[i:i+5]
 
         if power == 'on' or power == 'off':
-            light_grid = set_lights(light_grid, int(the_start_row), int(the_start_col), int(the_end_row), int(the_end_col), power)
+            light_grid = set_lights_two(light_grid, int(the_start_row), int(the_start_col), int(the_end_row), int(the_end_col), power)
             #print(f'{show_grid(light_grid)}\n')
         else:
-            light_grid = toggle_lights(light_grid, int(the_start_row), int(the_start_col), int(the_end_row), int(the_end_col))
+            light_grid = toggle_lights_two(light_grid, int(the_start_row), int(the_start_col), int(the_end_row), int(the_end_col))
             #print(f'{show_grid(light_grid)}\n')
     return light_grid
 
