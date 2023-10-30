@@ -1,9 +1,13 @@
+'''Day three of advent of code.'''
+
 def get_directions():
-    with open("text.txt") as file:
+    '''This will read from a text file and retrun the data as a string.'''
+    with open('text.txt', encoding="utf-8") as file:
         text = file.read()
     return text
 
 def deliver_presents_with_robot(directions, robot=True):
+    ''' This will calculate the total steps of santa and the robot.'''
     santa_x, santa_y, robo_x, robo_y = 0, 0, 0, 0
     visited_houses = set()
     visited_houses.add((0, 0))
@@ -34,7 +38,8 @@ def deliver_presents_with_robot(directions, robot=True):
 
     return len(visited_houses)
 
-directions = get_directions()
 
-result = deliver_presents_with_robot(directions)
-print("Result:", result)
+my_directions = get_directions()
+
+RESULT = deliver_presents_with_robot(my_directions)
+print("Result:", RESULT)
