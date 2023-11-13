@@ -24,7 +24,7 @@ def find_hash(_text, the_difficulty):
         result = check_hash(new_hash, the_difficulty)
     return new_hash, nonce
 
-# Main Program. 
+# ________Main Program_________ #
 my_puzzle = 'yzbqklnj'
 my_difficulty = 4
 

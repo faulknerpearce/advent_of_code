@@ -39,6 +39,7 @@ def deliver_presents_with_robot(directions, robot=True):
     return len(visited_houses)
 
 
+# ________Main Program_________ #
 my_directions = get_directions()
 
 RESULT = deliver_presents_with_robot(my_directions)

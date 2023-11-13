@@ -42,7 +42,7 @@ def count_nice_strings_part_two(my_list):
             count += 1
     return count
 
-#Part Two.
+# ________Main Program_________ #
 part_one_lines = read_file() 
 part_two_result = count_nice_strings_part_two(part_one_lines)
 print(f'The number of nice strings for part two are: {part_two_result}')

@@ -59,6 +59,7 @@ def follow_instructions(instructions_list, light_grid):
             
     return light_grid
 
+# ________Main Program_________ #
 my_instructions = get_instructions()
 
 my_light_grid = create_grid(1000, 1000)
