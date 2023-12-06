@@ -1,11 +1,20 @@
 import re
-# Reads a file, formats the content, and creates a list of lines for each game.
+# Add a semicolon to the end element in an array. 
+def add_semicolon(arr):
+    for line in arr:
+        line[-1] += ';'
+    return arr
+
+# Reads a file, formats the content, and creates an array of lines for each game.
 def read_file_and_create_list(file):
     with open(file) as data:
         text = data.read()
         formatted = re.sub(r'Game|:|,', '', text)
         lines = formatted.split('\n')
-    my_lines = [[word + ';' if i == len(line.split()) - 1 else word for i, word in enumerate(line.split())] for line in lines if line.strip()]
+    
+        arr = [line.split() for line in lines if line.strip()]
+        
+        my_lines = add_semicolon(arr)
     return my_lines
 
 # Checks if the counts of used colors are within the maximum allowed limits.
@@ -48,6 +57,7 @@ def part_one(lines):
             valid_games.append(int(game_id))
     return sum(valid_games)
 
+# ________Main Program_________ #
 my_input = read_file_and_create_list('text.txt')
 
 answer = part_one(my_input)

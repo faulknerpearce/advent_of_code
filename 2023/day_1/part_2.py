@@ -28,7 +28,7 @@ def count_occurrences(str_line):
 
 # Replace numeric words with digits in a string.
 def replace_words_for_digits(str_line):
-    numbers_map = {'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7, 'eight': 8,  'nine': 9}
+    numbers_map = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7, 'eight': 8,  'nine': 9}
     numbers_found = count_occurrences(str_line)
     numbers_replaced = 0
 
@@ -37,7 +37,7 @@ def replace_words_for_digits(str_line):
 
         for key in numbers_map.keys():
             try:
-                found_index = str_line.lower().index(key)
+                found_index = str_line.index(key)
                 if index is None or found_index < index: 
                     index = found_index
                     word = key[:-1]
@@ -60,8 +60,9 @@ def part_two(lines):
         total += int(number)
     return total 
 
-my_text = read_file_return_list('text.txt')
+# ________Main Program_________ #
+my_input = read_file_return_list('text.txt')
 
-answer_part_two = part_two(my_text)
+answer_part_two = part_two(my_input)
 
 print(f'The answer to part two is: {answer_part_two}')

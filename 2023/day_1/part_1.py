@@ -27,9 +27,10 @@ def part_one(lines):
         total += int(numbers)
 
     return total 
- 
-my_text = read_file_to_list('text.txt')
 
-answer_part_one = part_one(my_text)
+# ________Main Program_________ #
+my_input = read_file_to_list('text.txt')
+
+answer_part_one = part_one(my_input)
 
 print(f'The answer to part one is: {answer_part_one}')
