@@ -1,10 +1,11 @@
 import re
 
-def get_instructions():
-    with open('text.txt', 'r') as text:
+# This will read and format a text file and return a list of instructions.
+def read_file_return_list(file):
+    with open(file, encoding='utf-8') as text:
         my_string = text.read()
-        cleaned_string = re.sub(r'\s+|,', ' ', my_string)  # Replace multiple spaces with a single space
-        removed_words = re.sub(r'turn|through|', '', cleaned_string)  # Remove words (turn) and (through)
+        cleaned_string = re.sub(r'\s+|,', ' ', my_string)
+        removed_words = re.sub(r'turn|through|', '', cleaned_string)
         instructions = removed_words.split()
         return instructions
 
@@ -45,18 +46,20 @@ def follow_instructions(instructions_list, light_grid):
 
         if power == 'on' or power == 'off':
             light_grid = set_lights_two(light_grid, int(the_start_row), int(the_start_col), int(the_end_row), int(the_end_col), power)
-            #print(f'{show_grid(light_grid)}\n')
+
         else:
             light_grid = toggle_lights_two(light_grid, int(the_start_row), int(the_start_col), int(the_end_row), int(the_end_col))
-            #print(f'{show_grid(light_grid)}\n')
+         
     return light_grid
 
 # ________Main Program_________ #
-instructions = get_instructions()
+instructions = read_file_return_list('text.txt')
 
 my_light_grid = create_grid(1000, 1000)
 
 adjusted_lights = follow_instructions(instructions, my_light_grid)
 
-print(count_lights(adjusted_lights))
+answer = count_lights(adjusted_lights)
+
+print(f'The answer to part two is: {answer}')
 

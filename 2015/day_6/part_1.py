@@ -1,21 +1,21 @@
 import re
 
-def get_instructions():
-    '''This will read and format a text file and return a list of instructions.'''
-    with open('text.txt', encoding='utf-8') as text:
+# This will read and format a text file and return a list of instructions.
+def read_file_return_list(file):
+    with open(file, encoding='utf-8') as text:
         my_string = text.read()
         cleaned_string = re.sub(r'\s+|,', ' ', my_string)
         removed_words = re.sub(r'turn|through|', '', cleaned_string)
         instructions = removed_words.split()
         return instructions
 
+# This will create a two-dimensional list.
 def create_grid(length, height):
-    '''This will create a two-dimensional list.'''
     grid = [[0 for i in range(length)] for j in range(height)]
     return grid
 
+# Set the specified rectangular range of lights to the 'on' or 'off' state in the grid.
 def set_lights(light_grid, start_row, start_col, end_row, end_col, power):
-    '''Set the specified rectangular range of lights to the 'on' or 'off' state in the grid.'''
     if power == 'on':
         adjustment  = 1
     else:
@@ -25,8 +25,8 @@ def set_lights(light_grid, start_row, start_col, end_row, end_col, power):
             light_grid[row][col] = adjustment
     return light_grid
 
+# Toggle the specified rectangular range of lights.
 def toggle_lights(light_grid, start_row, start_col, end_row, end_col):
-    '''Toggle the specified rectangular range of lights.'''
     for row in range(start_row, end_row+1):
         for col in range(start_col, end_col+1):
             if light_grid[row][col] == 0:
@@ -35,16 +35,16 @@ def toggle_lights(light_grid, start_row, start_col, end_row, end_col):
                 light_grid[row][col] = 0
     return light_grid
 
+# Count the number of lights that are turned on.
 def count_lights(light_grid):
-    '''Count the number of lights that are turned on.'''
     result = 0
     for row in light_grid:
         for num in row:
             result += num
     return result
 
+# Follow the provided instructions and return the adjusted light grid.
 def follow_instructions(instructions_list, light_grid):
-    '''Follow the provided instructions and return the adjusted light grid.'''
     for i in range(0, len(instructions_list), 5):
         power, the_start_row, the_start_col, the_end_row, the_end_col = instructions_list[
             i:i+5]
@@ -60,10 +60,12 @@ def follow_instructions(instructions_list, light_grid):
     return light_grid
 
 # ________Main Program_________ #
-my_instructions = get_instructions()
+my_instructions = read_file_return_list('text.txt')
 
 my_light_grid = create_grid(1000, 1000)
 
 adjusted_lights = follow_instructions(my_instructions, my_light_grid)
 
-print(count_lights(adjusted_lights))
+answer = count_lights(adjusted_lights)
+
+print(f'The answer to part one is: {answer}')

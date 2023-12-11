@@ -1,12 +1,28 @@
-'''Day seven part one of advent of code.'''
 
-def read_file():
-    '''This reads instructions from a text file and appends each step to a list of instructions'''
-    instructons = []
-    with open('test.txt', encoding='utf-8') as file:
-        for _ in file.readline():
-            instructons.append(file.readline().split())
-    return instructons
+def read_file(file):
+    instructions = []
+    with open(file) as data:
+        for line in data.readlines():
+            instructions.append(line.split())
 
-my_instructions = read_file()
-print(my_instructions)
+    return instructions
+
+def follow_instruction(lines):
+
+    for line in lines:
+
+        for element in line:
+
+            if ord(element[0]) >= 48 and ord(element[0]) <= 57:
+                print(f'{element}. is a number')
+
+            elif ord(element[0]) >= 97 and ord(element[0]) <= 122:
+                print(f'{element}. is a string')
+        
+            else:
+                print(f'{element}. is a command.')
+        print()
+   
+# my_instructions = read_file('test.txt')
+
+# follow_instruction(my_instructions)

@@ -1,6 +1,6 @@
 # Read lines from a file and return a list of lines
-def read_file():
-    with open('text.txt', 'r') as text:
+def read_file(file):
+    with open(file, 'r') as text:
         text_file_raw = text.read()
         text_file = text_file_raw.strip()
         text_lines = text_file.split('\n')
@@ -44,7 +44,7 @@ def has_pair(my_line):
     return False 
 
 # Count the number of nice strings in a list of lines for the requirements of part one. 
-def count_nice_strings_part_one(my_list):
+def count_nice_strings(my_list):
     count = 0
     for line in my_list:
         if has_no_naughty_strings(line) and has_pair(line) and has_vowels(line):
@@ -52,6 +52,8 @@ def count_nice_strings_part_one(my_list):
     return count
 
 # ________Main Program_________ #
-strings_list = read_file()
-part_one_result = count_nice_strings_part_one(strings_list)
-print(f'The number of nice strings for part one are: {part_one_result}')
+my_input = read_file('text.txt')
+
+answer = count_nice_strings(my_input)
+
+print(f'The answer for part one is:: {answer}')

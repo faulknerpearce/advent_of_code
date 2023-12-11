@@ -1,6 +1,6 @@
 # Read lines from a file and return a list of lines
-def read_file():
-    with open('text.txt', 'r') as text:
+def read_file(file):
+    with open(file, 'r') as text:
         text_file_raw = text.read()
         text_file = text_file_raw.strip()
         text_lines = text_file.split('\n')
@@ -35,7 +35,7 @@ def has_no_overlap(my_line):
     return True
 
 # Count the number of nice strings in a list of lines for the requirements of part two.
-def count_nice_strings_part_two(my_list):
+def count_nice_strings(my_list):
     count = 0 
     for line in my_list:
         if has_two_pairs(line) and has_repeating_letter_with_gap(line) and has_no_overlap(line):
@@ -43,6 +43,8 @@ def count_nice_strings_part_two(my_list):
     return count
 
 # ________Main Program_________ #
-part_one_lines = read_file() 
-part_two_result = count_nice_strings_part_two(part_one_lines)
-print(f'The number of nice strings for part two are: {part_two_result}')
+my_input = read_file('text.txt')
+
+answer = count_nice_strings(my_input)
+
+print(f'The answer for part two is: {answer}')
