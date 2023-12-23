@@ -1,9 +1,4 @@
-
-# covert the txtfile to a readable string of directions.
-def read_file():
-    with open('text.txt', encoding='utf-8') as file:
-        text = file.read()
-        return text
+from part_1 import read_file
 
 # This will return the floor number santa must go to and the index of the list that brings santa to the basement..
 def basement_position(my_string):
@@ -27,8 +22,8 @@ def basement_position(my_string):
     return basement_position
 
 # ________Main Program_________ #
-my_input = read_file()
+my_input = read_file('text.txt')
 
-basement = basement_position(my_input)
+answer = basement_position(my_input)
 
-print(f'The answer to part two is: {basement}.')
+print(f'The answer to part two is: {answer}.')

@@ -1,8 +1,4 @@
-# This function will read lines from a file and return a list of strings.
-def read_file_return_list(file):
-    with open(file) as data:
-        text = data.read().splitlines()
-    return text
+from part_1 import read_file_return_list
 
 # This function will count characters in code versus characters in memory for string literals
 def count_encoded_literals(text):

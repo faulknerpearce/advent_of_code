@@ -1,8 +1,4 @@
-# This will read from a text file and retrun the data as a string.
-def read_file_return_string(file):
-    with open(file, encoding="utf-8") as file:
-        text = file.read()
-    return text
+from part_1 import read_file_return_string
 
 # This will calculate the total steps of santa and the robot.
 def deliver_presents_with_robot(directions, robot=True):

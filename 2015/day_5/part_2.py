@@ -1,10 +1,4 @@
-# Read lines from a file and return a list of lines
-def read_file(file):
-    with open(file, 'r') as text:
-        text_file_raw = text.read()
-        text_file = text_file_raw.strip()
-        text_lines = text_file.split('\n')
-        return text_lines
+from part_1 import read_file
 
 # Checks for at least two pairs of letters.
 def has_two_pairs(my_line): 

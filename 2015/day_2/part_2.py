@@ -1,21 +1,4 @@
-# This function formats the content of a text file to a string.
-def read_file(file):
-    with open(file, encoding='utf-8') as file:
-        text = file.read()
-    return text
-
-# This will read a string that contains the measurements and format them to a list of integers.
-def create_int_array(str_lines):
-    temp = ""
-    int_list = []
-    for i in range(len(str_lines)):
-        if str_lines[i] != "x" and str_lines[i] != "\n":
-            temp += str_lines[i]
-        else:
-            int_list.append(int(temp))
-            temp = "" 
-    int_list.append(int(temp))
-    return int_list
+from part_1 import read_file, create_int_array
 
 # Calculates and returns the total ribbon length needed for a box.
 def get_ribbon_total(l, w, h):
