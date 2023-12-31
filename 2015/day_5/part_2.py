@@ -1,4 +1,4 @@
-from part_1 import read_file
+from part_1 import read_file_retrun_list
 
 # Checks for at least two pairs of letters.
 def has_two_pairs(my_line): 
@@ -36,9 +36,11 @@ def count_nice_strings(my_list):
             count += 1
     return count
 
-# ________Main Program_________ #
-my_input = read_file('text.txt')
+#________Main Program_________ # 
+if __name__ == "__main__":
 
-answer = count_nice_strings(my_input)
+    my_input = read_file_retrun_list('text.txt')
 
-print(f'The answer for part two is: {answer}')
+    answer = count_nice_strings(my_input)
+
+    print(f'The answer for part two is: {answer}')

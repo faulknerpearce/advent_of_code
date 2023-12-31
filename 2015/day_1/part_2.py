@@ -21,9 +21,11 @@ def basement_position(my_string):
 
     return basement_position
 
-# ________Main Program_________ #
-my_input = read_file('text.txt')
+#________Main Program_________ # 
+if __name__ == "__main__":
+    
+    my_input = read_file('text.txt')
 
-answer = basement_position(my_input)
+    answer = basement_position(my_input)
 
-print(f'The answer to part two is: {answer}.')
+    print(f'The answer to part two is: {answer}.')

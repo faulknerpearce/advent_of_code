@@ -66,15 +66,17 @@ def get_route(graph, greater=False):
 
     return shortest_distance
   
-# ________Main Program_________ #
-my_input = read_file_return_list('text.txt')
+#________Main Program_________ # 
+if __name__ == "__main__":
 
-distances_graph = build_graph(my_input)
+    my_input = read_file_return_list('text.txt')
 
-# Part one: 
-shortest_distance = get_route(distances_graph)
-print(f'The answer to part one is: {shortest_distance}')
+    distances_graph = build_graph(my_input)
 
-# Part two:
-longest_distance = get_route(distances_graph, True)
-print(f'The answer to part two is: {longest_distance}')
+    # Part one: 
+    shortest_distance = get_route(distances_graph)
+    print(f'The answer to part one is: {shortest_distance}')
+
+    # Part two:
+    longest_distance = get_route(distances_graph, True)
+    print(f'The answer to part two is: {longest_distance}')

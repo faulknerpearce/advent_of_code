@@ -1,10 +1,8 @@
 # Read lines from a file and return a list of lines
-def read_file(file):
-    with open(file, 'r') as text:
-        text_file_raw = text.read()
-        text_file = text_file_raw.strip()
-        text_lines = text_file.split('\n')
-        return text_lines
+def read_file_retrun_list(file):
+    with open(file, 'r') as data:
+        text = data.read().split('\n')
+        return text
 
 # Checks if a line contains at least three vowels.        
 def has_vowels(my_line):
@@ -51,9 +49,11 @@ def count_nice_strings(my_list):
             count += 1
     return count
 
-# ________Main Program_________ #
-my_input = read_file('text.txt')
+#________Main Program_________ # 
+if __name__ == "__main__":
 
-answer = count_nice_strings(my_input)
+    my_input = read_file_retrun_list('text.txt')
 
-print(f'The answer for part one is:: {answer}')
+    answer = count_nice_strings(my_input)
+
+    print(f'The answer for part one is:: {answer}')

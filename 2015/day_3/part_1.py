@@ -25,8 +25,10 @@ def deliver_presents_with_robot(directions):
 
     return len(visited_houses)
 
-# ________Main Program_________ #
-my_input = read_file_return_string('text.txt')
+#________Main Program_________ # 
+if __name__ == "__main__":
 
-answer = deliver_presents_with_robot(my_input)
-print(f'The answer to part one is: {answer}')
+    my_input = read_file_return_string('text.txt')
+
+    answer = deliver_presents_with_robot(my_input)
+    print(f'The answer to part one is: {answer}')

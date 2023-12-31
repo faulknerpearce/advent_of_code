@@ -23,11 +23,13 @@ def box_dimesions(numbers):
         total_ribbon += ribbon
     return total_ribbon
 
-# ________Main Program_________ #
-my_input = read_file('text.txt')
+#________Main Program_________ # 
+if __name__ == "__main__":
 
-my_ints = create_int_array(my_input)
+    my_input = read_file('text.txt')
 
-answer = box_dimesions(my_ints)
+    my_ints = create_int_array(my_input)
 
-print(f'The answer to part two is: {answer}')
+    answer = box_dimesions(my_ints)
+
+    print(f'The answer to part two is: {answer}')

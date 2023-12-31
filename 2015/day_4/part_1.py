@@ -24,12 +24,14 @@ def find_hash(_text, the_difficulty):
         result = check_hash(new_hash, the_difficulty)
     return new_hash, nonce
 
-# ________Main Program_________ #
-my_puzzle = 'yzbqklnj'
-my_difficulty = 4
+#________Main Program_________ # 
+if __name__ == "__main__":
+    
+    my_puzzle = 'yzbqklnj'
+    my_difficulty = 4
 
-result_hash, result_nonce = find_hash(my_puzzle, my_difficulty)
-print(f'The result hash is: {result_hash}\n The result nonce is: {result_nonce}')
+    result_hash, result_nonce = find_hash(my_puzzle, my_difficulty)
+    print(f'The result hash is: {result_hash}\n The result nonce is: {result_nonce}')
 
 
 

@@ -19,11 +19,13 @@ def count_encoded_literals(text):
     result = total_encoded_chars - total_string_code
     return result
 
-# ________Main Program_________ #
-my_input = read_file_return_list('text.txt')
+#________Main Program_________ # 
+if __name__ == "__main__":
 
-answer = count_encoded_literals(my_input)
+    my_input = read_file_return_list('text.txt')
 
-print(f'The answer to part two is: {answer}')
+    answer = count_encoded_literals(my_input)
+
+    print(f'The answer to part two is: {answer}')
 
 

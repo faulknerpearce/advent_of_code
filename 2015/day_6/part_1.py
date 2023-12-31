@@ -59,13 +59,15 @@ def follow_instructions(instructions_list, light_grid):
             
     return light_grid
 
-# ________Main Program_________ #
-my_instructions = read_file_return_list('text.txt')
+#________Main Program_________ # 
+if __name__ == "__main__":
 
-my_light_grid = create_grid(1000, 1000)
+    my_instructions = read_file_return_list('text.txt')
 
-adjusted_lights = follow_instructions(my_instructions, my_light_grid)
+    my_light_grid = create_grid(1000, 1000)
 
-answer = count_lights(adjusted_lights)
+    adjusted_lights = follow_instructions(my_instructions, my_light_grid)
 
-print(f'The answer to part one is: {answer}')
+    answer = count_lights(adjusted_lights)
+
+    print(f'The answer to part one is: {answer}')

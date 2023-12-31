@@ -16,9 +16,11 @@ def floor_count(my_string):
 
     return floor
 
-# ________Main Program_________ #
-my_input = read_file('text.txt')
+#________Main Program_________ # 
+if __name__ == "__main__":
+    
+    my_input = read_file('text.txt')
 
-answer = floor_count(my_input)
+    answer = floor_count(my_input)
 
-print(f'The answer to part ome is: {answer}.')
+    print(f'The answer to part ome is: {answer}.')

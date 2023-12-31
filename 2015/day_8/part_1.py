@@ -29,10 +29,12 @@ def count_string_literals_one(text):
     result = total_string_code - total_mem_chars
     return result 
 
-# ________Main Program_________ #
-my_input = read_file_return_list('text.txt')
+#________Main Program_________ # 
+if __name__ == "__main__":
+    
+    my_input = read_file_return_list('text.txt')
 
-answer = count_string_literals_one(my_input)
+    answer = count_string_literals_one(my_input)
 
-print(f'The answer to part one is: {answer}')
+    print(f'The answer to part one is: {answer}')
 
