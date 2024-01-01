@@ -1,6 +1,6 @@
 from part_1 import read_file_return_2D_list, generate_checksum
 
-# Filters out decoy lines based on the correctness of the generated checksum
+# Filters out decoy lines based on the correctness of the generated checksum.
 def remove_decoys(lines):
     valid = []
 
