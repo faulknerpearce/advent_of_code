@@ -4,7 +4,7 @@ def read_file_return_list(file):
         array = [line.replace('\n', '') for line in data.readlines()]
     return array
 
-# Finds the current position's row and column index in a 2D array
+# Finds the current position's row and column index in a 2D array.
 def get_index(array, current_digit):
     for row in range(len(array)):
         if current_digit in array[row]:
@@ -13,7 +13,7 @@ def get_index(array, current_digit):
             break
     return row_index, col_index
 
-# Determines the digit on the keypad after following a sequence of directions
+# Determines the digit on the keypad after following a sequence of directions.
 def part_one(line, array, position):
     max_index = len(array) - 1
     row_index, col_index = get_index(array, position)
@@ -33,7 +33,7 @@ def part_one(line, array, position):
 
     return array[row_index][col_index]
 
-# Calculates a sequence of digits based on the directions provided in each line
+# Calculates a sequence of digits based on the directions provided in each line.
 def get_digits(lines, array, value=5):
     digits = ''
     for line in lines:
