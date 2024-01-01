@@ -6,7 +6,7 @@ def generate_hash(message, nonce):
     new_hash = md5(contents.encode()).hexdigest()
     return new_hash
 
-# Checks if a hash meets a specified difficulty (number of leading zeros).;
+# Checks if a hash meets a specified difficulty (number of leading zeros).
 def check_hash(hash_hex, difficulty):
     return hash_hex[:difficulty] == '0' * difficulty
 
@@ -32,6 +32,3 @@ if __name__ == "__main__":
     answer = get_password(puzzle_input)
 
     print(f'The answer to part one is: {answer}')
-
-   
- 

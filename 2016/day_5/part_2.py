@@ -35,7 +35,3 @@ if __name__ == "__main__":
     answer = get_password(puzzle_input)
 
     print(f'The answer to part two is: {answer}')
-
-
-    
-   
