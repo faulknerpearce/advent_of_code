@@ -19,18 +19,17 @@ def part_one(line, array, position):
     row_index, col_index = get_index(array, position)
     
     for letter in line:
-        if letter == 'U':  
-            if row_index > 0:
-                row_index -= 1
-        elif letter == 'D':  
-            if row_index < max_index:
-                row_index += 1    
-        elif letter == 'R':  
-            if col_index < max_index:
-                col_index += 1
-        elif letter == 'L':  
-            if col_index > 0:
-                col_index -= 1
+        if letter == 'U' and row_index > 0:  
+            row_index -= 1
+        
+        elif letter == 'D' and row_index < max_index:  
+            row_index += 1    
+        
+        elif letter == 'R' and col_index < max_index:  
+            col_index += 1
+        
+        elif letter == 'L' and col_index > 0:  
+            col_index -= 1
 
     return array[row_index][col_index]
 
@@ -44,10 +43,13 @@ def get_digits(lines, array, value=5):
     return digits
 
 #________Main Program_________ # 
-keypad_one = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] 
 
-my_input = read_file_return_list('text.txt') 
+if __name__ == "__main__":
+    
+    keypad_one = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] 
 
-answer = get_digits(my_input, keypad_one)  
+    puzzle_input = read_file_return_list('text.txt') 
 
-print(f'The answer to part one is: {answer}')
+    answer = get_digits(puzzle_input, keypad_one)  
+
+    print(f'The answer to part one is: {answer}')

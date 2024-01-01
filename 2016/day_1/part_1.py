@@ -40,11 +40,13 @@ def part_one(directions, compass, x=0, y=0):
     
     return abs(x) + abs(y)
  
-# ________Main Program_________ # 
-my_compass = Compass()
+#________Main Program_________ # 
+if __name__ == "__main__":
 
-my_input = read_file_return_list('text.txt')
+    my_compass = Compass()
 
-answer = part_one(my_input, my_compass)
+    puzzle_input = read_file_return_list('text.txt')
 
-print(f'The answer to part one is: {answer}')
+    answer = part_one(puzzle_input, my_compass)
+
+    print(f'The answer to part one is: {answer}')
