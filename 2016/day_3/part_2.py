@@ -24,4 +24,3 @@ if __name__ == "__main__":
     answer = get_possible_triangle_columns(puzzle_input)
 
     print(f'The answer to part two is: {answer}')
-
