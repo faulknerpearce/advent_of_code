@@ -43,10 +43,10 @@ def calculate_total_wrapping_paper(numbers):
 #________Main Program_________ # 
 if __name__ == "__main__":
     
-    my_input = read_file('text.txt')
+    puzzle_input = read_file('text.txt')
 
-    my_ints = create_int_array(my_input)
+    my_integers = create_int_array(puzzle_input)
 
-    answer = calculate_total_wrapping_paper(my_ints)
+    answer = calculate_total_wrapping_paper(my_integers)
 
     print(f'The answer to part one is: {answer}')

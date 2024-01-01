@@ -52,8 +52,8 @@ def count_nice_strings(my_list):
 #________Main Program_________ # 
 if __name__ == "__main__":
 
-    my_input = read_file_retrun_list('text.txt')
+    puzzle_input = read_file_retrun_list('text.txt')
 
-    answer = count_nice_strings(my_input)
+    answer = count_nice_strings(puzzle_input)
 
     print(f'The answer for part one is:: {answer}')

@@ -36,7 +36,8 @@ def deliver_presents_with_robot(directions, robot=True):
 #________Main Program_________ # 
 if __name__ == "__main__":
 
-    my_input = read_file_return_string('text.txt')
+    puzzle_input = read_file_return_string('text.txt')
 
-    answer = deliver_presents_with_robot(my_input)
+    answer = deliver_presents_with_robot(puzzle_input)
+    
     print(f'The answer to part two is: {answer}')

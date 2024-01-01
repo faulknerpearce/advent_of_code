@@ -62,11 +62,11 @@ def follow_instructions(instructions_list, light_grid):
 #________Main Program_________ # 
 if __name__ == "__main__":
 
-    my_instructions = read_file_return_list('text.txt')
+    puzzle_input = read_file_return_list('text.txt')
 
     my_light_grid = create_grid(1000, 1000)
 
-    adjusted_lights = follow_instructions(my_instructions, my_light_grid)
+    adjusted_lights = follow_instructions(puzzle_input, my_light_grid)
 
     answer = count_lights(adjusted_lights)
 

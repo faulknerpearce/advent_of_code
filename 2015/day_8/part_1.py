@@ -32,9 +32,9 @@ def count_string_literals_one(text):
 #________Main Program_________ # 
 if __name__ == "__main__":
     
-    my_input = read_file_return_list('text.txt')
+    puzzle_input = read_file_return_list('text.txt')
 
-    answer = count_string_literals_one(my_input)
+    answer = count_string_literals_one(puzzle_input)
 
     print(f'The answer to part one is: {answer}')
 

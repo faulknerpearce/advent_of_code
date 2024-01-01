@@ -69,9 +69,9 @@ def get_route(graph, greater=False):
 #________Main Program_________ # 
 if __name__ == "__main__":
 
-    my_input = read_file_return_list('text.txt')
+    puzzle_input = read_file_return_list('text.txt')
 
-    distances_graph = build_graph(my_input)
+    distances_graph = build_graph(puzzle_input)
 
     # Part one: 
     shortest_distance = get_route(distances_graph)

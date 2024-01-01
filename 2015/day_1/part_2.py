@@ -24,8 +24,8 @@ def basement_position(my_string):
 #________Main Program_________ # 
 if __name__ == "__main__":
     
-    my_input = read_file('text.txt')
+    puzzle_input = read_file('text.txt')
 
-    answer = basement_position(my_input)
+    answer = basement_position(puzzle_input)
 
     print(f'The answer to part two is: {answer}.')

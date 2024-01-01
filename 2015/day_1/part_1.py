@@ -19,8 +19,8 @@ def floor_count(my_string):
 #________Main Program_________ # 
 if __name__ == "__main__":
     
-    my_input = read_file('text.txt')
+    puzzle_input = read_file('text.txt')
 
-    answer = floor_count(my_input)
+    answer = floor_count(puzzle_input)
 
     print(f'The answer to part ome is: {answer}.')
