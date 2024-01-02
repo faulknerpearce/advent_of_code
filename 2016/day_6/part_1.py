@@ -3,13 +3,13 @@ def read_file_return_list(file):
         lines = [line for line in data.read().split()]
     return lines
 
-def get_letters(dictionary, maximum):
-   if maximum:
+def get_letters(dictionary, get_maximum):
+   if get_maximum:
         return max(dictionary, key=dictionary.get)
    else:
         return min(dictionary, key=dictionary.get)
 
-def get_error_corrected_message(rows, max_val=True):
+def get_error_corrected_message(rows, get_maximum=True):
     message = ''
     letters = {}
 
@@ -21,7 +21,7 @@ def get_error_corrected_message(rows, max_val=True):
             else:
                 letters.update({row[i]: 1})   
 
-        message += get_letters(letters, max_val)
+        message += get_letters(letters, get_maximum)
         letters = {}
 
     return message
