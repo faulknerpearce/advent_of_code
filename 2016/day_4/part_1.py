@@ -1,5 +1,5 @@
 import re 
-# Reads a file and returns a 2D list after striping specific characters.
+# Reads from an input file and returns a 2D list after striping specific characters.
 def read_file_return_2D_list(file,lines=[]):
     with open(file) as data:
         for string in data.readlines():
