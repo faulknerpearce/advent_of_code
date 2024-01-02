@@ -5,7 +5,7 @@ def read_file_return_list(file):
     return strlines
 
 # Returns outer and inner strings from a line based on brackets.
-def get_outer_inner_strings(strlines):
+def get_outer_and_inner_strings(strlines):
     outer_strings = []
     inner_strings = []
     idx = 0
@@ -25,7 +25,7 @@ def get_outer_inner_strings(strlines):
     return outer_strings, inner_strings
 
 # Checks if a list of strings contains a pair of characters that form a palindrome.
-def strings_have_a_pair(strlines):
+def has_four_character_sequence(strlines):
     for string in strlines:
         for i in range(len(string) - 3):
             characters = string[i:i+4]
@@ -38,9 +38,9 @@ def strings_have_a_pair(strlines):
 def part_one(strlines):
     count = 0
     for string in strlines:
-        outer_strings, inner_strings = get_outer_inner_strings(string)
+        outer_strings, inner_strings = get_outer_and_inner_strings(string)
 
-        if strings_have_a_pair(outer_strings) and not strings_have_a_pair(inner_strings):
+        if has_four_character_sequence(outer_strings) and not has_four_character_sequence(inner_strings):
             count += 1
 
     return count 
