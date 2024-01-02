@@ -34,7 +34,7 @@ def strings_have_a_pair(strlines):
                 return True
     return False
 
-# Counts lines that have a valid pair in outer strings but not in inner strings
+# Counts lines that have a valid pair in outer strings but not in inner strings.
 def part_one(strlines):
     count = 0
     for string in strlines:
