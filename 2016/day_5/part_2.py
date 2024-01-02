@@ -12,14 +12,10 @@ def get_password(message):
         if check_hash(hash_hex, 5):
             try:
                 index = int(hash_hex[5])
-                print(f'Current Index {index}')
-                print(f'Current Letter {hash_hex[6]}')
-                print(f'Current Hash {hash_hex[:7]}')
-                
+     
                 if index >= 0 and index < len(password) and index not in assigned:  
                     password[index] = hash_hex[6]
                     assigned.append(index)
-                    print(f'\nUpdated Password: {password}\n')
             
             except ValueError:
                 pass     
