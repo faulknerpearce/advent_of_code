@@ -6,7 +6,7 @@ def add_semicolon(arr):
     return arr
 
 # Reads a file, formats the content, and creates an array of lines for each game.
-def read_file_and_create_list(file):
+def read_file_and_return_list(file):
     with open(file) as data:
         text = data.read()
         formatted = re.sub(r'Game|:|,', '', text)
@@ -57,9 +57,11 @@ def part_one(lines):
             valid_games.append(int(game_id))
     return sum(valid_games)
 
-# ________Main Program_________ #
-my_input = read_file_and_create_list('text.txt')
+#________Main Program_________ # 
+if __name__ == "__main__":
 
-answer = part_one(my_input)
+    puzzle_input = read_file_and_return_list('text.txt')
 
-print(f'Part one: {answer}')
+    answer = part_one(puzzle_input)
+
+    print(f'Part one: {answer}')

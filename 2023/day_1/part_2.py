@@ -1,29 +1,13 @@
-# Read the contents of a file, split lines, and return as a list
-def read_file_return_list(file):
-    with open(file) as text:
-        text_lines = text.read().splitlines()
-    return text_lines
-
-# Find and return the first numeric character in a string.
-def find_first_number(line):
-    for index in range(len(line)):
-        if ord(line[index]) >= 48 and ord(line[index]) <= 57:
-            return line[index]
-    return None 
-
-# Find and return the last numeric character in a string.
-def find_last_number(line):
-    for index in range(1, len(line)+1):
-        if ord(line[-index]) >= 48 and ord(line[-index]) <= 57:
-            return line[-index]
-    return None 
+from part_1 import read_file_return_list, find_first_number, find_last_number
 
 # Count the occurrences of numeric words in a string.
 def count_occurrences(str_line):
     numbers = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
     numbers_found = 0
+    
     for word in numbers:
         numbers_found += str_line.count(word) 
+    
     return numbers_found
 
 # Replace numeric words with digits in a string.
@@ -53,16 +37,20 @@ def replace_words_for_digits(str_line):
 # format words in the string to numbers and combine the first digit and the last digit to form a single two-digit number and return the sum.
 def part_two(lines):
     total = 0 
+    
     for line in lines:
         formatted_str = replace_words_for_digits(line)
         number = find_first_number(formatted_str)
         number += find_last_number(formatted_str)
         total += int(number)
+    
     return total 
 
-# ________Main Program_________ #
-my_input = read_file_return_list('text.txt')
+#________Main Program_________ # 
+if __name__ == "__main__":
 
-answer_part_two = part_two(my_input)
+    puzzle_input = read_file_return_list('text.txt')
 
-print(f'The answer to part two is: {answer_part_two}')
+    answer_part_two = part_two(puzzle_input)
+
+    print(f'The answer to part two is: {answer_part_two}')

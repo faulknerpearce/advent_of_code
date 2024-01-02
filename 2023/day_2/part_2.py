@@ -1,21 +1,4 @@
-import re
-# Add a semicolon to the end element in an array. 
-def add_semicolon(arr):
-    for line in arr:
-        line[-1] += ';'
-    return arr
-
-# Reads a file, formats the content, and creates an array of lines for each game.
-def read_file_and_create_list(file):
-    with open(file) as data:
-        text = data.read()
-        formatted = re.sub(r'Game|:|,', '', text)
-        lines = formatted.split('\n')
-    
-        arr = [line.split() for line in lines if line.strip()]
-        
-        my_lines = add_semicolon(arr)
-    return my_lines
+from  part_1 import read_file_and_return_list
 
 # Checks if rounds are valid based on the counts of colors used.
 def get_minimum(line):
@@ -50,9 +33,11 @@ def part_two(lines):
 
     return sum(products)
 
-# ________Main Program_________ #
-my_input = read_file_and_create_list('text.txt')
+#________Main Program_________ # 
+if __name__ == "__main__":
 
-answer = part_two(my_input)
+    my_input = read_file_and_return_list('text.txt')
 
-print(f'Part two: {answer}')
+    answer = part_two(my_input)
+
+    print(f'Part two: {answer}')
