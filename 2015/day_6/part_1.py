@@ -10,9 +10,9 @@ def read_file_return_list(file):
         return instructions
 
 # This will create a two-dimensional list.
-def create_grid(length, height):
-    grid = [[0 for i in range(length)] for j in range(height)]
-    return grid
+def create_matrix(length, height):
+    matrix = [[0 for _ in range(length)] for _ in range(height)]
+    return matrix
 
 # Set the specified rectangular range of lights to the 'on' or 'off' state in the grid.
 def set_lights(light_grid, start_row, start_col, end_row, end_col, power):
@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
     puzzle_input = read_file_return_list('text.txt')
 
-    my_light_grid = create_grid(1000, 1000)
+    my_light_grid = create_matrix(1000, 1000)
 
     adjusted_lights = follow_instructions(puzzle_input, my_light_grid)
 
