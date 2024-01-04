@@ -1,5 +1,4 @@
 import re
-
 # Reads a file, removes specific characters, and returns its content as a 2D list.
 def read_file_return_2D_list(file):
      with open(file) as data:
