@@ -21,10 +21,8 @@ def turn_pixels_on(end_col, end_row, matrix):
      return matrix
 
 # Shifts all elements of a specified row in a matrix by a certain amount.
-def shift_row(start_row, adjust_by, matrix):
-     shift_by = adjust_by % len(matrix[start_row]) 
-
-     for _ in range(shift_by):
+def shift_row(start_row, shift_amount, matrix):
+     for _ in range(shift_amount):
           matrix[start_row] = matrix[start_row][-1:] + matrix[start_row][:-1]
      return matrix
 
@@ -37,10 +35,8 @@ def get_elements(start_col, matrix):
      return elements
 
 # Shifts all elements of a specified column in a matrix by a certain amount.
-def shift_column(start_col, adjust_by, matrix):   
-     shift_by = adjust_by % len(matrix)
-
-     for _ in range(shift_by):
+def shift_column(start_col, shift_amount, matrix):
+     for _ in range(shift_amount):
           pixels = get_elements(start_col, matrix)
           matrix[0][start_col] = pixels[-1]
 
@@ -49,9 +45,7 @@ def shift_column(start_col, adjust_by, matrix):
      return matrix
 
 # Counts the number of pixels (represented by '#') in a matrix.
-def count_pixels(matrix):
-     total = 0
-
+def count_pixels(matrix, total=0):
      for row in matrix:
           total += row.count('#')
      return total
