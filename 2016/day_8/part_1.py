@@ -8,15 +8,6 @@ def read_file_return_2D_list(file):
           lines = [line.split() for line in text_two.split('\n') if line.strip()]
      return lines
 
-# Prints the elements of a matrix, formatting them as a grid.
-def print_screen(matrix):
-     string = ''
-     for i in range(len(matrix)):
-          for j in range(len(matrix[i])):
-               string += matrix[i][j]
-          print(string)
-          string = ''
-
 # Creates a matrix of a given width and height with all elements initialized to a full stop character.
 def create_matrix(width, hight):
      matrix = [['.' for _ in range(width)] for _ in range(hight)]
