@@ -77,13 +77,10 @@ def decompress_string(the_string):
 
 # Calculates the total length of decompressed strings from an array of strings 
 def part_one(string):
-    decompressed_length = 0
     
     decompressed_string = decompress_string(string)
 
-    decompressed_length += len(decompressed_string)
-
-    return decompressed_length
+    return len(decompressed_string)
 
 #________Main Program_________ # 
 if __name__ == "__main__":
