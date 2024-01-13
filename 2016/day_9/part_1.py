@@ -40,8 +40,8 @@ def get_repeating_characters(the_string, marker_right_edge, required_length, amo
 
     return repeating
 
-# Decompresses a string according to markers that define how to expand certain segments. 
-def decompress_string(the_string):
+# Calculates the total decompressed length of a string including nested markers
+def calculate_decompressed_length(the_string):
     decompressed_str = ''
     current_index = 0
 
@@ -64,20 +64,13 @@ def decompress_string(the_string):
             decompressed_str += the_string[current_index:]
             break
 
-    return decompressed_str
-
-# Calculates the total length of decompressed strings from an array of strings 
-def part_one(string):
-    
-    decompressed_string = decompress_string(string)
-
-    return len(decompressed_string)
+    return len(decompressed_str)
 
 #________Main Program_________ # 
 if __name__ == "__main__":
     
     puzzle_input = read_file_return_string('text.txt')
 
-    answer = part_one(puzzle_input)
+    answer = calculate_decompressed_length(puzzle_input)
 
     print(f'The answer to part one is: {answer}')
