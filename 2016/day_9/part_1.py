@@ -40,7 +40,7 @@ def get_repeating_characters(the_string, marker_right_edge, required_length, amo
 
     return repeating
 
-# Calculates the total decompressed length of a string including nested markers
+# Calculates the total decompressed length of a string including nested markers.
 def calculate_decompressed_length(the_string):
     decompressed_str = ''
     current_index = 0
