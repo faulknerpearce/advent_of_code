@@ -40,10 +40,10 @@ def get_repeating_characters(the_string, marker_right_edge, required_length, amo
 
     return repeating
 
-# Calculates the total decompressed length of a string including nested markers
-def calculate_decompressed_length(the_string):
+# Calculates the total decompressed length of a string, including nested markers.
+def calculate_decompressed_length(the_string, start_index=0):
     length = 0
-    current_index = 0
+    current_index = start_index
 
     while current_index < len(the_string):
         
@@ -52,32 +52,17 @@ def calculate_decompressed_length(the_string):
             marker_left_edge, marker_right_edge = get_marker_indices(the_string, current_index)
             pattern_length, increase_by = unpack_marker(the_string[marker_left_edge:marker_right_edge + 1])
 
-            nested_length = calculate_nested_decompressed_length(the_string[marker_right_edge + 1:marker_right_edge + 1 + pattern_length])
+            nested_string_start = marker_right_edge + 1
+            nested_string_end = nested_string_start + pattern_length
             
+            nested_length = calculate_decompressed_length(the_string[nested_string_start:nested_string_end])
+
             length += (marker_left_edge - current_index) + nested_length * increase_by
-            current_index = marker_right_edge + 1 + pattern_length
+            
+            current_index = nested_string_end
+        
         else:
             length += len(the_string) - current_index
-            break
-
-    return length
-
-# Calculates the decompressed length of a substring, accounting for nested markers
-def calculate_nested_decompressed_length(substring):
-    length = 0
-    current_index = 0
-
-    while current_index < len(substring):
-        if has_marker(substring[current_index:]):
-            marker_left_edge, marker_right_edge = get_marker_indices(substring, current_index)
-            pattern_length, increase_by = unpack_marker(substring[marker_left_edge:marker_right_edge + 1])
-
-            nested_length = calculate_nested_decompressed_length(substring[marker_right_edge + 1:marker_right_edge + 1 + pattern_length])
-            
-            length += (marker_left_edge - current_index) + nested_length * increase_by
-            current_index = marker_right_edge + 1 + pattern_length
-        else:
-            length += len(substring) - current_index
             break
 
     return length
