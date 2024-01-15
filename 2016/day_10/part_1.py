@@ -58,6 +58,7 @@ def transfer_microchip_to_robot(value, index, instruction, robots_dict):
 
     return robots_dict
 
+# Retunrs the ID of the robot that first encounters chip 61 and 17.
 def get_required_robot(robots):
     for key, chips in robots.items():
         if '61' in chips and '17' in chips: 
