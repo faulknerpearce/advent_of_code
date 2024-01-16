@@ -1,6 +1,6 @@
 from part_1 import read_file_return_2D_list, get_microchips_from_input_bins, simulate_robot_swaps, robot_has_two_chips, get_low_and_high, get_required_robot, transfer_microchip
 
-# Determines whether to transfer a microchip to a robot or an output bin
+# Determines whether to transfer a microchip to a robot or an output bin.
 def transfer_microchip_to_robot_or_output(value, index, instruction, robots_dict, outputs_dict):
     
     if 'output' in instruction[index]:
@@ -10,12 +10,15 @@ def transfer_microchip_to_robot_or_output(value, index, instruction, robots_dict
 
     return robots_dict, outputs_dict
 
+# Checks if the required output bins are filled with microchips.
 def filled_required_output_bins(outputs):
         return outputs.get('output_0') and outputs.get('output_1') and outputs.get('output_2')
 
+# Calculates the product of values in the first three output bins.
 def sum_outputs(outputs):
-    def sum_outputs(outputs):
-    return sum(int(outputs[key][0]) for key in ['output_0', 'output_1', 'output_2'])
+    val1 = outputs['output_0'][0]
+    val2 = outputs['output_1'][0]
+    val3 = outputs['output_2'][0]
 
     return int(val1) * int(val2) * int(val3)
 
@@ -47,13 +50,9 @@ if __name__ == "__main__":
     
     my_instructions = read_file_return_2D_list('text.txt')
 
-    my_robots, my_instructions = get_microchips_from_input_bins(my_instructions)
+    my_robots, my_remaining_instructions = get_microchips_from_input_bins(my_instructions)
 
-    answer = simulate_robot_swaps(my_instructions, my_robots, my_outputs)
+    answer = simulate_robot_swaps(my_remaining_instructions, my_robots, my_outputs)
 
     print(f'The answer to part two is: {answer}')
-
-
-
-
     
