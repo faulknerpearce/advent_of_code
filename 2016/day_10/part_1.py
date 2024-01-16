@@ -1,6 +1,6 @@
 import re 
 
-# Reads a file, applies regex substitutions, and returns a list of processed instructions
+# Reads a file, applies regex substitutions, and returns a list of processed instructions.
 def read_file_return_2D_list(file):
     with open(file) as data:
       
@@ -10,7 +10,7 @@ def read_file_return_2D_list(file):
 
     return instructions
 
-# Extracts initial microchip distributions to robots from the set of instructions
+# Extracts initial microchip distributions to robots from the set of instructions.
 def get_microchips_from_input_bins(instructions):
     remaining_instructions = []
     robots = {}
@@ -28,7 +28,7 @@ def get_microchips_from_input_bins(instructions):
         
     return robots, remaining_instructions
 
-# Checks if a robot has at least two microchips
+# Checks if a robot has at least two microchips.
 def robot_has_two_chips(id, robots):
     if robots.get(id):
         if len(robots[id]) >= 2:
@@ -36,7 +36,7 @@ def robot_has_two_chips(id, robots):
     
     return False
 
-# Returns the lowest and highest value microchips a robot has
+# Returns the lowest and highest value microchips a robot has.
 def get_low_and_high(id, robots):
     values = sorted(int(chip) for chip in robots[id])
     
@@ -65,7 +65,7 @@ def get_required_robot(robots):
             return key
     return None
 
-# Processes the instructions to distribute microchips among robots and output bins
+# Processes the instructions to distribute microchips among robots and output bins.
 def simulate_robot_swaps(instructions, robots):
     i = 0 
     
@@ -93,8 +93,9 @@ if __name__ == "__main__":
     
     my_instructions = read_file_return_2D_list('text.txt')
 
-    my_robots, my_instructions = get_microchips_from_input_bins(my_instructions)
+    my_robots, my_remaining_instructions = get_microchips_from_input_bins(my_instructions)
 
-    answer = simulate_robot_swaps(my_instructions, my_robots)
+    answer = simulate_robot_swaps(my_remaining_instructions, my_robots)
 
     print(f'The answer to part one is: {answer}')
+    
