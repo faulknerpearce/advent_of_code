@@ -3,10 +3,10 @@ import re
 # This will read and format a text file and return a list of instructions.
 def read_file_return_list(file):
     with open(file, encoding='utf-8') as text:
-        my_string = text.read()
-        cleaned_string = re.sub(r'\s+|,', ' ', my_string)
-        removed_words = re.sub(r'turn|through|', '', cleaned_string)
-        instructions = removed_words.split()
+        format_one= re.sub(r'\s+|,', ' ', text.read())
+        format_two = re.sub(r'turn|through|', '', format_one)
+        instructions = format_two.split()
+        
         return instructions
 
 # This will create a two-dimensional list.
