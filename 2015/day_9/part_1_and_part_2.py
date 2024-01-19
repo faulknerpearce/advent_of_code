@@ -5,12 +5,8 @@ import re
 # This function will read a text file format it and retrun an array of the remaining elements. 
 def read_file_return_list(file):
     with open(file) as data:
-        text = data.read()
-        formatted = re.sub(r'to|=', '', text)
-
-        lines = formatted.split('\n')
-
-        lines_array = [line.split() for line in lines]
+        text = re.sub(r'to|=', '', data.read())
+        lines_array = [line.split() for line in text.split('\n')]
 
         return lines_array
    
