@@ -7,17 +7,17 @@ def read_file_return_list(file):
 # Defines a Compass class to manage orientation and rotations
 class Compass:
     def __init__(self, current_position='N'):
+        self.positions = ['N', 'E', 'S', 'W']
         self.current_position = current_position
-        self.points = ['N', 'E', 'S', 'W']
-
+        
     # Returns the current position of the compass 
     def rotate(self, direction):
-        index = self.points.index(self.current_position)
-        if direction == 'R':
-            self.current_position = self.points[(index + 1) % len(self.points)]
-        else:
-            self.current_position = self.points[(index - 1) % len(self.points)]
 
+        dir_num = -1 if direction == 'L' else 1
+
+        index = (self.positions.index(self.current_position) + dir_num) % len(self.positions)
+        self.current_position = self.positions[index]
+    
     # Returns the current position of the compass    
     def return_position(self):
         return self.current_position
