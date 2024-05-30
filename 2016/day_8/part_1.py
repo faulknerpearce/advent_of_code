@@ -1,86 +1,95 @@
-import re
-# Reads a file, removes specific characters, and returns its content as a 2D list.
+import re 
+
+# Reads a file and returns a formatted two dimensional list. 
 def read_file_return_2D_list(file):
-     with open(file) as data:
-          text_one = re.sub(r'x=|y=|by|s+', '' , data.read())
-          text_two = re.sub(r'x', ' ', text_one)
 
-          lines = [line.split() for line in text_two.split('\n') if line.strip()]
-     return lines
+    with open(file) as text:
+        formatted_text = re.sub(r'|y|=|by|rotate|', '', text.read().replace('x', ' '))
+        instructions = [line.split() for line in formatted_text.split('\n')]
 
-# Creates a matrix of a given width and height with all elements initialized to a full stop character.
-def create_matrix(width, hight):
-     matrix = [['.' for _ in range(width)] for _ in range(hight)]
-     return matrix
+    return instructions
 
-# Turns on pixels (represented by '#') in a matrix up to a specified row and column.
-def turn_pixels_on(end_col, end_row, matrix):
-     for row in range(end_row):
-          for col in range(end_col):
-               matrix[row][col] = '#'
-     return matrix
+# Generates a matrix with the specified length and height.
+def generate_martix(width, height):
+    matrix = [['.' for _ in range(width)] for _ in range(height)]
 
-# Shifts all elements of a specified row in a matrix by a certain amount.
-def shift_row(start_row, shift_amount, matrix):
-     for _ in range(shift_amount):
-          matrix[start_row] = matrix[start_row][-1:] + matrix[start_row][:-1]
-     return matrix
+    return matrix
 
-# Gathers elements from a specific column in a matrix.
-def get_elements(start_col, matrix):
-     elements = []
-     
-     for i in range(len(matrix)):
-          elements.append(matrix[i][start_col])
-     return elements
+# Truns pixels on in the matrix up to the provided row and column.
+def turn_on(end_col, end_row, matrix):
+    for row in range(end_row):
+        
+        for col in range(end_col):
+            matrix[row][col] = '#'
 
-# Shifts all elements of a specified column in a matrix by a certain amount.
-def shift_column(start_col, shift_amount, matrix):
-     for _ in range(shift_amount):
-          pixels = get_elements(start_col, matrix)
-          matrix[0][start_col] = pixels[-1]
+    return matrix
 
-          for i in range(1, len(matrix)):
-               matrix[i][start_col] = pixels[i-1]
-     return matrix
+# Gets elements from the specified column in every row (Helper function for shift_column).
+def get_pixels_from_column(col, matrix):
+    column_pixels = []
 
-# Counts the number of pixels (represented by '#') in a matrix.
-def count_pixels(matrix, total=0):
-     for row in matrix:
-          total += row.count('#')
-     return total
+    for row in matrix:
+        column_pixels.append(row[col])
+    
+    return column_pixels
+    
+# Shifts pixels in a specific row of the matrix to the right by the specified amount.
+def shift_accross(row, shift_amount, matrix):
+    
+    for _ in range(shift_amount):
+        shifted = matrix[row][-1:] + matrix[row][:-1]
+        matrix[row] = shifted
 
-# Processes a list of instructions to manipulate the pixels on a screen (matrix).
-def part_one(instructions, screen):
-     for instruction in instructions:
+    return matrix
 
-          if instruction[0] == 'rect':
-               start_col = int(instruction[1])
-               start_row = int(instruction[2])
-               
-               screen = turn_pixels_on(int(start_col), int(start_row), screen)
-          elif instruction[0] == 'rotate':
-               if instruction[1] == 'row':
-                    swich_row = int(instruction[2])
-                    swich_by = int(instruction[3])
+# Shifts pixels in a specific row of the matrix to the right by the specified amount.
+def shift_down(col, shift_amount, matrix):
 
-                    screen = shift_row(swich_row, swich_by, screen)
-               else: 
-                    swich_row = int(instruction[2])
-                    swich_by = int(instruction[3])
+    for _ in range(shift_amount):
+        pixels = get_pixels_from_column(col, matrix)
+        shifted_pixels = pixels[-1:] + pixels[:-1]
 
-                    screen = shift_column(swich_row, swich_by, screen)
-     return screen
+        for i in range(len(matrix)):
+            matrix[i][col] = shifted_pixels[i]
 
-#________Main Program_________ #
-if __name__ == "__main__":
+    return matrix 
 
-     puzzle_input = read_file_return_2D_list('text.txt')
+# Processes a list of instructions to manipulate the pixels on a screen.
+def adjust_pixels(instructions, matrix):
 
-     screen = create_matrix(50, 6)
+    for instruction in instructions:
 
-     adjusted_screen = part_one(puzzle_input, screen)
+        if instruction[0] == 'rect':
+            matrix = turn_on(int(instruction[1]), int(instruction[2]), matrix)
+        
+        elif instruction[0] == 'column':
+            matrix = shift_down(int(instruction[1]), int(instruction[2]), matrix)
 
-     answer = count_pixels(adjusted_screen)
+        elif instruction[0] == 'row':
+             matrix = shift_accross(int(instruction[1]), int(instruction[2]), matrix)
 
-     print(f'The answer to part one is: {answer}')
+        else: 
+            print('Instruction Read Error.')
+
+    return matrix
+
+# Returns the total amount of light pixels.
+def part_one(matrix):
+    total = 0
+
+    for row in matrix:
+        total += row.count('#')
+        
+    return total
+ 
+if __name__ == '__main__':
+
+    puzzle_input = read_file_return_2D_list('text.txt')
+
+    my_screen = generate_martix(50, 6)
+
+    adjusted_screen = adjust_pixels(puzzle_input, my_screen)
+
+    answer = part_one(adjusted_screen)
+
+    print(f'The answer to part one is: {answer}')
