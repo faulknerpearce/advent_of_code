@@ -3,7 +3,7 @@ import re
 # This will read and format a text file and return a list of instructions.
 def read_file_return_list(file):
     with open(file, encoding='utf-8') as text:
-        format_one= re.sub(r'\s+|,', ' ', text.read())
+        format_one = re.sub(r'\s+|,', ' ', text.read())
         format_two = re.sub(r'turn|through|', '', format_one)
         instructions = format_two.split()
         
@@ -46,8 +46,7 @@ def count_lights(light_grid):
 # Follow the provided instructions and return the adjusted light grid.
 def follow_instructions(instructions_list, light_grid):
     for i in range(0, len(instructions_list), 5):
-        power, the_start_row, the_start_col, the_end_row, the_end_col = instructions_list[
-            i:i+5]
+        power, the_start_row, the_start_col, the_end_row, the_end_col = instructions_list[i:i+5]
 
         if power == 'on' or power == 'off':
             light_grid = set_lights(light_grid, int(the_start_row), int(
