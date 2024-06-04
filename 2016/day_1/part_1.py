@@ -6,38 +6,40 @@ def read_file_return_list(file):
 
 # Defines a Compass class to manage orientation and rotations
 class Compass:
-    def __init__(self, current_position='N'):
-        self.positions = ['N', 'E', 'S', 'W']
-        self.current_position = current_position
+    def __init__(self):
+        self.points = ['N', 'E', 'S', 'W']
+        self.current_point = self.points[0]
         
     # Returns the current position of the compass 
     def rotate(self, direction):
-
-        dir_num = -1 if direction == 'L' else 1
-
-        index = (self.positions.index(self.current_position) + dir_num) % len(self.positions)
-        self.current_position = self.positions[index]
-    
-    # Returns the current position of the compass    
-    def return_position(self):
-        return self.current_position
+        if direction == 'R':
+            direction_num = +1
+        else:
+            direction_num = -1
+        
+        new_index = (self.points.index(self.current_point) + direction_num) % len(self.points)
+        self.current_point = self.points[new_index]
 
 # Calculates the Manhattan distance from the origin based on a set of directions  
-def part_one(directions, compass, x=0, y=0):
+def get_distance(instructions, compass):
+    x = 0
+    y = 0
 
-    for direction in directions:
-        compass.rotate(direction[0])
-        position = compass.return_position()
-       
-        if position == 'N':
-            y += int(direction[1:])
-        elif position == 'S':
-            y -= int(direction[1:])
-        elif position == 'E':
-            x += int(direction[1:])
-        elif position == 'W':
-            x -= int(direction[1:])
-    
+    for instruction in instructions:
+        compass.rotate(instruction[0])
+
+        if compass.current_point == 'N':
+            y += int(instruction[1:])
+
+        elif compass.current_point == 'S':
+            y -= int(instruction[1:])
+
+        elif compass.current_point == 'E':
+            x += int(instruction[1:])
+        
+        elif compass.current_point == 'W':
+            x -= int(instruction[1:])
+
     return abs(x) + abs(y)
  
 #________Main Program_________ # 
@@ -47,6 +49,6 @@ if __name__ == "__main__":
 
     puzzle_input = read_file_return_list('text.txt')
 
-    answer = part_one(puzzle_input, my_compass)
+    answer = get_distance(puzzle_input, my_compass)
 
     print(f'The answer to part one is: {answer}')
