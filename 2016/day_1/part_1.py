@@ -52,3 +52,4 @@ if __name__ == "__main__":
     answer = get_distance(puzzle_input, my_compass)
 
     print(f'The answer to part one is: {answer}')
+    
