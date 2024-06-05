@@ -1,31 +1,30 @@
 # Reads a file and returns an array of directions.
 def read_file_return_list(file):
-    with open(file) as data:
-        array = [line.replace('\n', '') for line in data.readlines()]
-    return array
+    with open(file) as text:
+        string = [line.strip('\n') for line in text.readlines()]
 
-# Finds the current position's row and column index in a 2D array.
-def get_index(array, current_digit):
+    return string
+
+# Finds the row and column indexes of the current digit in a 2D array.
+def get_row_and_col_indexes(current_digit, array):
     for row in range(len(array)):
         if current_digit in array[row]:
-            col_index = array[row].index(current_digit)
-            row_index = row
-            break
-    return row_index, col_index
+            col =  array[row].index(current_digit)
+            return row, col 
 
-# Determines the digit on the keypad after following a sequence of directions.
-def part_one(line, array, position):
-    max_index = len(array) - 1
-    row_index, col_index = get_index(array, position)
-    
-    for letter in line:
+# Returns the final digit on the keypad after following a sequence of directions.         
+def get_single_digit(current_digit, instruction, array):
+    row_index, col_index = get_row_and_col_indexes(current_digit, array)
+
+    for letter in instruction:
+
         if letter == 'U' and row_index > 0:  
             row_index -= 1
         
-        elif letter == 'D' and row_index < max_index:  
+        elif letter == 'D' and row_index < len(array) -1:  
             row_index += 1    
         
-        elif letter == 'R' and col_index < max_index:  
+        elif letter == 'R' and col_index < len(array) -1:  
             col_index += 1
         
         elif letter == 'L' and col_index > 0:  
@@ -33,23 +32,25 @@ def part_one(line, array, position):
 
     return array[row_index][col_index]
 
-# Calculates a sequence of digits based on the directions provided in each line.
-def get_digits(lines, array, value=5):
+# Returns the resulting password after following the directions provided.
+def get_digits(current_digit, instructions, array):
     digits = ''
-    for line in lines:
-       value = part_one(line, array, value)
-       digits += str(value)
-    
+
+    for instruction in instructions:
+        current_digit = get_single_digit(current_digit, instruction, array)
+        digits += str(current_digit)
+
     return digits
 
-#________Main Program_________ # 
+if __name__ == '__main__':
 
-if __name__ == "__main__":
+    puzzle_input = read_file_return_list('text.txt')
+
+    keypad_one = [[1, 2, 3],[4, 5, 6], [7, 8, 9]]
+
+    default_digit = 5
     
-    keypad_one = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] 
+    answer = get_digits(default_digit, puzzle_input, keypad_one)
 
-    puzzle_input = read_file_return_list('text.txt') 
-
-    answer = get_digits(puzzle_input, keypad_one)  
-
-    print(f'The answer to part one is: {answer}')
+    print(f'The answer for part one is: {answer}')
+    
