@@ -76,7 +76,7 @@ def part_one(instructions):
 
 if __name__ == '__main__':
 
-    puzzle_input = read_file_return_2D_list('test.txt')
+    puzzle_input = read_file_return_2D_list('text.txt')
 
     answer = part_one(puzzle_input)
 
