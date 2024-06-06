@@ -1,92 +1,83 @@
-import re 
-# Reads from an input file and returns a 2D list after striping specific characters.
-def read_file_return_2D_list(file,lines=[]):
-    with open(file) as data:
-        for string in data.readlines():
-            formatted = re.sub(r'-|\[', ' ', string)
-            lines.append([line for line in formatted.replace(']', '').split()])
+import re
 
-    return lines
+def read_file_return_2D_list(file):
+    with open(file) as text:
+        format_one = re.sub(r'-|]', '', text.read())
+        instructions = [line.split() for line in format_one.replace('[', ' ').split('\n')]
+    return instructions
 
-# Counts occurrences of each letter in a list of strings.
-def count_letters(line):
-    letters = {}
-    for characters in line:
-        for character in characters:
-            if letters.get(character):
-                letters[character] += 1
-            else: 
-                letters.update({character: 1})
-    return letters
+# Returns the frequency of each letter in a given string.
+def letter_frequencies(letters):
+    frequencies = {}
 
-# Sorts a list of letters with equal counts and removes them from the original dictionary.
-def unpack(current_ties, current_dict):
-    sorted_string = ''
-    sorted_letters = sorted(current_ties)
+    for letter in letters:
+        if letter.isalpha():
+            if frequencies.get(letter):
+                frequencies[letter] += 1
+            else:
+                frequencies.update({letter: 1})
+    return frequencies
+
+# Returns the letter with the highest frequency in the given dictionary of letter frequencies.
+def get_most_frequent_letter(letters_dict):
+    max_count = 0
+    max_key = ''
+
+    for key in letters_dict.keys():
+        if letters_dict[key] > max_count:
+            max_count = letters_dict[key]
+            max_key = key 
+    return max_key, max_count
+
+# Removes specified letters from the given dictionary of letter frequencies.
+def remove_letters(tied_letters, letters_dict):
+    for letter in tied_letters:
+        letters_dict.pop(letter)
+
+    return letters_dict
+
+# Identifies all letters that have the same frequency as the given maximum frequency.
+def get_tied_letters(max_key, max_val, letters_dict):
+    ties = [max_key]
     
-    for letter in sorted_letters:
-        sorted_string += letter
-        current_dict.pop(letter)
+    for key in letters_dict.keys():
+        if letters_dict[key] == max_val and key != max_key:
+            ties.append(key)
 
-    return sorted_string, current_dict
+    return ties
 
-# Finds the key with the greatest value in a dictionary.
-def get_greatest_key(my_dict):
-    greatest_val = 0
-    greatest_key = ''
+# Generates the room password based on the frequency of letters and the given checksum.
+def get_room_password(possible_room, checksum): 
+    ltr_dict = letter_frequencies(possible_room)
+    password = ''
     
-    for key in my_dict.keys():
-        if my_dict[key] > greatest_val:
-            greatest_key = key
-            greatest_val = my_dict[key]
-    return greatest_key, greatest_val
+    while len(password) < len(checksum):
 
-# Finds keys in the dictionary that have a value equal to the provided key.
-def get_equal_keys(my_dict, best_val):
-    ties = []
+        letter, value = get_most_frequent_letter(ltr_dict)
+        tied_letters = get_tied_letters(letter, value, ltr_dict)
+        ltr_dict = remove_letters(tied_letters, ltr_dict)
+        password += ''.join(sorted(tied_letters))
 
-    for key in my_dict.keys():
-        if my_dict[key] == best_val:
-           ties.append(key)
-    
-    if len(ties) > 1:
-        return ties 
+    return password[:5]
 
-# Constructs a checksum string based on the frequency and order of letters.
-def generate_checksum(line):
-    found_letters = ''
-    letter_count = count_letters(line[:-2])
+# Calculates the sum of the valid room numbers based on the room passwords and checksums.
+def part_one(instructions):
+    total = 0 
 
-    while len(letter_count) > 0:
-        max_key, max_val = get_greatest_key(letter_count)
-
-        equal_letters = get_equal_keys(letter_count, max_val)
-
-        if equal_letters:
-            letters, letter_count = unpack(equal_letters, letter_count)
-            found_letters += letters
-        else:
-            found_letters += max_key
-            letter_count.pop(max_key)
-
-    return found_letters[:len(line[-1])]
-
-def part_one(lines):
-    total = 0
-    
-    for line in lines:
-        checksum = generate_checksum(line)
+    for instruction in instructions:
+        room_checksum = instruction[1]
+        room_password = get_room_password(instruction[0], room_checksum)
         
-        if checksum == line[-1]:
-            total += int(line[-2])
-    return total
+        if room_password == room_checksum:
+            room_number = int(instruction[0][-3:])
+            total += room_number
 
-#________Main Program_________ # 
-if __name__ == "__main__":
-    
+    return total 
+
+if __name__ == '__main__':
+
     puzzle_input = read_file_return_2D_list('test.txt')
 
     answer = part_one(puzzle_input)
 
     print(f'The answer to part one is: {answer}')
-    
