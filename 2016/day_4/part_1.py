@@ -2,7 +2,7 @@ import re
 
 def read_file_return_2D_list(file):
     with open(file) as text:
-        format_one = re.sub(r'-|]', '', text.read())
+        format_one = re.sub(r'|]', '', text.read())
         instructions = [line.split() for line in format_one.replace('[', ' ').split('\n')]
     return instructions
 
@@ -43,7 +43,6 @@ def get_tied_letters(max_key, max_val, letters_dict):
     for key in letters_dict.keys():
         if letters_dict[key] == max_val and key != max_key:
             ties.append(key)
-
     return ties
 
 # Generates the room password based on the frequency of letters and the given checksum.
@@ -57,7 +56,6 @@ def get_room_password(possible_room, checksum):
         tied_letters = get_tied_letters(letter, value, ltr_dict)
         ltr_dict = remove_letters(tied_letters, ltr_dict)
         password += ''.join(sorted(tied_letters))
-
     return password[:5]
 
 # Calculates the sum of the valid room numbers based on the room passwords and checksums.
@@ -71,12 +69,11 @@ def part_one(instructions):
         if room_password == room_checksum:
             room_number = int(instruction[0][-3:])
             total += room_number
-
     return total 
 
 if __name__ == '__main__':
 
-    puzzle_input = read_file_return_2D_list('test.txt')
+    puzzle_input = read_file_return_2D_list('text.txt')
 
     answer = part_one(puzzle_input)
 
