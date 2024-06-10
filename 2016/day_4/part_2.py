@@ -1,45 +1,33 @@
-from part_1 import read_file_return_2D_list, generate_checksum
+from part_1 import read_file_return_2D_list
 
-# Filters out decoy lines based on the correctness of the generated checksum.
-def remove_decoys(lines):
-    valid = []
+# Decrypts a string by shifting each letter by a specified number of positions in the alphabet.
+def decrypt_string(string, decryption_num):
+    decrypted = ''
 
-    for i in range(len(lines)):
-        checksum = generate_checksum(lines[i])
-        if checksum == lines[i][-1]:
-            valid.append(lines[i])
-    return valid
+    for i in range(len(string)):
 
-# Decrypts a string using a Caesar cipher with a shift based on the second last element of the line.
-def decrypt_string(line):
-    decryption_id = int(line[-2])
-    string = ''
+        if ord(string[i]) >= 97 and ord(string[i]) <= 122:
+            adjusted_val = ord(string[i]) - 97
+            decrypted += chr(((adjusted_val + int(decryption_num)) % 26) + 97) 
+        else:
+            decrypted += string[i]
 
-    for characters in line[:-2]:
-        for character in characters:
-            letter_val = ord(character) - 97
-            adjusted_val = (decryption_id + letter_val) % 26
-            string += chr(adjusted_val + 97)
+    return decrypted
 
-        string += ' '
+# Finds and returns the room ID for the room containing 'northpole' in its decrypted name.
+def get_room_id(instructions):
 
-    return string[:-1]
+    for instruction in instructions:
+        room_id = instruction[0][-3:]
+        decrypted = decrypt_string(instruction[0], room_id) 
 
-# Returns the ID of the decrypted string that containing the word northpole.
-def part_two(lines):
+        if 'northpole' in decrypted:
+            return room_id
 
-    for line in lines:
-        decrypted_string = decrypt_string(line)
-        if 'northpole' in decrypted_string:
-            return line[-2]
-
-# ________Main Program_________ #
-if __name__ == "__main__":
+if __name__ == '__main__':
 
     puzzle_input = read_file_return_2D_list('text.txt')
 
-    puzzle_input = remove_decoys(puzzle_input)
+    answer = get_room_id(puzzle_input)
 
-    answer = part_two(puzzle_input)
-
-    print(f'The answer to part two is: {answer}')
+    print(f'The answer for part two is: {answer}')
