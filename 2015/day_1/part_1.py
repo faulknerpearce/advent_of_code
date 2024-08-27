@@ -1,5 +1,5 @@
 # covert the txtfile to a readable string of directions.
-def read_file(file):
+def read_file_return_string(file):
     with open(file, encoding='utf-8') as file:
         text = file.read()
         return text
@@ -19,8 +19,8 @@ def floor_count(my_string):
 #________Main Program_________ # 
 if __name__ == "__main__":
     
-    puzzle_input = read_file('text.txt')
+    puzzle_input = read_file_return_string('text.txt')
 
     answer = floor_count(puzzle_input)
 
-    print(f'The answer to part ome is: {answer}.')
+    print(f'The answer to part one is: {answer}.')
