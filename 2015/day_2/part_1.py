@@ -1,52 +1,40 @@
-# This function formats the content of a text file to a string.
-def read_file(file):
-    with open(file, encoding='utf-8') as file:
-        text = file.read()
-    return text
+import re 
 
-# This will read a string that contains the measurements and format them to a list of integers.
-def create_int_array(str_lines):
-    temp = ""
-    int_list = []
-    for i in range(len(str_lines)):
-        if str_lines[i] != "x" and str_lines[i] != "\n":
-            temp += str_lines[i]
-        else:
-            int_list.append(int(temp))
-            temp = "" 
-    int_list.append(int(temp))
-    return int_list
-
-# This function compares 3 numbers and multiplys the 2 smallest numbers.
-def get_slack_total(l, w, h):
-    numbers = [l, w, h]
-    numbers.remove(max(numbers))
-    slack_total = numbers[0] * numbers[1]
-    return slack_total
-
-# This function calculates the total wrapping paper and ribbon needed for a list of boxes with given dimensions.  
-def calculate_total_wrapping_paper(numbers):
-    total_wrapping_paper = 0 
-    for i in range(0, len(numbers), 3):
-        length = numbers[i]
-        width = numbers[i+1]
-        hight = numbers[i+2]
+# Reads the file and returns a 2D list where each sublist contains the dimensions of a box.
+def read_file_return_2d_list(file):
+    with open(file) as text:
+        formatted = re.sub(r'x', ' ', text.read())
+        instructions = [line.split() for line in formatted.split('\n')]
         
-        box = (2 * length * width) + (2 * length * hight) + (2 * width * hight)
-        
-        slack = get_slack_total(length, width, hight)
+        return instructions
 
-        total_wrapping_paper += box + slack
+# Calculates the slack (smallest side area) of the box.   
+def get_slack(l, w, h):
+    return min((l * w), (l * h), (w * h))
 
-    return total_wrapping_paper
+# Calculates the total wrapping paper needed for a single box, including the slack.
+def calculate_dimensions(instruction):
+    length, width, height = int(instruction[0]), int(instruction[1]), int(instruction[2])
 
-#________Main Program_________ # 
-if __name__ == "__main__":
+    box = (2 * length * width) + (2 * length * height) + (2 * width * height) 
     
-    puzzle_input = read_file('text.txt')
+    slack = get_slack(length, width, height)
+    
+    return box + slack
 
-    my_integers = create_int_array(puzzle_input)
+# Sums up the total wrapping paper needed for all boxes.
+def calculate_total_wrapping_papper(instructions):
+    total = 0
 
-    answer = calculate_total_wrapping_paper(my_integers)
+    for instruction in instructions:
+        total += calculate_dimensions(instruction)
+
+    return total
+
+if __name__ == '__main__':
+
+    puzzle_input = read_file_return_2d_list('text.txt')
+
+    answer = calculate_total_wrapping_papper(puzzle_input)
 
     print(f'The answer to part one is: {answer}')

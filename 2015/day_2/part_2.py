@@ -1,35 +1,30 @@
-from part_1 import read_file, create_int_array
+from part_1 import read_file_return_2d_list 
 
-# Calculates and returns the total ribbon length needed for a box.
-def get_ribbon_total(l, w, h):
-    numbers = [l, w, h]
-    bow = l * w * h
-    numbers.remove(max(numbers))
-    ribbon = numbers[0] * 2 + numbers[1] * 2
-    ribbon_total = ribbon + bow
-    return ribbon_total
-
-# This function calculates the total wrapping paper and ribbon needed for a list of boxes with given dimensions.    
-def box_dimesions(numbers):
-    total_ribbon = 0
+# Calculates the total ribbon needed for a single box, including the bow length.
+def calculate_riibbon(length, width, height):
     
-    for i in range(0, len(numbers), 3):
-        length = numbers[i]
-        width = numbers[i+1]
-        hight = numbers[i+2]
+    numbers = [length, width, height]
+    numbers.remove(max(numbers))
 
-        ribbon = get_ribbon_total(length, width, hight)
-       
-        total_ribbon += ribbon
-    return total_ribbon
+    bow = length * width * height
+    ribbon = numbers[0] * 2 + numbers[1] * 2
 
-#________Main Program_________ # 
-if __name__ == "__main__":
+    return ribbon + bow
 
-    puzzle_input = read_file('text.txt')
+# Calculates the total ribbon required for all boxes based on the instructions.
+def calculate_total_ribbon(instructions):
+    total = 0
 
-    my_integers = create_int_array(puzzle_input)
+    for instruction in instructions:
+        total += calculate_riibbon(int(instruction[0]), int(instruction[1]), int(instruction[2]))
 
-    answer = box_dimesions(my_integers)
+    return total
+
+
+if __name__ == '__main__':
+    
+    puzzle_input = read_file_return_2d_list('text.txt')
+
+    answer = calculate_total_ribbon(puzzle_input)
 
     print(f'The answer to part two is: {answer}')
