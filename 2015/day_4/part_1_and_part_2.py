@@ -1,52 +1,34 @@
-import hashlib
+from hashlib import md5
 
-# This will check if the generated has has the required number of leading zeros. 
-def check_hash(hash_hex, difficulty):
-    for num in hash_hex[:difficulty]:
-        if num != '0':
-            return False
-    return True
+# Check if the generated hash has the required number of leading zeros.
+def check_hash(hash, difficulty):
+    return hash[:difficulty] == '0' * difficulty
 
-# This will generate a hash with the provided input text and the nonce. 
-def generate_hash(_text, _nonce):
-    contents = str(_text) + str(_nonce)
-    my_hash = hashlib.md5(contents.encode()).hexdigest()
-    
-    return my_hash
+# Generate a hash with the provided input messaeg and the nonce. 
+def generate_hash(message, nonce):
 
-# This will call the generate_hash and check_hash function and increment the once until the required amount of leading zeros are found. 
-def find_hash(_text, the_difficulty):
+    contents = str(message) + str(nonce) 
+    hash = md5(contents.encode()).hexdigest()
+
+    return hash
+
+# Generates Hashes until a hash with the required amount of leading zeros has been found.
+def find_hash(message, difficulty):
     nonce = 0
-    result = False
-    
-    while result is not True:
-        nonce += 1
-        new_hash = generate_hash(_text, nonce)
-        result = check_hash(new_hash, the_difficulty)
-    
-    return new_hash, nonce
+    found = False
 
-#________Main Program_________ # 
-if __name__ == "__main__":
+    while not found:
+        nonce += 1
+        new_hash = generate_hash(message, nonce)
+        found = check_hash(new_hash, difficulty)
+
+    return nonce
+
+if __name__ == '__main__':
     
     puzzle_input = 'yzbqklnj'
+
+    answer = find_hash(puzzle_input, 6)
+
+    print(f'The answer for part one is: {answer}' )
     
-    difficulty = 4
-
-    result_hash, result_nonce = find_hash(puzzle_input, difficulty)
-    
-    print(f'The result hash is: {result_hash}\n The result nonce is: {result_nonce}')
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
