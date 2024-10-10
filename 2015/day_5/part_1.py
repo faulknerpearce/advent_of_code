@@ -1,59 +1,48 @@
-# Read lines from a file and return a list of lines
-def read_file_retrun_list(file):
-    with open(file, 'r') as data:
-        text = data.read().split('\n')
-        return text
+# Read from a file and returns a 2d list.
+def read_file_return_2d_list(file):
+    with open(file) as text:
+        instructions = [line.strip('\n') for line in text.readlines()]
+        return instructions
 
-# Checks if a line contains at least three vowels.        
-def has_vowels(my_line):
+# Checks if a string contains at least three vowels.
+def has_vowels(string):
     vowels = 'aeiou'
     count = 0
-    for char in my_line:
-        if char in vowels:
-            count += 1
-    if count >= 3: 
-        return True 
-    else: 
-        return False
 
-# Checks for Naughty pairs and return False if any found.
-def has_no_naughty_strings(my_line):
-    naughty = ['ab', 'cd', 'pq', 'xy']
-    last_char = ''
-    for letter in my_line:
-        combined = last_char + letter 
-        if combined in naughty:
+    for letter in string:
+        if letter in vowels:
+            count += 1
+    return count >= 3
+
+# Returns true if a string contains one letter that appears twice in a row, and does not contain any naughty pairs.
+def has_double_letter(string):
+    naughty_letters = ['ab', 'cd', 'pq','xy']
+    count = 0
+
+    for i in range(0, len(string) -1, 1):
+        
+        letters = string[i:i+2]
+
+        if letters in naughty_letters:
             return False
-        else: 
-            last_char = letter
-    return True
+        elif letters[0] == letters[1]:
+             count += 1
+    return count >= 1
 
-# Checks for at least one letter that appears twice in a row.
-def has_pair(my_line):
-    last = ''
+# Returns the total number of nice strings.
+def count_nice_strings(strings):
     count = 0
-    for char in my_line:
-        if last == char: 
-            count += 1
-        else: 
-            last = char
-    if count >= 1:
-        return True 
-    return False 
 
-# Count the number of nice strings in a list of lines for the requirements of part one. 
-def count_nice_strings(my_list):
-    count = 0
-    for line in my_list:
-        if has_no_naughty_strings(line) and has_pair(line) and has_vowels(line):
+    for string in strings:
+
+        if has_vowels(string) and has_double_letter(string):
             count += 1
     return count
+            
+if __name__ == '__main__':
 
-#________Main Program_________ # 
-if __name__ == "__main__":
-
-    puzzle_input = read_file_retrun_list('text.txt')
+    puzzle_input = read_file_return_2d_list('test.txt')
 
     answer = count_nice_strings(puzzle_input)
 
-    print(f'The answer for part one is:: {answer}')
+    print(f'The answer to part one is: {answer}')
