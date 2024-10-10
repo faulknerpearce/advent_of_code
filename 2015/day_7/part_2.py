@@ -1,47 +1,8 @@
-# Read the contents of a file and return a 2D list, splitting each line into elements.
-def read_file_return_2d_list(file):
-    with open(file) as text:
-        return [line.strip().split() for line in text if line.strip()]
-
-# Retrieve the value from the dictionary if it's a wire (alphabetic), otherwise return the integer value.  
-def get_value(item, dict):
-    if item.isalpha():
-        return dict.get(item, None)
-    else: 
-        return int(item)   
-           
-# Assign a value to a key in the dictionary after converting it to an integer.
-def assign_value(value, key, bitwise_gates):
-    bitwise_gates[key] = int(value)
-    return bitwise_gates
-
-# Process AND bitwise operation and assign the result to a wire.
-def and_or_gate(a, b, instruction, dict):
-    if 'AND' in instruction:
-        result = (a & b) & 0xFFFF
-    elif 'OR' in instruction:
-        result = (a | b) & 0xFFFF
-
-    return assign_value(result, instruction[-1], dict)
-
-# Process NOT bitwise operation and assign the result to a wire.
-def not_gate(a, instruction, dict):
-    result = ~int(a) & 0xFFFF
-
-    return assign_value(result, instruction[-1], dict)
-
-# Process left or right shift operations and assign the result to a wire.
-def shift_gate(a, instruction, dict):
-    if 'LSHIFT' in instruction:
-        result = (a << int(instruction[2]))
-    else:
-        result = (a >> int(instruction[2]))
-
-    return assign_value(result, instruction[-1], dict)
+from part_1 import read_file_return_2d_list, get_value, and_or_gate, not_gate, shift_gate, assign_value
 
 # Main function to process all instructions and determine the final state of all wires.
-def part_one(instructions):
-    bitwise_gates = {}  
+def part_two(instructions):
+    bitwise_gates = {'b': 956}  
 
     while instructions:
         # Store instructions that can't be processed yet.
@@ -82,7 +43,8 @@ def part_one(instructions):
                 val = get_value(instruction[0], bitwise_gates)
 
                 if val is not None:
-                    bitwise_gates = assign_value(val, instruction[-1], bitwise_gates)
+                    if instruction[-1] != 'b': 
+                        bitwise_gates = assign_value(val, instruction[-1], bitwise_gates)
                 else:
                     next_pending.append(instruction)
         
@@ -90,13 +52,15 @@ def part_one(instructions):
         instructions = next_pending
 
     return bitwise_gates
-               
+
 if __name__ == '__main__':
 
     instructions = read_file_return_2d_list('text.txt')
 
-    gates = part_one(instructions)
+    gates = part_two(instructions)
 
     answer = gates.get('a')
 
     print(f'The answer to part one is: {answer}.')
+
+    required_answer = '40149'
