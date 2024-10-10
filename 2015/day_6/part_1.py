@@ -1,72 +1,65 @@
 import re
 
-# This will read and format a text file and return a list of instructions.
-def read_file_return_list(file):
-    with open(file, encoding='utf-8') as text:
-        format_one = re.sub(r'\s+|,', ' ', text.read())
-        format_two = re.sub(r'turn|through|', '', format_one)
-        instructions = format_two.split()
-        
-        return instructions
+# This will read and format a text file and return a 2d list of instructions.
+def read_file_return_2d_list(file):
+    with open(file) as text:
+        formatted = re.sub(r'turn|through|,', ' ', text.read())
+
+        return [ line.split() for line in formatted.split('\n') ]
 
 # This will create a two-dimensional list.
-def create_matrix(length, height):
-    matrix = [[0 for _ in range(length)] for _ in range(height)]
-    return matrix
+def create_matrix(size):
+    return [[ 0 for _ in range(size) ] for _ in range(size) ]
 
 # Set the specified rectangular range of lights to the 'on' or 'off' state in the grid.
-def set_lights(light_grid, start_row, start_col, end_row, end_col, power):
-    if power == 'on':
-        adjustment  = 1
-    else:
-        adjustment = 0
-    for row in range(start_row, end_row+1):
-        for col in range(start_col, end_col+1):
-            light_grid[row][col] = adjustment
-    return light_grid
+def set_lights(power, start_row, end_row, start_col, end_col, matrix):
+    for row in range(start_row, end_row + 1):
+        for col in range(start_col, end_col + 1):
+            matrix[row][col] = power
+
+    return matrix
 
 # Toggle the specified rectangular range of lights.
-def toggle_lights(light_grid, start_row, start_col, end_row, end_col):
-    for row in range(start_row, end_row+1):
-        for col in range(start_col, end_col+1):
-            if light_grid[row][col] == 0:
-                light_grid[row][col] = 1
+def toggle_lights(start_row, end_row, start_col, end_col, matrix):
+    for row in range(start_row, end_row + 1):
+        for col in range(start_col, end_col + 1):
+            if matrix[row][col] == 1:
+                matrix[row][col] = 0 
             else:
-                light_grid[row][col] = 0
-    return light_grid
+                matrix[row][col] = 1
+
+    return matrix
 
 # Count the number of lights that are turned on.
-def count_lights(light_grid):
-    result = 0
-    for row in light_grid:
-        for num in row:
-            result += num
-    return result
+def count_lights(matrix):
+    count = 0 
+
+    for row in matrix:
+        for col in row:
+            count += col
+
+    return count
 
 # Follow the provided instructions and return the adjusted light grid.
-def follow_instructions(instructions_list, light_grid):
-    for i in range(0, len(instructions_list), 5):
-        power, the_start_row, the_start_col, the_end_row, the_end_col = instructions_list[i:i+5]
+def part_one(instructions, matrix):
+    for instruction in instructions:
+        if instruction[0] == 'on':
+            matrix = set_lights(1, int(instruction[1]), int(instruction[3]), int(instruction[2]), int(instruction[4]), matrix)
+        elif instruction[0] == 'off':
+            matrix = set_lights(0, int(instruction[1]), int(instruction[3]), int(instruction[2]), int(instruction[4]), matrix)
+        else: 
+            matrix = toggle_lights(int(instruction[1]), int(instruction[3]), int(instruction[2]), int(instruction[4]), matrix)
+       
+    return matrix
 
-        if power == 'on' or power == 'off':
-            light_grid = set_lights(light_grid, int(the_start_row), int(
-                the_start_col), int(the_end_row), int(the_end_col), power)
-    
-        else:
-            light_grid = toggle_lights(light_grid, int(the_start_row), int(
-                the_start_col), int(the_end_row), int(the_end_col))
-            
-    return light_grid
-
-#________Main Program_________ # 
 if __name__ == "__main__":
 
-    puzzle_input = read_file_return_list('text.txt')
+    puzzle_input = read_file_return_2d_list('text.txt')
 
-    my_light_grid = create_matrix(1000, 1000)
+    matrix = create_matrix(1000)
 
-    adjusted_lights = follow_instructions(puzzle_input, my_light_grid)
+    adjusted_matrix = part_one(puzzle_input, matrix)
 
-    answer = count_lights(adjusted_lights)
+    answer = count_lights(adjusted_matrix)
 
     print(f'The answer to part one is: {answer}')
