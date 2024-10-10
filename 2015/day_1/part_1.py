@@ -16,7 +16,6 @@ def floor_count(my_string):
 
     return floor
 
-#________Main Program_________ # 
 if __name__ == "__main__":
     
     puzzle_input = read_file_return_string('text.txt')

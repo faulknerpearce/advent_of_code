@@ -16,7 +16,6 @@ def basement_position(my_string):
         if floor < 0:
             return position
 
-#________Main Program_________ # 
 if __name__ == "__main__":
     
     puzzle_input = read_file_return_string('text.txt')
