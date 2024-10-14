@@ -61,8 +61,7 @@ def get_route(graph, greater=False):
                 shortest_distance = current_distance
 
     return shortest_distance
-  
-#________Main Program_________ # 
+
 if __name__ == "__main__":
 
     puzzle_input = read_file_return_list('text.txt')
@@ -76,3 +75,4 @@ if __name__ == "__main__":
     # Part two:
     longest_distance = get_route(distances_graph, True)
     print(f'The answer to part two is: {longest_distance}')
+    
