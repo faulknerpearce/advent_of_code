@@ -14,7 +14,6 @@ def convert_sequence(numbers):
             count = 1
         
         if i == len(numbers) -1:
-            
             converted += str(count) + last
 
     return converted
