@@ -36,14 +36,7 @@ def is_safe(array):
 
 # Counts the number of "safe" levels in a list of arrays.
 def part_one(levels):
-    count = 0
-    
-    for level in levels:
-        
-        if is_safe(level):
-            count += 1
-
-    return count
+    return sum(map(is_safe, levels))
 
 if __name__ == '__main__':
 
