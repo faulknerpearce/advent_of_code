@@ -6,7 +6,7 @@ def read_file_return_2d_list(file):
     return array
 
 # Verifies that the difference between the current number and its adjacent numbers are greater than 1 and less than 3.
-def check_adjacent_numbers(array, index):
+def validate_adjacent_number_differences(array, index):
     difference_left = abs(array[index -1] - array[index])
 
     if index == len(array) -1:
@@ -25,7 +25,7 @@ def is_safe(array):
 
     for i in range(1, len(array)):
         if (decreasing and array[i] < last_num) or (not decreasing and array[i] > last_num):
-            if check_adjacent_numbers(array, i):
+            if validate_adjacent_number_differences(array, i):
                 last_num = array[i]
             else:
                 return False
