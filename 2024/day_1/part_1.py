@@ -7,8 +7,8 @@ def read_file_return_two_lists(file):
         text = data.readlines()
 
         for line in text:  
-          
           nums = line.split()
+
           left.append(int(nums[0]))
           right.append(int(nums[1]))
 
@@ -22,7 +22,6 @@ def part_one(left_array, right_array):
     right_array.sort()
 
     for i in range(len(left_array)):
-
         total += abs(left_array[i] - right_array[i])
 
     return total
