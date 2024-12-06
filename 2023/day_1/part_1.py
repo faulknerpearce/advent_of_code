@@ -10,6 +10,7 @@ def find_first_number(line):
     for index in range(len(line)):
         if ord(line[index]) >= 49 and ord(line[index]) <= 57:
             return line[index]
+    
     return None 
 
 # Find and return the last numeric character in a string.
