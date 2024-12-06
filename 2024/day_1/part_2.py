@@ -1,5 +1,6 @@
 from part_1 import read_file_return_two_lists
 
+# Calculates the total product based on occurrences of left_array elements in right_array.
 def part_two(left_array, right_array):
     results = {}
     total = 0
