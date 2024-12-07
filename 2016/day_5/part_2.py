@@ -3,22 +3,23 @@ from part_1 import check_hash, generate_hash
 # Returns an 8-character password based on specific positions and characters from qualifying hashes.
 def get_password(message):
     password = [0,0,0,0,0,0,0,0] 
-    assigned = []
+    index_used = []
     nonce = 0
 
-    while len(assigned) < len(password): 
+    while len(index_used) < 8: 
         hash_hex = generate_hash(message, nonce)
         
         if check_hash(hash_hex, 5):
             try:
                 index = int(hash_hex[5])
      
-                if index >= 0 and index < len(password) and index not in assigned:  
+                if index >= 0 and index < len(password) and index not in index_used:  
                     password[index] = hash_hex[6]
-                    assigned.append(index)
+                    index_used.append(index)
             
-            except ValueError:
-                pass     
+            except: 
+                ValueError
+                    
         nonce += 1
     
     return ''.join(str(char) for char in password) 
