@@ -4,4 +4,4 @@
 
 Advent of Code is an annual series of programming puzzles that form an Advent calendar, these puzzles can be solved in any programming language.
 
-See: https://adventofcode.com/2022/events
+See: https://adventofcode.com/events
