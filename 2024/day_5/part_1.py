@@ -1,12 +1,16 @@
 import re 
 
-# Reads a file and converts its content into a 2D array of integers using the specified delimiter.
-def read_file_2d_array(file, delimiter):
+# Reads a file and converts its content into a 3D array of integers for ordering rules and updates.
+def read_file_return_3d_array(file):
     with open(file) as data:
-        return [[int(num) for num in line.strip('\n').split(delimiter)] for line in data.readlines()]
-
-    return array
-
+     
+        ordering_rules, updates = data.read().strip().split("\n\n")
+        
+        ordering_rules_array = [[int(num) for num in line.split('|')] for line in ordering_rules.splitlines()]
+        updates_array = [[int(num) for num in line.split(',')] for line in updates.splitlines()]
+        
+        return [ordering_rules_array, updates_array]
+    
 # Creates a mapping of rules where each key maps to a list of its associated values that come after it.
 def create_rules_map(rules):
     rules_map = {}
@@ -77,12 +81,10 @@ def part_one(updates, rules_map):
 
 if __name__ == '__main__':
 
-    puzzle_input_rules = read_file_2d_array('text_one.txt', '|')
-    
-    ordering_rules_map = create_rules_map(puzzle_input_rules)
+    puzzle_input = read_file_return_3d_array('text.txt')
 
-    puzzle_input_updates = read_file_2d_array('text_two.txt', ',')
+    ordering_rules_map = create_rules_map(puzzle_input[0])
 
-    answer = part_one(puzzle_input_updates, ordering_rules_map)
+    answer = part_one(puzzle_input[1], ordering_rules_map)
 
     print(f'The answer to part one is: {answer}')
