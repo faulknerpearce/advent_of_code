@@ -15,6 +15,7 @@ def part_one(instructions):
     
     return sum(map(lambda instruction: int(instruction[0]) * int(instruction[1]), instructions))
 
+# Event: https://adventofcode.com/2024/day/3
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_list('text.txt')

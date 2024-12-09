@@ -29,6 +29,7 @@ def part_two(instructions):
 
     return total
 
+# Event: https://adventofcode.com/2024/day/3
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_list('text.txt')
