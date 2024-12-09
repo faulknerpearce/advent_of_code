@@ -26,6 +26,7 @@ def part_one(left_array, right_array):
 
     return total
 
+# Event: https://adventofcode.com/2024/day/1
 if __name__ == '__main__':
 
     left_side, right_side = read_file_return_two_lists('text.txt')
