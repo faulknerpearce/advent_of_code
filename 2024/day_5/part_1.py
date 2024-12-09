@@ -16,7 +16,7 @@ def create_rules_map(rules):
     rules_map = {}
 
     for rule in rules:
-
+        
         if rules_map.get(rule[0]):
             rules_map[rule[0]].append(rule[1])
         else:
@@ -62,12 +62,6 @@ def get_valid_updates(arrays, map):
     
     return valid_updates
 
-# Returns the middle value of an array.
-def get_middle_value(array):
-    index = len(array) // 2
-
-    return array[index]
-
 # Calculates the total sum of the middle values from valid updates.
 def part_one(updates, rules_map):
     total = 0
@@ -75,7 +69,7 @@ def part_one(updates, rules_map):
     valid_updates = get_valid_updates(updates, rules_map)
 
     for update in valid_updates:
-        total += get_middle_value(update)
+        total += update[len(update) //2]
 
     return total 
 
