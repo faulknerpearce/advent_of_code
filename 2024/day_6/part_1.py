@@ -93,7 +93,8 @@ def part_one(guard, array):
             direction = 1
 
     return len(guard.distinct_positions)
- 
+
+# Event: https://adventofcode.com/2024/day/6
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_2d_list('text.txt')
