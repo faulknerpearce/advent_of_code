@@ -73,7 +73,7 @@ def part_one(updates, rules_map):
 
     return total 
 
- # Event: https://adventofcode.com/2024/day/5
+# Event: https://adventofcode.com/2024/day/5
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_3d_array('text.txt')
