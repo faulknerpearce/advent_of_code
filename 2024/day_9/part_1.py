@@ -4,14 +4,13 @@ def read_file_return_string(file):
 
     return string
     
-def unpack_file(disk_map):
-    disk = ''
-
+def unpack_disc(disk_map):
+    disk = []
     for i in range(len(disk_map)):
         if i % 2 == 0:
-            disk += ''.join([str(i - (i // 2)) for _ in range(int(disk_map[i]))])
+            disk.extend([str(i - (i // 2)) for _ in range(int(disk_map[i]))])
         else: 
-            disk += ''.join(['.' for _ in range(int(disk_map[i]))])
+            disk.extend(['.' for _ in range(int(disk_map[i]))])
 
     return disk
 
@@ -42,27 +41,20 @@ def get_rightmost(disk):
             return end-i
         
 def compact_disk(disk):
-    compacted_disk = list(disk)
     spaces = has_space(disk)
 
-    before = ''.join(disk)
+    for i in range(spaces):
 
-    print(f'\nBefore: {before}\n')
-
-    for _ in range(spaces):
-
-        left_idx = get_leftmost(compacted_disk)
-        right_idx = get_rightmost(compacted_disk)
+        left_idx = get_leftmost(disk)
+        right_idx = get_rightmost(disk)
 
         if left_idx < right_idx:
-            compacted_disk[left_idx], compacted_disk[right_idx] = compacted_disk[right_idx], compacted_disk[left_idx]
-            test = ''.join(compacted_disk)
-            print(f'After Swap: {test}')
+            disk[left_idx], disk[right_idx] = disk[right_idx], disk[left_idx]
             
         else:
             break
 
-    return ''.join(compacted_disk).strip('.')
+    return disk
 
 def get_checksum(disk):
     total = 0
@@ -75,13 +67,11 @@ def get_checksum(disk):
          
 if __name__ == '__main__':
 
-    puzzle_input = read_file_return_string('test.txt')
+    puzzle_input = read_file_return_string('text.txt')
 
-    disk = unpack_file(puzzle_input)
+    disk = unpack_disc(puzzle_input)
 
     compacted_disk = compact_disk(disk)
-
-    print(f'\nResult: {compacted_disk}\n')
 
     answer = get_checksum(compacted_disk)
 
