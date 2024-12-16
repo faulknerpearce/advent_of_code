@@ -1,12 +1,12 @@
-# Reads the input file and returns the content as a string.
 def read_file_return_string(file):
+    '''Reads the input file and returns the content as a string.'''
     with open(file) as data:
         string = data.read().strip('\n')
 
     return string
-
-# Unpacks the dense disk map into a list of file blocks and free spaces.  
+ 
 def unpack_disc(disk_map):
+    '''Unpacks the dense disk map into a list of file blocks and free spaces.'''
     disk = []
     for i in range(len(disk_map)):
         if i % 2 == 0:
@@ -16,8 +16,8 @@ def unpack_disc(disk_map):
 
     return disk
 
-# Creates a dictionary mapping file block indices to their IDs.
 def create_file_dict(disk):
+    '''Creates a dictionary mapping file block indices to their IDs.'''
     file_dict = {}
     end = len(disk)
 
@@ -28,17 +28,16 @@ def create_file_dict(disk):
 
     return file_dict
 
-# Finds the index of the leftmost free space.
 def find_free_space(disk):
+    '''Finds the index of the leftmost free space.'''
     for j in range(len(disk)):
         if disk[j] == '.':
             return j
         
     return None
-
-# Rearranges file blocks to the leftmost free space.  
+  
 def compact_disk(disk, file_dict):
-
+    '''Rearranges file blocks to the leftmost free space.'''
     for right_idx in file_dict.keys():
 
         free_space_idx = find_free_space(disk)
@@ -50,8 +49,8 @@ def compact_disk(disk, file_dict):
 
     return disk
 
-# Calculates the checksum as the sum of ( index * file_id) for all file blocks.
 def get_checksum(disk):
+    '''Calculates the checksum as the sum of ( index * file_id) for all file blocks.'''
     total = 0
     
     for i in range(len(disk)):
