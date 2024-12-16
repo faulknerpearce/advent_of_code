@@ -1,10 +1,10 @@
-# Reads the content of a file and returns it as a string.
 def read_file_return_string(file):
+    '''Reads the content of a file and returns it as a string.'''
     with open(file) as data:
         return data.read().strip('\n')
-
-# Unpacks the dense disk map into a list of file blocks and free spaces. 
+ 
 def unpack_disc(disk_map):
+    '''Unpacks the dense disk map into a list of file blocks and free spaces.'''
     disk = []
 
     for i in range(len(disk_map)):
@@ -14,8 +14,8 @@ def unpack_disc(disk_map):
             disk.extend(['.' for _ in range(int(disk_map[i]))])
     return disk
 
-# Creates a dictionary mapping file start indices to file IDs.
 def create_file_dict(disk):
+    '''Creates a dictionary mapping file start indices to file IDs.'''
     file_dict = {}
     end = len(disk)
 
@@ -25,8 +25,8 @@ def create_file_dict(disk):
     
     return file_dict
 
-# Finds the start index and length of a contiguous block for a given file ID.
 def find_file_run(disk, file_id):
+    '''Finds the start index and length of a contiguous block for a given file ID.'''
     index = None
     length = 0
 
@@ -40,8 +40,8 @@ def find_file_run(disk, file_id):
    
     return (index, length) if index is not None else None
 
- # Finds the start index of a free space block large enough to fit a file.
 def find_free_space(disk, file_start, file_length):
+    '''Finds the start index of a free space block large enough to fit a file.'''
     free_space_index = None
     free_length = 0
     
@@ -57,8 +57,8 @@ def find_free_space(disk, file_start, file_length):
             free_length = 0
     return None
 
- # Moves a file from its current position to a new free space on the disk.
 def move_file(disk, file_start, file_length, free_start):
+    ''''Moves a file from its current position to a new free space on the disk.'''
     file_id = disk[file_start]
     
     disk[file_start:file_start + file_length] = ['.'] * file_length
@@ -67,8 +67,8 @@ def move_file(disk, file_start, file_length, free_start):
     
     return disk
 
-# Compacts the disk by moving files to the earliest free space available.
 def compact_disk(disk, file_dict):
+    '''Compacts the disk by moving files to the earliest free space available.'''
     for file_start, file_id in file_dict.items():
         file_run = find_file_run(disk, file_id)
         
@@ -81,8 +81,8 @@ def compact_disk(disk, file_dict):
     
     return disk
 
- # Calculates the checksum as the sum of index multiplied by file ID value.
 def get_checksum(disk):
+    '''Calculates the checksum as the sum of index multiplied by file ID value.'''
     return sum(i * int(disk[i]) for i in range(len(disk)) if disk[i].isdigit())
 
 # Event: https://adventofcode.com/2024/day/9 
