@@ -29,32 +29,22 @@ def create_file_dict(disk):
     return file_dict
 
 # Finds the index of the leftmost free space.
-def get_left_index(disk):
+def find_free_space(disk):
     for j in range(len(disk)):
         if disk[j] == '.':
             return j
         
     return None
 
-# Retrieves the index of the rightmost file block and removes it from the dictionary.
-def get_right_index(file_dict):
-    for key in file_dict.keys():
-        del file_dict[key]
-
-        return key
-    
-    return None
-
 # Rearranges file blocks to the leftmost free space.  
 def compact_disk(disk, file_dict):
 
-    for _ in range(len(file_dict)):
-        left_idx = get_left_index(disk)
-        right_idx = get_right_index(file_dict)
+    for right_idx in file_dict.keys():
 
-        if left_idx is not None and right_idx is not None and left_idx < right_idx:
-            disk[left_idx], disk[right_idx] = disk[right_idx], disk[left_idx]
-            
+        free_space_idx = find_free_space(disk)
+
+        if free_space_idx is not None and right_idx is not None and free_space_idx < right_idx:
+            disk[free_space_idx], disk[right_idx] = disk[right_idx], disk[free_space_idx]    
         else:
             break
 
