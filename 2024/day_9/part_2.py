@@ -35,54 +35,33 @@ def get_file_and_index(file_dict):
 def get_left_index(disk, req_space):
     spaces = 0
     index = None
-    
+
     for i in range(len(disk)):
         if disk[i] == '.':
-            spaces += 1
-            
-            if index is None:
+            if spaces == 0:  
                 index = i
-
-        if disk[i].isdigit():
-        
+            spaces += 1
             if spaces >= req_space:
-                return index
-            else:
-                spaces = 0
-                index = None       
-    
-    return index
+                return index 
+        else:
+            spaces = 0
+            index = None
 
-def remove_spaces(index, req_space, disk):
-    return disk[:index] + disk[index + req_space:]
-
-def add_space(index, req_space, disk):
-   return disk[:index] + ['.'] * req_space + disk[index:]
+    return None
 
 def swap_elements(right_idx, left_idx, disk):
     req_space = len(disk[right_idx])
     number = disk[right_idx]
 
-    # Remove 
-    disk.remove(number)
-
-    # Insert
-    disk[left_idx:left_idx] = list(number)
-
-    # Update
-    disk = remove_spaces(left_idx+req_space, req_space, disk)
-
-    disk = add_space(right_idx, req_space, disk)
+    disk = disk[ :right_idx] + ['.'] * req_space + disk[right_idx + 1: ] 
+    
+    disk = disk[ :left_idx] + list(number) + disk[left_idx + req_space: ]
 
     return disk
 
 def compact_disk(disk, file_dict):
-    print('\nInitial disk:')
-    print(disk)
-
     for i in range(len(file_dict)):
-        print(file_dict)
-
+        
         file_id, file_idx = get_file_and_index(file_dict)
 
         left_idx = get_left_index(disk, len(file_id))
