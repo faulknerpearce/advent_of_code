@@ -1,7 +1,7 @@
 from part_1 import read_file_return_2d_list
 
-# Determine whether the array trend is decreasing or increasing.
 def get_trend(array):
+    '''Determine whether the array trend is decreasing or increasing.'''
     incr_count = 0
     decr_count = 0
     
@@ -15,11 +15,11 @@ def get_trend(array):
     
     return decr_count > incr_count
 
-# Check if the array follows a valid trend (increasing or decreasing).
-def has_valid_trend(array, desending):
+def has_valid_trend(array, descending):
+    '''Check if the array follows a valid trend ( increasing or decreasing ).'''
     for i in range(1, len(array)):
         
-        if desending:
+        if descending:
             if array[i-1] < array[i]:
                 return False
         else:
@@ -28,8 +28,8 @@ def has_valid_trend(array, desending):
             
     return True
 
-# Verifies that the difference between the current number and its adjacent numbers are greater than 1 and less than 3.
 def has_valid_delta(array):
+    '''Verifies that the difference between the current number and its adjacent numbers are greater than 1 and less than 3.'''
     for i in range(1, len(array) - 1):
         left = abs(array[i] - array[i-1])
         right = abs(array[i] - array[i+1])
@@ -39,9 +39,8 @@ def has_valid_delta(array):
 
     return True
 
-# Recursively determine if removing a single element from the array can result in a valid trend and delta differences.
 def safe_with_one_removal(level, trend, original_level=None, tries=0):
-    
+    '''Recursively determine if removing a single element from the array can result in a valid trend and delta differences.'''
     if tries == 0:
         new_level = level[tries+1:]
         if has_valid_trend(new_level, trend) and has_valid_delta(new_level):
@@ -61,9 +60,9 @@ def safe_with_one_removal(level, trend, original_level=None, tries=0):
 
     else:
         return False
-
-# Count the number of safe levels with or without one removal.    
+       
 def part_two(levels):
+    '''Count the number of safe levels with or without one removal.'''
     count = 0
 
     for level in levels:

@@ -1,12 +1,12 @@
-# Reads a file and returns its contents as a 2D list of integers.
 def read_file_return_2d_list(file):
+    '''Reads a file and returns its contents as a 2D list of integers.'''
     with open(file) as data:
         array = [[int(num) for num in line.split()] for line in data.readlines()] 
 
     return array
 
-# Verifies that the difference between the current number and its adjacent numbers are greater than 1 and less than 3.
 def validate_adjacent_number_differences(array, index):
+    '''Verifies that the difference between the current number and its adjacent numbers are greater than 1 and less than 3.'''
     difference_left = abs(array[index -1] - array[index])
 
     if index == len(array) -1:
@@ -17,8 +17,8 @@ def validate_adjacent_number_differences(array, index):
 
         return difference_left >= 1 and difference_left <= 3 and difference_right >= 1 and difference_right <= 3
 
-# Determines if a given array is "safe" based on decreasing/increasing sequence rules.
 def is_safe(array):
+    '''Determines if a given array is "safe" based on decreasing/increasing sequence rules.'''
     decreasing = array[0] > array[1]
     
     last_num = array[0]
@@ -34,8 +34,8 @@ def is_safe(array):
 
     return True
 
-# Counts the number of "safe" levels in a list of arrays.
 def part_one(levels):
+    '''Counts the number of "safe" levels in a list of arrays.'''
     return sum(map(is_safe, levels))
 
 # Event: https://adventofcode.com/2024/day/2
