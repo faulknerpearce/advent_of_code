@@ -53,3 +53,4 @@ if __name__ == '__main__':
     answer = part_two(puzzle_input[1], ordering_rules)
 
     print(f'The answer to part two is: {answer}')
+    
