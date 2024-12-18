@@ -1,7 +1,7 @@
 import re 
 
-# Reads a file and converts its content into a 3D array of integers for ordering rules and updates.
 def read_file_return_3d_array(file):
+    '''Reads a file and converts its content into a 3D array of integers for ordering rules and updates.'''
     with open(file) as data:
      
         ordering_rules, updates = data.read().strip().split("\n\n")
@@ -11,8 +11,8 @@ def read_file_return_3d_array(file):
         
         return [ordering_rules_array, updates_array]
     
-# Creates a mapping of rules where each key maps to a list of its associated values that come after it.
 def create_rules_map(rules):
+    '''Creates a mapping of rules where each key maps to a list of its associated values that come after it.'''
     rules_map = {}
 
     for rule in rules:
@@ -24,8 +24,8 @@ def create_rules_map(rules):
     
     return rules_map
 
-# Validates if pages follow the correct order based on printing rules for ascending or descending constraints.
 def valid_order(key, array, past_numbers, map, ascending):
+    '''Validates if pages follow the correct order based on printing rules for ascending or descending constraints.'''
     if ascending:
         for number in array:
             if number not in map[key]:
@@ -37,8 +37,8 @@ def valid_order(key, array, past_numbers, map, ascending):
              
     return True
 
-# Checks if the printing order of an array follows the ordering rules in the given map.
 def check_printing_order(array, map):
+    '''Checks if the printing order of an array follows the ordering rules in the given map.'''
     past_numbers = []
 
     for i in range(len(array)):
@@ -52,8 +52,8 @@ def check_printing_order(array, map):
 
     return True
 
-# Filters and returns only the updates that follow the printing order rules.
 def get_valid_updates(arrays, map):
+    ''''Filters and returns only the updates that follow the printing order rules.'''
     valid_updates = []
 
     for array in arrays:
@@ -62,8 +62,8 @@ def get_valid_updates(arrays, map):
     
     return valid_updates
 
-# Calculates the total sum of the middle values from valid updates.
 def part_one(updates, rules_map):
+    '''Calculates the total sum of the middle values from valid updates.'''
     total = 0
 
     valid_updates = get_valid_updates(updates, rules_map)

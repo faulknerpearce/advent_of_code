@@ -1,7 +1,7 @@
 from part_1 import read_file_return_3d_array, create_rules_map, check_printing_order
 
-# Fixes the printing order of an array based on dependency rules in the map.
 def fix_printing_order(array, map):
+    '''Fixes the printing order of an array based on dependency rules in the map.'''
     ordered = []  
     unordered = set(array)
 
@@ -21,8 +21,8 @@ def fix_printing_order(array, map):
 
     return ordered
 
-# Processes updates and fixes their order if they are invalid.
 def get_fixed_updates(arrays, map):
+    '''Processes updates and fixes their order if they are invalid.'''
     valid_updates = []
 
     for array in arrays:
@@ -32,8 +32,8 @@ def get_fixed_updates(arrays, map):
     
     return valid_updates
 
-# Computes the sum of the middle values of fixed invalid updates.
 def part_two(updates, rules_map):
+    '''Computes the sum of the middle values of fixed invalid updates.'''
     total = 0
 
     valid_fixed_updates = get_fixed_updates(updates, rules_map)
