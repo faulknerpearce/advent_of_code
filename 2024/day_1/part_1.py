@@ -1,5 +1,5 @@
-# Reads a file and returns two lists of integers split from each line.
 def read_file_return_two_lists(file):
+    '''Reads a file and returns two lists of integers split from each line.'''
     left = []
     right = []
 
@@ -14,8 +14,8 @@ def read_file_return_two_lists(file):
 
     return left, right
              
-# Calculates the total of absolute differences between pairs of smallest numbers from two lists.
 def part_one(left_array, right_array):
+    '''Calculates the total of absolute differences between pairs of sorted numbers from two lists.'''
     total = 0
 
     left_array.sort()
