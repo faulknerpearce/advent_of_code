@@ -1,8 +1,8 @@
 from itertools import product
 from part_1 import read_file_return_2d_list, insert_operators
 
-# Evaluates an arithmetic expression from left to right using given operators.
 def evaluate_left_to_right(expression):
+    '''Evaluates an arithmetic expression from left to right using given operators.'''
     tokens = expression.split()
     result = int(tokens[0])  
 
@@ -20,8 +20,8 @@ def evaluate_left_to_right(expression):
 
     return result
 
-# Checks if any combination of addition, multiplication, or concatenation can make the array equal to the target.
 def check_possible_equations(target, array):
+    '''Checks if any combination of addition, multiplication, or concatenation can make the array equal to the target.'''
     operators = ['+', '*', '||']
 
     if len(array) == 2:
@@ -38,12 +38,12 @@ def check_possible_equations(target, array):
         
         return False
     
-# Checks if addition, multiplication, or concatenation of two numbers equals the target.
 def check_equation(target, numbers):
+    '''Checks if addition, multiplication, or concatenation of two numbers equals the target.'''
     return numbers[0] + numbers[1] == target or numbers[0] * numbers[1] == target or int(str(numbers[0]) + str(numbers[1])) == target 
 
-# Calculates the sum of all valid target values in the array for part two.
 def part_two(arrays):
+    '''Calculates the sum of all valid target values in the array for part two.'''
     total = 0
 
     for array in arrays: 
