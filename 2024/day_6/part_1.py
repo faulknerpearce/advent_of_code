@@ -1,12 +1,12 @@
 class Guard:
-    # Initialize Guard with starting position.
+    '''Guard class initialised with a starting position. used to traverse a matrix, by rows or by columns.'''
     def __init__(self, row, col):
         self.distinct_positions = set() 
         self.row = row
         self.col = col
     
-     # Traverse through rows, moving up or down
     def traverse_row(self, array, move_up):
+        '''Traverse through rows, moving up or down'''
         for i in range(1, len(array)):
 
             if move_up:
@@ -29,8 +29,9 @@ class Guard:
                 else:
                     self.distinct_positions.add((self.row+i, self.col))
 
-    # Traverse through columns, moving left or right
+    
     def traverse_col(self, array, move_left):
+        '''Traverse through columns, moving left or right'''
         for i in range(1, len(array)):
 
             if move_left:
@@ -53,23 +54,23 @@ class Guard:
                 else:
                     self.distinct_positions.add((self.row, self.col+i))
 
-# Reads a file and returns the content as a 2D array.
 def read_file_return_2d_list(file):
+    '''Reads a file and returns the content as a 2D array.'''
     with open(file) as data:
 
         array = [line.strip('\n') for line in data.readlines()]
 
     return array
-
-# Find starting position (x, y) marked by '^'                
+                
 def get_starting_position(arrays):
+    '''Find starting position (x, y) marked by ( ^ ).'''
     for row in range(len(arrays)):
         for col in range(len(arrays[row])):
             if arrays[row][col] == '^':
                return row, col
-
-# Traverse map in a cyclic pattern until edge reached.            
+     
 def part_one(guard, array):
+    '''Traverse map in a cyclic pattern until the edge is reached.'''
     direction = 1
     end_of_map = False
 
