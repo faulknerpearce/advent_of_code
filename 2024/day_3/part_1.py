@@ -1,7 +1,7 @@
 import re 
 
-# Reads a file and extracts valid 'mul(a,b)' instructions into a list of number pairs.
 def read_file_return_list(file):
+    '''Reads a file and extracts: mul(a, b) instructions into a list of number pairs.'''
     with open(file) as text:
 
         valid_instructions = re.findall(r'mul\(\d+,\d+\)', text.read())
@@ -10,9 +10,8 @@ def read_file_return_list(file):
 
     return array
 
-# Computes the sum of the product of number pairs from the instructions.
 def part_one(instructions):
-    
+    '''Computes the sum of the product of number pairs from the instructions.'''
     return sum(map(lambda instruction: int(instruction[0]) * int(instruction[1]), instructions))
 
 # Event: https://adventofcode.com/2024/day/3

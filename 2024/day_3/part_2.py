@@ -1,7 +1,6 @@
 import re
-
-# Reads a file and extracts 'mul(a,b)', 'do()', and 'don't()' instructions as arrays
 def read_file_return_list(file):
+    '''Reads a file and extracts: mul(a, b), do(), and don't() instructions as arrays.'''
     with open(file) as text:
 
         valid_instructions = re.findall(r'mul\(\d+,\d+\)|do\(\)|don\'t\(\)', text.read())
@@ -10,8 +9,8 @@ def read_file_return_list(file):
 
     return array
 
-# Processes instructions and calculates the total based on enable/disable commands.
 def part_two(instructions):
+    '''Processes instructions and calculates the total based on enable/disable commands.'''
     enable_mul = True
     total = 0
 
