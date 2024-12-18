@@ -1,13 +1,13 @@
 from part_1 import read_file_return_2d_list
 
-# Checks if a string (or it's reverse) matches the target word.
 def check_string(string):
+    '''Checks if a string (or it's reverse) matches the target word.'''
     word = 'MAS'
     
     return string == word or string[::-1] == word
 
-# Searches for occurrences of the word diagonally (in both directions) creating a X in the 2D array.
 def part_two(arrays):
+    '''Searches for occurrences of the word diagonally (in both directions) creating a X in the 2D array.'''
     count = 0
 
     for row in range(len(arrays) -2):

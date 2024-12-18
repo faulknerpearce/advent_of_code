@@ -1,18 +1,18 @@
-# Reads a file and returns the content as a 2d array of strings.
 def read_file_return_2d_list(file):
+    '''Reads a file and returns the content as a 2d array of strings.'''
     with open(file) as data:
         array = [line.strip('\n') for line in data.readlines()]
 
     return array
 
-# Checks if a string (or it's reverse) matches the target word.
 def check_string(string):
+    '''Checks if a string ( or it's reverse ) matches the target word.'''
     word = 'XMAS'
     
     return string == word or string[::-1] == word
 
-# Searches for occurrences of the word horizontally in the array.
 def search_horizontal(arrays):
+    '''Searches for occurrences of the word horizontally in the array.'''
     count = 0
 
     for array in arrays:
@@ -24,8 +24,8 @@ def search_horizontal(arrays):
 
     return count
 
-# Searches for occurrences of the word vertically in the array.
 def search_vertical(arrays):
+    '''Searches for occurrences of the word vertically in the array.'''
     count = 0
 
     for row in range(len(arrays) -3):
@@ -38,8 +38,8 @@ def search_vertical(arrays):
 
     return count 
 
-# Searches for occurrences of the word diagonally (both directions) in the array.
 def search_diagonal(arrays):
+    '''Searches for occurrences of the word diagonally (both directions) in the array.'''
     count = 0
 
     for row in range(len(arrays) -3):
@@ -56,9 +56,8 @@ def search_diagonal(arrays):
 
     return count
 
-# Combines results from horizontal, vertical, and diagonal searches.
 def part_one(arrays):
-
+    '''Combines results from horizontal, vertical, and diagonal searches.'''
     horizontal = search_horizontal(arrays)
 
     vertical = search_vertical(arrays)
