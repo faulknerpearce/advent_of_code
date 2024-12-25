@@ -1,8 +1,8 @@
+from machine import MachineConfig
 import re 
-from utils import MachineConfig
 
-# Reads input file, processes text, and returns a 2D list of integers grouped in sets of 3 lines.
 def read_file_return_2d_list(file):
+    '''Reads input file, processes text, and returns a 2D list of integers grouped in sets of 3 lines.'''
     instructions = []
     with open(file) as data:
 
@@ -15,24 +15,23 @@ def read_file_return_2d_list(file):
 
     return instructions
 
-# Computes the greatest common divisor (GCD) using Euclid's algorithm.
 def gcd(a, b):
+    '''Computes the greatest common divisor ( GCD ) using Euclid's algorithm.'''
     if b == 0:
         return a
     
     return gcd(b, a % b) 
 
-# Checks if a number is divisible by the GCD of another number.
 def is_divisible_by_gcd(prize_x, denominator):
+    '''Checks if a number is divisible by the GCD of another number.'''
     return prize_x % denominator == 0
 
-# Computes the determinant of a 2x2 matrix.
 def determinant(x1, x2, y1, y2):
+    '''Computes the determinant of a 2x2 matrix.'''
     return (x1 * y2) - (y1 * x2)
-
-# Calculates the number of button presses required based on determinants.  
+  
 def press_count(claw_machine, det):
-
+    '''Calculates the number of button presses required based on determinants.'''
     det_n = determinant(claw_machine.prize.x, claw_machine.prize.y, claw_machine.b.movement.x, claw_machine.b.movement.y)
     det_m = determinant(claw_machine.a.movement.x, claw_machine.a.movement.y, claw_machine.prize.x, claw_machine.prize.y)
 
@@ -44,16 +43,15 @@ def press_count(claw_machine, det):
 
     return n, m
 
-# Calculates the total cost based on the number of button presses and machine costs.
 def calculate_cost(machine, n, m):
+    '''Calculates the total cost based on the number of button presses and machine costs.'''
     if n >= 0 and m >= 0 and (n > 0 or m > 0):
         return (machine.a.cost * n) + (machine.b.cost * m)
     
     return 0 
 
-# Computes the minimum tokens required to win a prize, or returns 0 if unreachable.
 def get_token_count(claw_machine):
-
+    '''Computes the minimum tokens required to win a prize, or returns 0 if unreachable.'''
     gcd_x = gcd(claw_machine.a.movement.x, claw_machine.b.movement.x)
     gcd_y = gcd(claw_machine.a.movement.y, claw_machine.b.movement.y)
 
@@ -74,8 +72,8 @@ def get_token_count(claw_machine):
         
     return 0
     
-# Processes instructions to compute the total cost for each possible prize.
 def part_one(instructions):
+    '''Processes instructions to compute the total cost for each possible prize.'''
     total = 0 
 
     for instruction in instructions:
@@ -86,6 +84,7 @@ def part_one(instructions):
 
     return total
 
+# Event: https://adventofcode.com/2024/day/13
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_2d_list('text.txt')
