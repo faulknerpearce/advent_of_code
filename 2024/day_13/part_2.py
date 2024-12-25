@@ -1,8 +1,8 @@
-from utils import MachineConfig
+from machine import MachineConfig
 from part_1 import read_file_return_2d_list, get_token_count
 
-# Processes instructions to compute the total cost for each possible prize.
 def part_two(instructions, num):
+    '''Processes instructions to compute the total cost for each possible prize.'''
     total = 0 
 
     for instruction in instructions:
@@ -13,6 +13,7 @@ def part_two(instructions, num):
 
     return total
 
+# Event: https://adventofcode.com/2024/day/13
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_2d_list('text.txt')
