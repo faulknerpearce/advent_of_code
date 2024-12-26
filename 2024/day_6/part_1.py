@@ -23,20 +23,19 @@ def part_one(guard, array):
     while not end_of_map:
 
         if direction == 1:
-            end_of_map = guard.traverse_row(array, True)
+            end_of_map = guard.traverse(-1, 0, array)
             direction += 1
             
         elif direction == 2:
-            end_of_map = guard.traverse_col(array, False)
+            end_of_map = guard.traverse(0, 1, array)
             direction += 1
 
-
         elif direction == 3:
-            end_of_map = guard.traverse_row(array, False)
+            end_of_map = guard.traverse(1, 0, array)
             direction += 1
 
         else:
-            end_of_map = guard.traverse_col(array, True)
+            end_of_map = guard.traverse(0, -1, array)
             direction = 1
 
     return len(guard.distinct_positions)
