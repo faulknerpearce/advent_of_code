@@ -1,55 +1,39 @@
 class Guard:
-    '''Guard class initialised with a starting position. used to traverse a matrix, by rows or by columns.'''
+    '''Guard class initialized with a starting position. used to traverse a matrix, by rows or by columns.'''
     def __init__(self, row, col):
         self.distinct_positions = set() 
         self.row = row
         self.col = col
     
-    def traverse_row(self, array, move_up):
-        '''Traverse through rows, moving up or down'''
-        for i in range(1, len(array)):
-
-            if move_up:
-                if self.row-i == -1:
-                    return True
+    def traverse(self, row_step, col_step, matrix):
+        '''Traverse through rows or columns based on the row and column step.'''
         
-                elif array[self.row-i][self.col] == '#':
-                    self.row = (self.row - (i-1))
-                    return False
-                else:
-                    self.distinct_positions.add((self.row-i, self.col))
-                    
-            else:
-                if self.row+i == len(array):
-                    return True
-            
-                elif array[self.row+i][self.col] == '#':
-                    self.row = (self.row + (i-1))
-                    return False
-                else:
-                    self.distinct_positions.add((self.row+i, self.col))
-
-    
-    def traverse_col(self, array, move_left):
-        '''Traverse through columns, moving left or right'''
-        for i in range(1, len(array)):
-
-            if move_left:
-                if self.col-i == -1:
-                    return True
-            
-                elif array[self.row][self.col-i] == '#':
-                    self.col = (self.col - (i-1))
-                    return False 
-                else:
-                    self.distinct_positions.add((self.row, self.col-i))
-
-            else:
-                if self.col+i == len(array):
-                    return True
+        # Row traversal
+        if col_step == 0:
+            for i in range(self.row + row_step, self.row + (row_step * len(matrix)), row_step):
                 
-                elif array[self.row][self.col+i] == '#':
-                    self.col = (self.col + (i-1))
+                if i < 0 or i >= len(matrix):
+                    return True
+
+                elif matrix[i][self.col] == '#':
+                    self.row = i - row_step
                     return False
+                
                 else:
-                    self.distinct_positions.add((self.row, self.col+i))
+                    self.distinct_positions.add((i, self.col))
+       
+        # Column traversal
+        else:
+            for i in range(self.col + col_step, self.col + (col_step * len(matrix[self.row])), col_step):
+                
+                if i < 0 or i >= len(matrix[self.row]):
+                    return True
+            
+                elif matrix[self.row][i] == '#':
+                    self.col = i - col_step
+                    return False
+                
+                else:
+                    self.distinct_positions.add((self.row, i))
+
+        return True
