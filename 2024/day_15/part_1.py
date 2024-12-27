@@ -1,0 +1,135 @@
+import time
+import sys
+
+class Robot:
+    '''Guard class initialized with a starting position. used to traverse a matrix, by rows or by columns.'''
+    def __init__(self, row, col):
+        self.row = row
+        self.col = col
+
+    def attempt_box_push(self, row_step, col_step, matrix):
+        # Row traversal .
+        if col_step == 0:
+
+            first_box_index = None
+            for i in range(self.row+row_step, self.row+(row_step * len(matrix)), row_step):
+
+                if matrix[i][self.col] == 'O' and first_box_index is None:
+                    first_box_index = i
+                
+                elif matrix[i][self.col] == '.' and first_box_index is not None:
+                    # Move the box to the empty position.
+                    matrix[i][self.col] = 'O'
+                    matrix[first_box_index][self.col] = '.'
+                    
+                    # Move the robot to the box's previous position.
+                    matrix[first_box_index][self.col] = '@'
+                    matrix[self.row][self.col] = '.'
+
+                    # Update robot's position to the box's old position.
+                    self.row = first_box_index
+                    break
+                
+                elif matrix[i][self.col] == '#':
+                    break
+                
+        # Column traversal.
+        else:
+            first_box_index = None
+            for i in range(self.col+col_step, self.col+(col_step * len(matrix)), col_step):
+                if matrix[self.row][i] == 'O' and first_box_index is None:
+                    first_box_index = i
+                
+                elif matrix[self.row][i] == '.'and first_box_index is not None:
+                   # Move the box to the empty position.
+                    matrix[self.row][i] = 'O'
+                    matrix[self.row][first_box_index] = '.'
+                    
+                    # Move the robot to the box's previous position.
+                    matrix[self.row][first_box_index] = '@'
+                    matrix[self.row][self.col] = '.'
+
+                    # Update robot's position to the box's old position.
+                    self.col = first_box_index
+                    break
+
+                elif matrix[self.row][i] == '#':
+                    break
+
+        return matrix
+                
+    def attempt_move(self, row, row_step, col, col_step, matrix):
+   
+        if matrix[row][col] == 'O':
+            matrix = self.attempt_box_push(row_step, col_step, matrix)
+
+            return matrix
+
+        elif matrix[row][col] == '.':
+            matrix[self.row][self.col], matrix[row][col] = matrix[row][col], matrix[self.row][self.col]
+            self.row = row # update the robots current row 
+            self.col = col # update the robots current col
+            
+            return matrix
+    
+        else:
+            return matrix
+
+    def move(self, row_step, col_step, matrix):
+        # Row traversal.
+        if col_step == 0:
+            matrix = self.attempt_move(self.row+row_step, row_step, self.col, col_step, matrix)
+
+        # Column traversal.
+        else:
+            matrix = self.attempt_move(self.row, row_step, self.col+col_step, col_step, matrix)
+
+        return matrix  
+                
+def read_file_return_split_lists(file):
+    with open(file) as data:
+
+        text = data.read().split('\n\n')
+        map = map = [list(row) for row in text[0].split('\n')]
+        directions = ''.join(text[1].replace('\n', ''))
+
+    return map, directions
+
+def get_starting_location(matrix):
+    for row in range(len(matrix)):
+        for col in range(len(matrix[row])):
+            if matrix[row][col] == '@':
+                return row, col
+
+def calculate_distance(matrix):
+    total = 0
+
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+
+            if matrix[i][j] == 'O':
+                total += 100 * i + j
+    return total
+
+def adjust_warehouse(robot, instructions, matrix):
+    move_dict = {'^': [-1, 0], '>': [0, 1], 'v': [1, 0], '<': [0, -1]}
+
+    for instruction in instructions:
+     
+        x, y = move_dict.get(instruction)
+        matrix = robot.move(x, y, matrix)
+
+    return calculate_distance(matrix)
+
+# Event: https://adventofcode.com/2024/day/15 
+if __name__ == '__main__':
+
+    warehouse, directions = read_file_return_split_lists('text.txt')
+
+    starting_row, starting_col = get_starting_location(warehouse)
+
+    my_robot = Robot(starting_row, starting_col)
+
+    answer = adjust_warehouse(my_robot, directions, warehouse)
+
+    print(f'The answer to part one is: {answer}')
