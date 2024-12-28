@@ -1,5 +1,4 @@
 import time
-import sys
 
 class Robot:
     '''Guard class initialized with a starting position. used to traverse a matrix, by rows or by columns.'''
@@ -8,11 +7,12 @@ class Robot:
         self.col = col
 
     def attempt_box_push(self, row_step, col_step, matrix):
+        '''Attempts to push a box in the specified direction; up, down, left or right.'''
         # Row traversal .
         if col_step == 0:
 
             first_box_index = None
-            for i in range(self.row+row_step, self.row+(row_step * len(matrix)), row_step):
+            for i in range(self.row + row_step, self.row + (row_step * len(matrix)), row_step):
 
                 if matrix[i][self.col] == 'O' and first_box_index is None:
                     first_box_index = i
@@ -36,7 +36,7 @@ class Robot:
         # Column traversal.
         else:
             first_box_index = None
-            for i in range(self.col+col_step, self.col+(col_step * len(matrix)), col_step):
+            for i in range(self.col + col_step, self.col + (col_step * len(matrix)), col_step):
                 if matrix[self.row][i] == 'O' and first_box_index is None:
                     first_box_index = i
                 
@@ -59,7 +59,7 @@ class Robot:
         return matrix
                 
     def attempt_move(self, row, row_step, col, col_step, matrix):
-   
+        '''Attempts to move the robot to a new position based on direction, pushing boxes if necessary.'''
         if matrix[row][col] == 'O':
             matrix = self.attempt_box_push(row_step, col_step, matrix)
 
@@ -67,8 +67,8 @@ class Robot:
 
         elif matrix[row][col] == '.':
             matrix[self.row][self.col], matrix[row][col] = matrix[row][col], matrix[self.row][self.col]
-            self.row = row # update the robots current row 
-            self.col = col # update the robots current col
+            self.row = row 
+            self.col = col 
             
             return matrix
     
@@ -76,32 +76,36 @@ class Robot:
             return matrix
 
     def move(self, row_step, col_step, matrix):
+        '''Moves the robot in the given direction, row or column, based on instructions provided.'''
         # Row traversal.
         if col_step == 0:
-            matrix = self.attempt_move(self.row+row_step, row_step, self.col, col_step, matrix)
+            matrix = self.attempt_move(self.row + row_step, row_step, self.col, col_step, matrix)
 
         # Column traversal.
         else:
-            matrix = self.attempt_move(self.row, row_step, self.col+col_step, col_step, matrix)
+            matrix = self.attempt_move(self.row, row_step, self.col + col_step, col_step, matrix)
 
         return matrix  
                 
 def read_file_return_split_lists(file):
+    '''Reads the input file and splits it into the warehouse matrix and movement instructions.'''
     with open(file) as data:
 
         text = data.read().split('\n\n')
-        map = map = [list(row) for row in text[0].split('\n')]
-        directions = ''.join(text[1].replace('\n', ''))
+        map = [list(row) for row in text[0].split('\n')]
+        directions = text[1].replace('\n', '')
 
     return map, directions
 
-def get_starting_location(matrix):
+def get_starting_position(matrix):
+    '''Finds the initial position of the robot (x, y) in the matrix.'''
     for row in range(len(matrix)):
         for col in range(len(matrix[row])):
             if matrix[row][col] == '@':
                 return row, col
 
 def calculate_distance(matrix):
+    '''Calculates the total weighted distance of all boxes based on their positions.'''
     total = 0
 
     for i in range(len(matrix)):
@@ -111,7 +115,8 @@ def calculate_distance(matrix):
                 total += 100 * i + j
     return total
 
-def adjust_warehouse(robot, instructions, matrix):
+def part_one(robot, instructions, matrix):
+    '''Executes all movement instructions, updates the matrix, and calculates the final result.'''
     move_dict = {'^': [-1, 0], '>': [0, 1], 'v': [1, 0], '<': [0, -1]}
 
     for instruction in instructions:
@@ -126,10 +131,10 @@ if __name__ == '__main__':
 
     warehouse, directions = read_file_return_split_lists('text.txt')
 
-    starting_row, starting_col = get_starting_location(warehouse)
+    starting_row, starting_col = get_starting_position(warehouse)
 
-    my_robot = Robot(starting_row, starting_col)
+    warehouse_robot = Robot(starting_row, starting_col)
 
-    answer = adjust_warehouse(my_robot, directions, warehouse)
+    answer = part_one(warehouse_robot, directions, warehouse)
 
     print(f'The answer to part one is: {answer}')
