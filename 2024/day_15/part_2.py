@@ -17,9 +17,9 @@ class Robot:
                 
                 elif matrix[i][self.col] == '.' and first_side_index is not None:
                     # Slice The Box to the empty position.
-                    
+            
                     # Slice the robot to the box's previous position.
-          
+                    
                     # Update robot's position to the box's old position.
                     break
                  
