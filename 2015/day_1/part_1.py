@@ -1,11 +1,11 @@
-# covert the txtfile to a readable string of directions.
 def read_file_return_string(file):
+    '''covert the txt file to a readable string of directions.'''
     with open(file, encoding='utf-8') as file:
         text = file.read()
         return text
-
-# Read the dicrections and returns the floor number and the basement index.
+    
 def floor_count(my_string):
+    '''Read the directions and returns the floor number and the basement index.'''
     floor = 0
 
     for char in my_string:
@@ -16,6 +16,7 @@ def floor_count(my_string):
 
     return floor
 
+# Event: https://adventofcode.com/2015/day/1 
 if __name__ == "__main__":
     
     puzzle_input = read_file_return_string('text.txt')
