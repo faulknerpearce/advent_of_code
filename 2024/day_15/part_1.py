@@ -1,5 +1,3 @@
-import time
-
 class Robot:
     '''Guard class initialized with a starting position. used to traverse a matrix, by rows or by columns.'''
     def __init__(self, row, col):
@@ -10,7 +8,6 @@ class Robot:
         '''Attempts to push a box in the specified direction; up, down, left or right.'''
         # Row traversal .
         if col_step == 0:
-
             first_box_index = None
             for i in range(self.row + row_step, self.row + (row_step * len(matrix)), row_step):
 
@@ -104,14 +101,14 @@ def get_starting_position(matrix):
             if matrix[row][col] == '@':
                 return row, col
 
-def calculate_distance(matrix):
+def calculate_distance(item, matrix):
     '''Calculates the total weighted distance of all boxes based on their positions.'''
     total = 0
 
     for i in range(len(matrix)):
         for j in range(len(matrix[i])):
 
-            if matrix[i][j] == 'O':
+            if matrix[i][j] == item:
                 total += 100 * i + j
     return total
 
@@ -124,7 +121,7 @@ def part_one(robot, instructions, matrix):
         x, y = move_dict.get(instruction)
         matrix = robot.move(x, y, matrix)
 
-    return calculate_distance(matrix)
+    return calculate_distance('O', matrix)
 
 # Event: https://adventofcode.com/2024/day/15 
 if __name__ == '__main__':
