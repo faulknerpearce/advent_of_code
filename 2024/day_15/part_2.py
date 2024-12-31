@@ -1,5 +1,4 @@
 from part_1 import read_file_return_split_lists, get_starting_position, calculate_distance
-import time, os
 
 class Robot:
     '''Guard class initialized with a starting position. used to traverse a matrix, by rows or by columns.'''
@@ -7,44 +6,76 @@ class Robot:
         self.row = row
         self.col = col
 
-    def attempt_box_push_row(self, row_step, matrix):
-            first_side_index = None
-            
-            for i in range(self.row+row_step, self.row+(row_step * len(matrix)), row_step):
+    def find_consecutive_boxes(self, row_step, matrix):
+            box_positions = {self.row: [self.col]} 
+            last_key = self.row
+       
+            for row in range(self.row + row_step, self.row + (row_step * len(matrix)), row_step):
+                boxes = []
 
-                if (matrix[i][self.col] == '[' or matrix[i][self.col] == ']') and first_side_index is None:
-                    first_side_index = i
+                # Ensure that the row is not out of bounds.
+                if row < 0 or row >= len(matrix):
+                    break
                 
-                elif matrix[i][self.col] == '.' and first_side_index is not None:
-                    # Slice The Box to the empty position.
-            
-                    # Slice the robot to the box's previous position.
-                    
-                    # Update robot's position to the box's old position.
-                    break
-                 
-                elif matrix[i][self.col] == '#':
-                    break
-
-            return matrix
+                # Traverse the column adding any boxes that are connected.
+                for i in range(len(matrix[row])):
+                    if matrix[row][i] == '[':
+                        if i in box_positions[last_key] or i + 1 in box_positions[last_key]:
+                            boxes.extend([i, i +1])
+                if boxes:
+                    box_positions[row] = boxes
+                    last_key = row 
+                else:
+                    return box_positions           
+                
+            return box_positions
     
-    def attempt_box_push_col(self, col_step, matrix):
+    def verify_and_push_boxes(self, row_step, box_dict, matrix, verify_only=False):
+        # Sort keys based on row_step direction
+        keys = sorted(box_dict, reverse=(row_step == 1))
+
+        # Copy the matrix for modification
+        new_matrix = matrix if not verify_only else None
+
+        for key in keys:
+            for i in box_dict[key]:
+                # Check if the target row is valid
+                target_row = key + row_step
+                if target_row < 0 or target_row >= len(matrix):
+                    return False if verify_only else matrix
+
+                # Check if the target position is free or can accommodate a box
+                if matrix[target_row][i] in ['.', '[', ']']:
+                    if not verify_only:  # Move the box
+                        new_matrix[target_row][i] = matrix[key][i]
+                        new_matrix[key][i] = '.'
+                # Stop if there's an obstacle
+                elif matrix[target_row][i] == '#':
+                    return False if verify_only else matrix
+
+        # Update the robot's position only if pushing boxes
+        if not verify_only:
+            self.row += row_step
+            return new_matrix
+
+        return True
+    
+    def attempt_horizontal_push(self, col_step, matrix):
             first_side_index = None
             
-            for i in range(self.col+col_step, self.col+(col_step * len(matrix)), col_step):
+            for i in range(self.col + col_step, self.col + (col_step * len(matrix)), col_step):
                 
                 if (matrix[self.row][i] == '[' or matrix[self.row][i] == ']') and first_side_index is None:
                     first_side_index = i
                 
-                elif matrix[self.row][i] == '.' and first_side_index is not None and col_step == 1: # Slice to the right
+                elif matrix[self.row][i] == '.' and first_side_index is not None and col_step == 1:
                     # Slice The column across to the right.
                     matrix[self.row] = matrix[self.row][:self.col] + list('.') + matrix[self.row][self.col:i] + matrix[self.row][i + 1:]
-                
                     # Update robot's position to the box's old position.
                     self.col = first_side_index
                     break
                 
-                elif matrix[self.row][i] == '.' and first_side_index is not None and col_step == -1: # Slice to the left
+                elif matrix[self.row][i] == '.' and first_side_index is not None and col_step == -1:
                     # Slice The column across to the left.
                     matrix[self.row] = matrix[self.row][:i] + matrix[self.row][i + 1:first_side_index + 2] + list('.') + matrix[self.row][self.col + 1:]
                     # Update robot's position to the box's old position.
@@ -61,17 +92,22 @@ class Robot:
         if matrix[row][col] == '[' or matrix[row][col] == ']':
 
             if col_step == 0:
-                matrix = self.attempt_box_push_row(row_step, matrix)
-            
+                box_positions = self.find_consecutive_boxes(row_step, matrix)
+
+                space = self.verify_and_push_boxes(row_step, box_positions, matrix, verify_only=True)
+
+                if space:
+                    matrix = self.verify_and_push_boxes(row_step, box_positions, matrix, verify_only=False)
+
             else:
-                matrix = self.attempt_box_push_col(col_step, matrix)
+                matrix = self.attempt_horizontal_push(col_step, matrix)
                 
             return matrix
 
         elif matrix[row][col] == '.':
             matrix[self.row][self.col], matrix[row][col] = matrix[row][col], matrix[self.row][self.col]
-            self.row = row # update the robots current row 
-            self.col = col # update the robots current col
+            self.row = row 
+            self.col = col
             
             return matrix
     
@@ -109,47 +145,26 @@ def transform(matrix):
         
     return new_matrix
 
-def print_matrix(matrix):
-    for row in matrix:
-        print(''.join(row))
-
-def animate_matrix(matrix, delay=0.4):
-    """Displays the matrix in a loop to simulate animation."""
-    os.system('clear')
-    for row in matrix:
-        print(''.join(row))
-    time.sleep(delay)
-
 def part_two(robot, instructions, matrix):
     move_dict = {'^': [-1, 0], '>': [0, 1], 'v': [1, 0], '<': [0, -1]}
 
     for instruction in instructions:
 
-        print('Before push')
-        print(print_matrix(matrix))
-     
         x, y = move_dict.get(instruction)
         matrix = robot.move(x, y, matrix)
-
-        print('After push')
-        print(print_matrix(matrix))
 
     return calculate_distance('[', matrix)
 
 if __name__ == '__main__':
 
-    warehouse, directions = read_file_return_split_lists('test_2.txt')
+    warehouse, directions = read_file_return_split_lists('text.txt')
 
-    # large_warehouse = transform(warehouse)
+    large_warehouse = transform(warehouse)
 
-    # starting_row, starting_col = get_starting_position(large_warehouse)
-
-    # warehouse_robot = Robot(starting_row, starting_col)
-
-    # answer = part_two(warehouse_robot, '<', large_warehouse)
-
-    starting_row, starting_col = get_starting_position(warehouse)
+    starting_row, starting_col = get_starting_position(large_warehouse)
 
     warehouse_robot = Robot(starting_row, starting_col)
 
-    answer = part_two(warehouse_robot, '<<', warehouse)
+    answer = part_two(warehouse_robot, directions, large_warehouse)
+
+    print(f'The answer to part one is: {answer}')
