@@ -6,126 +6,126 @@ class Robot:
         self.row = row
         self.col = col
 
-    def find_consecutive_boxes(self, row_step, matrix):
-            box_positions = {self.row: [self.col]} 
-            last_key = self.row
-       
-            for row in range(self.row + row_step, self.row + (row_step * len(matrix)), row_step):
-                boxes = []
+    def verify_and_attempt_vertical_push(self, row_step, box_dict, matrix, verify_only=False):
+        '''Moves boxes vertically based on the specified step direction, verifying space if required.'''
+        
+        keys = sorted(box_dict, reverse=(row_step == 1)) # Sort keys based on row_step direction
 
-                # Ensure that the row is not out of bounds.
-                if row < 0 or row >= len(matrix):
-                    break
-                
-                # Traverse the column adding any boxes that are connected.
-                for i in range(len(matrix[row])):
-                    if matrix[row][i] == '[':
-                        if i in box_positions[last_key] or i + 1 in box_positions[last_key]:
-                            boxes.extend([i, i +1])
-                if boxes:
-                    box_positions[row] = boxes
-                    last_key = row 
-                else:
-                    return box_positions           
-                
-            return box_positions
-    
-    def verify_and_push_boxes(self, row_step, box_dict, matrix, verify_only=False):
-        # Sort keys based on row_step direction
-        keys = sorted(box_dict, reverse=(row_step == 1))
-
-        # Copy the matrix for modification
         new_matrix = matrix if not verify_only else None
 
-        for key in keys:
+        for key in keys: # Unpacks the keys (rows) of the consecutive boxes.
             for i in box_dict[key]:
-                # Check if the target row is valid
-                target_row = key + row_step
-                if target_row < 0 or target_row >= len(matrix):
+                
+                if key + row_step < 0 or key + row_step >= len(matrix): # Check if the target row is within bounds.
                     return False if verify_only else matrix
 
-                # Check if the target position is free or can accommodate a box
-                if matrix[target_row][i] in ['.', '[', ']']:
-                    if not verify_only:  # Move the box
-                        new_matrix[target_row][i] = matrix[key][i]
+                
+                if matrix[key + row_step][i] in ['.', '[', ']']: # Check if the target position is free.
+                    if not verify_only: 
+                        new_matrix[key + row_step][i] = matrix[key][i]
                         new_matrix[key][i] = '.'
-                # Stop if there's an obstacle
-                elif matrix[target_row][i] == '#':
+               
+                elif matrix[key + row_step][i] == '#':
                     return False if verify_only else matrix
 
-        # Update the robot's position only if pushing boxes
-        if not verify_only:
+        if not verify_only: # Update the robot's position only if pushing boxes
             self.row += row_step
             return new_matrix
 
         return True
     
     def attempt_horizontal_push(self, col_step, matrix):
-            first_side_index = None
+        '''Attempts to push a box horizontally in the given direction ( left or right ).'''
+        first_side_index = None
+        
+        for i in range(self.col + col_step, self.col + (col_step * len(matrix)), col_step):
+
+            if (matrix[self.row][i] == '[' or matrix[self.row][i] == ']') and first_side_index is None:
+                first_side_index = i
             
-            for i in range(self.col + col_step, self.col + (col_step * len(matrix)), col_step):
+            elif matrix[self.row][i] == '.' and first_side_index is not None and col_step == 1: # Identify first box side traversing left to right.
                 
-                if (matrix[self.row][i] == '[' or matrix[self.row][i] == ']') and first_side_index is None:
-                    first_side_index = i
+                matrix[self.row] = matrix[self.row][:self.col] + list('.') + matrix[self.row][self.col:i] + matrix[self.row][i + 1:] # Slice to the left.
                 
-                elif matrix[self.row][i] == '.' and first_side_index is not None and col_step == 1:
-                    # Slice The column across to the right.
-                    matrix[self.row] = matrix[self.row][:self.col] + list('.') + matrix[self.row][self.col:i] + matrix[self.row][i + 1:]
-                    # Update robot's position to the box's old position.
-                    self.col = first_side_index
-                    break
+                self.col = first_side_index
+                break
+            
+            elif matrix[self.row][i] == '.' and first_side_index is not None and col_step == -1: # Identify first box side traversing right to left.
                 
-                elif matrix[self.row][i] == '.' and first_side_index is not None and col_step == -1:
-                    # Slice The column across to the left.
-                    matrix[self.row] = matrix[self.row][:i] + matrix[self.row][i + 1:first_side_index + 2] + list('.') + matrix[self.row][self.col + 1:]
-                    # Update robot's position to the box's old position.
-                    self.col = first_side_index
-                    break
+                matrix[self.row] = matrix[self.row][:i] + matrix[self.row][i + 1:first_side_index + 2] + list('.') + matrix[self.row][self.col + 1:] # Slice to the right.
+                
+                self.col = first_side_index
+                break
+            
+            elif matrix[self.row][i] == '#':
+                break
 
-                elif matrix[self.row][i] == '#':
-                    break
-
-            return matrix
+        return matrix
                 
     def attempt_move(self, row, row_step, col, col_step, matrix):
-   
-        if matrix[row][col] == '[' or matrix[row][col] == ']':
+        '''Attempts to push a box in the specified direction; up, down, left or right.'''
+        
+        if matrix[row][col] == '[' or matrix[row][col] == ']': # Check if target cell has a box.
+            
+            if col_step == 0: # Handle vertical movement.
+                box_positions = find_consecutive_boxes(self.row, self.col, row_step, matrix)
 
-            if col_step == 0:
-                box_positions = self.find_consecutive_boxes(row_step, matrix)
+                space = self.verify_and_attempt_vertical_push(row_step, box_positions, matrix, verify_only=True)
+                
+                if space: # Move boxes if space is available.
+                    matrix = self.verify_and_attempt_vertical_push(row_step, box_positions, matrix, verify_only=False)
 
-                space = self.verify_and_push_boxes(row_step, box_positions, matrix, verify_only=True)
-
-                if space:
-                    matrix = self.verify_and_push_boxes(row_step, box_positions, matrix, verify_only=False)
-
-            else:
+            else: # Handle horizontal movement.
                 matrix = self.attempt_horizontal_push(col_step, matrix)
                 
             return matrix
-
-        elif matrix[row][col] == '.':
+        
+        elif matrix[row][col] == '.': # Move the robot if the target cell is empty.
             matrix[self.row][self.col], matrix[row][col] = matrix[row][col], matrix[self.row][self.col]
             self.row = row 
             self.col = col
             
             return matrix
-    
-        else:
+        
+        else: # Return unchanged matrix if movement is invalid.
             return matrix
 
     def move(self, row_step, col_step, matrix):
-        # Row traversal.
-        if col_step == 0:
+        '''Moves the robot in the given direction, row or column, based on instructions provided.'''
+       
+        if col_step == 0: # Handle vertical movement.
             matrix = self.attempt_move(self.row+row_step, row_step, self.col, col_step, matrix)
-
-        # Column traversal.
-        else:
+        
+        else: # Handle horizontal movement.
             matrix = self.attempt_move(self.row, row_step, self.col+col_step, col_step, matrix)
 
         return matrix
+    
+def find_consecutive_boxes(pos_row, pos_col, row_step, matrix):
+    '''Finds and groups consecutive boxes along a vertical path.'''
+    box_positions = {pos_row: [pos_col]} 
+    last_key = pos_row
+
+    for row in range(pos_row+ row_step, pos_row + (row_step * len(matrix)), row_step):
+        boxes = []
+       
+        if row < 0 or row >= len(matrix): # Stop at boundaries.
+            break
+        
+        for i in range(len(matrix[row])): # Detect consecutive boxes and track their positions.
+            if matrix[row][i] == '[':
+                if i in box_positions[last_key] or i + 1 in box_positions[last_key]:
+                    boxes.extend([i, i +1])
+        if boxes: # If boxes were found add them to the dictionary.
+            box_positions[row] = boxes
+            last_key = row 
+        else:
+            return box_positions           
+        
+    return box_positions
 
 def transform(matrix):
+    '''Transforms input matrix symbols into an expanded version.'''
     new_matrix = []
 
     for row in matrix:
@@ -146,6 +146,7 @@ def transform(matrix):
     return new_matrix
 
 def part_two(robot, instructions, matrix):
+    '''Executes all movement instructions, updates the matrix, and calculates the final result.'''
     move_dict = {'^': [-1, 0], '>': [0, 1], 'v': [1, 0], '<': [0, -1]}
 
     for instruction in instructions:
@@ -155,6 +156,7 @@ def part_two(robot, instructions, matrix):
 
     return calculate_distance('[', matrix)
 
+# Event: https://adventofcode.com/2024/day/15 
 if __name__ == '__main__':
 
     warehouse, directions = read_file_return_split_lists('text.txt')
