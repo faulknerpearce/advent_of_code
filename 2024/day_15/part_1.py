@@ -4,71 +4,77 @@ class Robot:
         self.row = row
         self.col = col
 
-    def attempt_box_push(self, row_step, col_step, matrix):
-        '''Attempts to push a box in the specified direction; up, down, left or right.'''
-        # Row traversal .
-        if col_step == 0:
-            first_box_index = None
-            for i in range(self.row + row_step, self.row + (row_step * len(matrix)), row_step):
-
-                if matrix[i][self.col] == 'O' and first_box_index is None:
-                    first_box_index = i
+    def attempt_vertical_push(self, row_step, matrix):
+        '''Attempts to push a box in the specified direction; up, down.'''
+        first_box_index = None
+        
+        for i in range(self.row + row_step, self.row + (row_step * len(matrix)), row_step):
+            if matrix[i][self.col] == 'O' and first_box_index is None:
+                first_box_index = i
+            
+            elif matrix[i][self.col] == '.' and first_box_index is not None:
+                # Move the box to the empty position.
+                matrix[i][self.col] = 'O'
+                matrix[first_box_index][self.col] = '.'
                 
-                elif matrix[i][self.col] == '.' and first_box_index is not None:
-                    # Move the box to the empty position.
-                    matrix[i][self.col] = 'O'
-                    matrix[first_box_index][self.col] = '.'
-                    
-                    # Move the robot to the box's previous position.
-                    matrix[first_box_index][self.col] = '@'
-                    matrix[self.row][self.col] = '.'
+                # Move the robot to the box's previous position.
+                matrix[first_box_index][self.col] = '@'
+                matrix[self.row][self.col] = '.'
 
-                    # Update robot's position to the box's old position.
-                    self.row = first_box_index
-                    break
-                
-                elif matrix[i][self.col] == '#':
-                    break
-                
-        # Column traversal.
-        else:
-            first_box_index = None
-            for i in range(self.col + col_step, self.col + (col_step * len(matrix)), col_step):
-                if matrix[self.row][i] == 'O' and first_box_index is None:
-                    first_box_index = i
-                
-                elif matrix[self.row][i] == '.'and first_box_index is not None:
-                   # Move the box to the empty position.
-                    matrix[self.row][i] = 'O'
-                    matrix[self.row][first_box_index] = '.'
-                    
-                    # Move the robot to the box's previous position.
-                    matrix[self.row][first_box_index] = '@'
-                    matrix[self.row][self.col] = '.'
+                # Update robot's position to the box's old position.
+                self.row = first_box_index
+                break
+            
+            elif matrix[i][self.col] == '#':
+                break
+      
+        return matrix
+    
+    def attempt_horizontal_push(self, col_step, matrix):
+        '''Attempts to push a box in the specified direction; left or right.'''
+        first_box_index = None
 
-                    # Update robot's position to the box's old position.
-                    self.col = first_box_index
-                    break
+        for i in range(self.col + col_step, self.col + (col_step * len(matrix)), col_step):
+            if matrix[self.row][i] == 'O' and first_box_index is None:
+                first_box_index = i
+            
+            elif matrix[self.row][i] == '.'and first_box_index is not None:
+                # Move the box to the empty position.
+                matrix[self.row][i] = 'O'
+                matrix[self.row][first_box_index] = '.'
+                
+                # Move the robot to the box's previous position.
+                matrix[self.row][first_box_index] = '@'
+                matrix[self.row][self.col] = '.'
 
-                elif matrix[self.row][i] == '#':
-                    break
+                # Update robot's position to the box's old position.
+                self.col = first_box_index
+                break
+
+            elif matrix[self.row][i] == '#':
+                break
 
         return matrix
-                
+       
     def attempt_move(self, row, row_step, col, col_step, matrix):
         '''Attempts to move the robot to a new position based on direction, pushing boxes if necessary.'''
+        # If a box was found attempt to push it.
         if matrix[row][col] == 'O':
-            matrix = self.attempt_box_push(row_step, col_step, matrix)
+
+            if col_step == 0:
+                matrix = self.attempt_vertical_push(row_step, matrix)
+            else:
+                matrix = self.attempt_horizontal_push(col_step, matrix)
 
             return matrix
-
+        # If a free space is found move the robot to the new position.
         elif matrix[row][col] == '.':
             matrix[self.row][self.col], matrix[row][col] = matrix[row][col], matrix[self.row][self.col]
             self.row = row 
             self.col = col 
             
             return matrix
-    
+        # If no box or space is found do nothing.
         else:
             return matrix
 
@@ -77,7 +83,6 @@ class Robot:
         # Row traversal.
         if col_step == 0:
             matrix = self.attempt_move(self.row + row_step, row_step, self.col, col_step, matrix)
-
         # Column traversal.
         else:
             matrix = self.attempt_move(self.row, row_step, self.col + col_step, col_step, matrix)
