@@ -31,13 +31,10 @@ def add_anti_nodes(antenna_a, antenna_b, anti_nodes, matrix):
     antinode2 = (antenna_bx + distance_x, antenna_by + distance_y)
 
     if 0 <= antinode1[0] < len(matrix) and 0 <= antinode1[1] < len(matrix[0]):
-        if matrix[antinode1[0]][antinode1[1]] != '#':
-            anti_nodes.add(antinode1)
+        anti_nodes.add(antinode1)
 
     if 0 <= antinode2[0] < len(matrix) and 0 <= antinode2[1] < len(matrix[0]):
-        if matrix[antinode2[0]][antinode2[1]] != '#':
-            anti_nodes.add(antinode2)
-         
+        anti_nodes.add(antinode2)
 
     return anti_nodes
 
