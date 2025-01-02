@@ -53,7 +53,8 @@ def part_one(loc_dict, matrix):
                     anti_nodes = add_anti_nodes(antenna, next_antenna, anti_nodes, matrix)
 
     return len(anti_nodes)
-    
+
+# Event: https://adventofcode.com/2024/day/8
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_2d_list('text.txt')
