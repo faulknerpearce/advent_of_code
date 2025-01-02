@@ -12,7 +12,16 @@ def add_all_anti_nodes(antinode, dx, dy, anti_nodes, matrix):
             anti_nodes.add(antinode)
         else:
             break
+
     return anti_nodes
+
+def get_starting_position(antinode, dx, dy, matrix):
+    """Finds the farthest valid starting position in the given direction."""
+   
+    while in_bounds(antinode, matrix):
+        antinode = (antinode[0] - dx, antinode[1] - dy)
+   
+    return (antinode[0] + dx, antinode[1] + dy)
 
 def add_anti_nodes(antenna_a, antenna_b, anti_nodes_set, matrix):
     """Calculates and adds anti nodes based on alignment of antenna pairs."""
@@ -22,16 +31,13 @@ def add_anti_nodes(antenna_a, antenna_b, anti_nodes_set, matrix):
     distance_x = antenna_bx - antenna_ax
     distance_y = antenna_by - antenna_ay
 
-    antinode1 = (antenna_ax - distance_x, antenna_ay - distance_y)
-    antinode2 = (antenna_bx + distance_x, antenna_by + distance_y)
+    antinode = (antenna_ax - distance_x, antenna_ay - distance_y)
 
-    if in_bounds(antinode1, matrix):
-        anti_nodes_set.add(antinode1)
-        anti_nodes_set = add_all_anti_nodes(antinode1, -distance_x, -distance_y, anti_nodes_set, matrix)
+    starting_antinode = get_starting_position(antinode, distance_x, distance_y, matrix)
 
-    if in_bounds(antinode2, matrix):
-        anti_nodes_set.add(antinode2)
-        anti_nodes_set = add_all_anti_nodes(antinode2, distance_x, distance_y, anti_nodes_set, matrix)
+    if in_bounds(starting_antinode, matrix):
+        anti_nodes_set.add(starting_antinode)
+        anti_nodes_set = add_all_anti_nodes(starting_antinode, distance_x, distance_y, anti_nodes_set, matrix)
 
     return anti_nodes_set
 
@@ -39,12 +45,6 @@ def part_two(loc_dict, matrix):
     """Processes all pairs of antennas with the same frequency and calculates the number of anti nodes."""
     connected = set()
     anti_nodes = set()
-    antennas = set()
-
-    for key in loc_dict.keys():
-        antennas.update(loc_dict[key])
-
-    anti_nodes.update(antennas)
 
     for key in loc_dict.keys():
 
@@ -66,3 +66,4 @@ if __name__ == '__main__':
     answer = part_two(antenna_locations, puzzle_input)
 
     print(f'The answer to part two is: {answer}')
+    
