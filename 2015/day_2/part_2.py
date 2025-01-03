@@ -1,7 +1,7 @@
 from part_1 import read_file_return_2d_list 
 
-# Calculates the total ribbon needed for a single box, including the bow length.
-def calculate_riibbon(length, width, height):
+def calculate_ribbon(length, width, height):
+    '''Calculates the total ribbon needed for a single box, including the bow length.'''
     
     numbers = [length, width, height]
     numbers.remove(max(numbers))
@@ -11,16 +11,16 @@ def calculate_riibbon(length, width, height):
 
     return ribbon + bow
 
-# Calculates the total ribbon required for all boxes based on the instructions.
 def calculate_total_ribbon(instructions):
+    '''Calculates the total ribbon required for all boxes based on the instructions.'''
     total = 0
 
     for instruction in instructions:
-        total += calculate_riibbon(int(instruction[0]), int(instruction[1]), int(instruction[2]))
+        total += calculate_ribbon(int(instruction[0]), int(instruction[1]), int(instruction[2]))
 
     return total
 
-
+# Event: https://adventofcode.com/2015/day/2
 if __name__ == '__main__':
     
     puzzle_input = read_file_return_2d_list('text.txt')
