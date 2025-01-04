@@ -1,6 +1,6 @@
 from part_1 import read_file_return_string, move
 
-# Calculate the total houses that sanata and the robot visited.
+# Calculate the total houses that santa and the robot visited.
 def deliver_presents(instructions):
     visited_houses = set()
     visited_houses.add((0, 0))
