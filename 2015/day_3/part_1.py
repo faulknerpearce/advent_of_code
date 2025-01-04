@@ -1,4 +1,4 @@
-# Read from a text file and retrun the data as a string.
+# Read from a text file and return the data as a string.
 def read_file_return_string(file):
     with open(file, encoding="utf-8") as file:
         text = file.read()
@@ -18,7 +18,7 @@ def move(x, y, instruction):
 
     return x, y  
 
-# Calculate the total houses that sanata visited.
+# Calculate the total houses that santa visited.
 def deliver_presents(instructions):
     visited_houses = set()
     visited_houses.add((0, 0))
