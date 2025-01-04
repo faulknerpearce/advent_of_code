@@ -1,7 +1,7 @@
 from part_1 import read_file_return_string, move
 
-# Calculate the total houses that santa and the robot visited.
 def deliver_presents(instructions):
+    '''Calculate the total houses that santa and the robot visited.'''
     visited_houses = set()
     visited_houses.add((0, 0))
     
@@ -23,6 +23,7 @@ def deliver_presents(instructions):
 
     return len(visited_houses)
 
+# Event: https://adventofcode.com/2015/day/3
 if __name__ == "__main__":
 
     puzzle_input = read_file_return_string('text.txt')
