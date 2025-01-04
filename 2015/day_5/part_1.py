@@ -1,11 +1,11 @@
-# Read from a file and returns a 2d list.
 def read_file_return_2d_list(file):
+    '''Read from a file and returns a 2d list.'''
     with open(file) as text:
         instructions = [line.strip('\n') for line in text.readlines()]
         return instructions
 
-# Checks if a string contains at least three vowels.
 def has_vowels(string):
+    '''Checks if a string contains at least three vowels.'''
     vowels = 'aeiou'
     count = 0
 
@@ -14,8 +14,8 @@ def has_vowels(string):
             count += 1
     return count >= 3
 
-# Returns true if a string contains one letter that appears twice in a row, and does not contain any naughty pairs.
 def has_double_letter(string):
+    '''Returns true if a string contains one letter that appears twice in a row, and does not contain any naughty pairs.'''
     naughty_letters = ['ab', 'cd', 'pq','xy']
     count = 0
 
@@ -29,8 +29,8 @@ def has_double_letter(string):
              count += 1
     return count >= 1
 
-# Returns the total number of nice strings.
-def count_nice_strings(strings):
+def part_one(strings):
+    '''Returns the total number of nice strings.'''
     count = 0
 
     for string in strings:
@@ -38,11 +38,12 @@ def count_nice_strings(strings):
         if has_vowels(string) and has_double_letter(string):
             count += 1
     return count
-            
+
+# Event: https://adventofcode.com/2015/day/5
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_2d_list('test.txt')
 
-    answer = count_nice_strings(puzzle_input)
+    answer = part_one(puzzle_input)
 
     print(f'The answer to part one is: {answer}')
