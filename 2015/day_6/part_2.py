@@ -1,12 +1,12 @@
 from part_1 import read_file_return_2d_list, create_matrix, count_lights
 
-# Convert the power state to a corresponding voltage adjustment.
 def get_volts(power):
+    '''Convert the power state to a corresponding voltage adjustment.'''
     volt = 1 if power == 'on' else -1
     return volt
 
-# Set the specified rectangular range of lights to the 'on' or 'off' state in the grid.
 def set_lights(power, start_row, end_row, start_col, end_col, matrix):
+    '''Set the specified rectangular range of lights to the 'on' or 'off' state in the grid.'''
     volts = get_volts(power)
     
     for row in range(start_row, end_row + 1):
@@ -14,17 +14,17 @@ def set_lights(power, start_row, end_row, start_col, end_col, matrix):
             matrix[row][col] = max(matrix[row][col] + volts, 0)
     
     return matrix
-    
-# Toggle the state of lights in the specified area by adding 2 to their current state.
+
 def toggle_lights(start_row, end_row, start_col, end_col, matrix):
+    '''Toggle the state of lights in the specified area by adding 2 to their current state.'''
     for row in range(start_row, end_row + 1):
         for col in range(start_col, end_col + 1):
             matrix[row][col] += 2
     
     return matrix
 
-# Follow the provided instructions and return the adjusted light grid.
 def part_two(instructions, matrix):
+    '''Follow the provided instructions and return the adjusted light grid.'''
     for instruction in instructions:
         if instruction[0] == 'on' or instruction[0] == 'off':
             matrix = set_lights(instruction[0], int(instruction[1]), int(instruction[3]), int(instruction[2]), int(instruction[4]), matrix)
@@ -33,7 +33,7 @@ def part_two(instructions, matrix):
 
     return matrix
 
-#________Main Program_________ # 
+# Event: https://adventofcode.com/2015/day/6
 if __name__ == "__main__":
     
     puzzle_input = read_file_return_2d_list('text.txt')
