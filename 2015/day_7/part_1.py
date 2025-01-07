@@ -1,22 +1,22 @@
-# Read the contents of a file and return a 2D list, splitting each line into elements.
 def read_file_return_2d_list(file):
+    '''Read the contents of a file and return a 2D list, splitting each line into elements.'''
     with open(file) as text:
         return [line.strip().split() for line in text if line.strip()]
 
-# Retrieve the value from the dictionary if it's a wire (alphabetic), otherwise return the integer value.  
 def get_value(item, dict):
+    '''Retrieve the value from the dictionary if it's a wire (alphabetic), otherwise return the integer value.'''
     if item.isalpha():
         return dict.get(item, None)
     else: 
         return int(item)   
            
-# Assign a value to a key in the dictionary after converting it to an integer.
 def assign_value(value, key, bitwise_gates):
+    '''Assign a value to a key in the dictionary after converting it to an integer.'''
     bitwise_gates[key] = int(value)
     return bitwise_gates
 
-# Process AND bitwise operation and assign the result to a wire.
 def and_or_gate(a, b, instruction, dict):
+    '''Process AND bitwise operation and assign the result to a wire.'''
     if 'AND' in instruction:
         result = (a & b) & 0xFFFF
     elif 'OR' in instruction:
@@ -24,14 +24,14 @@ def and_or_gate(a, b, instruction, dict):
 
     return assign_value(result, instruction[-1], dict)
 
-# Process NOT bitwise operation and assign the result to a wire.
 def not_gate(a, instruction, dict):
+    '''Process NOT bitwise operation and assign the result to a wire.'''
     result = ~int(a) & 0xFFFF
 
     return assign_value(result, instruction[-1], dict)
 
-# Process left or right shift operations and assign the result to a wire.
 def shift_gate(a, instruction, dict):
+    '''Process left or right shift operations and assign the result to a wire.'''
     if 'LSHIFT' in instruction:
         result = (a << int(instruction[2]))
     else:
@@ -39,8 +39,8 @@ def shift_gate(a, instruction, dict):
 
     return assign_value(result, instruction[-1], dict)
 
-# Main function to process all instructions and determine the final state of all wires.
 def part_one(instructions):
+    '''Processes all instructions and determine the final state of all wires.'''
     bitwise_gates = {}  
 
     while instructions:
@@ -90,7 +90,8 @@ def part_one(instructions):
         instructions = next_pending
 
     return bitwise_gates
-               
+
+# Event: https://adventofcode.com/2015/day/7             
 if __name__ == '__main__':
 
     instructions = read_file_return_2d_list('text.txt')
