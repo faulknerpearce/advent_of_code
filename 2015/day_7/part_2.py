@@ -1,7 +1,7 @@
 from part_1 import read_file_return_2d_list, get_value, and_or_gate, not_gate, shift_gate, assign_value
 
-# Main function to process all instructions and determine the final state of all wires.
 def part_two(instructions):
+    '''Processes all instructions and determine the final state of all wires.'''
     bitwise_gates = {'b': 956}  
 
     while instructions:
@@ -53,6 +53,7 @@ def part_two(instructions):
 
     return bitwise_gates
 
+# Event: https://adventofcode.com/2015/day/7
 if __name__ == '__main__':
 
     instructions = read_file_return_2d_list('text.txt')
