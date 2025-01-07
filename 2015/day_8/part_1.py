@@ -1,11 +1,11 @@
-# This function will read lines from a file and return a list of strings.
 def read_file_return_list(file):
+    '''Read text from a file and return a list of strings.'''
     with open(file) as data:
         text = data.read().splitlines()
     return text
 
-# This function will count characters in code versus characters in memory for string literals
-def count_string_literals_one(text):
+def part_one(text):
+    '''Count characters in code versus characters in memory for string literals'''
 
     total_string_code = 0
     total_mem_chars = 0
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     
     puzzle_input = read_file_return_list('text.txt')
 
-    answer = count_string_literals_one(puzzle_input)
+    answer = part_one(puzzle_input)
 
     print(f'The answer to part one is: {answer}')
 
