@@ -5,7 +5,7 @@ def read_file_return_list(file):
     return text
 
 def part_one(text):
-    '''Count characters in code versus characters in memory for string literals'''
+    '''Counts characters in code versus characters in memory for string literals'''
 
     total_string_code = 0
     total_mem_chars = 0
@@ -29,7 +29,7 @@ def part_one(text):
     result = total_string_code - total_mem_chars
     return result 
 
-#________Main Program_________ # 
+# Event: https://adventofcode.com/2015/day/8
 if __name__ == "__main__":
     
     puzzle_input = read_file_return_list('text.txt')
