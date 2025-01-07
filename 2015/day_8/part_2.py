@@ -1,7 +1,7 @@
 from part_1 import read_file_return_list
 
-# This function will count characters in code versus characters in memory for string literals
-def count_encoded_literals(text):
+def part_two(text):
+    '''Counts characters in code versus characters in memory for string literals'''
     total_encoded_chars = 0
     total_string_code = 0
 
@@ -19,12 +19,12 @@ def count_encoded_literals(text):
     result = total_encoded_chars - total_string_code
     return result
 
-#________Main Program_________ # 
+# Event: https://adventofcode.com/2015/day/8
 if __name__ == "__main__":
 
     puzzle_input = read_file_return_list('text.txt')
 
-    answer = count_encoded_literals(puzzle_input)
+    answer = part_two(puzzle_input)
 
     print(f'The answer to part two is: {answer}')
 
