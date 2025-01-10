@@ -1,60 +1,53 @@
 import heapq
 
 def read_file_return_2d_list(file):
+    '''Reads the input file and returns its content as a 2D matrix.'''
     with open(file) as data:
-        array = [list(line.strip('\n')) for line in data.readlines()]
-        return array
+        return [list(line.strip('\n')) for line in data.readlines()]
 
 def get_starting_position(matrix):
+    '''Finds the initial position (x, y) of S in the matrix.'''
     for row in range(len(matrix)):
         for col in range(len(matrix[row])):
             if matrix[row][col] == 'S':
                 return row, col
 
+def is_valid_state(row, col, array):
+    '''Checks if a position (row, col) is within the bounds of the array and not blocked by a wall.'''
+    return 0 <= row < len(array) and 0 <= col < len(array[0]) and array[row][col] != '#'
 
-def is_valid(row, col, array, visited):
-    return 0 <= row < len(array) and 0 <= col < len(array[0]) and array[row][col] != '#' and (row, col) not in visited
+def eligible_position(score, row, col, direction, visited):
+    '''Determines if a state (row, col, direction) is worth adding to the queue based on score.'''
+    return (row, col, direction) not in visited or score < visited[(row, col, direction)]
 
 def breath_first_search(start_row, start_col, matrix):
+    '''Uses BFS with a priority queue to find the minimum score path from 'S' to 'E'.'''
     directions = {'N': (-1, 0), 'E': (0, 1), 'S': (1, 0), 'W': (0, -1)}
     directions_list = ['N', 'E', 'S', 'W']
     queue = [(0, start_row, start_col, 'E')]  
     visited = {}
 
     while queue:
-        
         cur_score, cur_row, cur_col, cur_direction = heapq.heappop(queue)
 
-        # Skip if this state has already been visited with a lower score
-        if (cur_row, cur_col, cur_direction) in visited and visited[(cur_row, cur_col, cur_direction)] <= cur_score:
-            continue
-
-        # Mark the current state as visited with the current score
-        visited[(cur_row, cur_col, cur_direction)] = cur_score
-
-        # Check if the current cell is the end
         if matrix[cur_row][cur_col] == 'E':
             return cur_score
 
-        # Forward Move: Move in the current direction
         new_row = cur_row + directions[cur_direction][0]
         new_col = cur_col + directions[cur_direction][1]
 
-        if is_valid(new_row, new_col, matrix, visited):
+        if is_valid_state(new_row, new_col, matrix) and eligible_position(cur_score + 1, new_row, new_col, cur_direction, visited):
+            visited[(new_row, new_col, cur_direction)] = cur_score + 1
             heapq.heappush(queue, (cur_score + 1, new_row, new_col, cur_direction))
 
-        # Rotations: Consider valid rotations
         for direction in directions_list:
-            if direction != cur_direction:
-                # Check if moving in the rotated direction would be valid
-                rotated_row = cur_row + directions[direction][0]
-                rotated_col = cur_col + directions[direction][1]
+            if direction != cur_direction and eligible_position(cur_score + 1000, cur_row, cur_col, direction, visited):
+                visited[(cur_row, cur_col, direction)] = cur_score + 1000
+                heapq.heappush(queue, (cur_score + 1000, cur_row, cur_col, direction))
 
-                if is_valid(rotated_row, rotated_col, matrix, visited):
-                    heapq.heappush(queue, (cur_score + 1000, cur_row, cur_col, direction))
+    return None
 
 if __name__ == '__main__':
-
     puzzle_input = read_file_return_2d_list('text.txt')
 
     starting_row, starting_col = get_starting_position(puzzle_input)
