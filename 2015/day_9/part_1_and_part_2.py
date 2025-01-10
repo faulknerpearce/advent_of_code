@@ -2,16 +2,16 @@ from aoc_graph import Graph, Vertex
 from itertools import permutations
 import re 
 
-# This function will read a text file format it and retrun an array of the remaining elements. 
 def read_file_return_list(file):
+    '''Reads from a text file format it and returns an array of the remaining elements.'''
     with open(file) as data:
         text = re.sub(r'to|=', '', data.read())
         lines_array = [line.split() for line in text.split('\n')]
 
         return lines_array
    
-# Create a graph for the Traveling Salesperson Problem.
 def build_graph(array):
+    '''Create a graph for the Traveling Salesperson Problem.'''
     destinations_graph = Graph(directed=False)
     unique_locations = set()
     
@@ -29,8 +29,8 @@ def build_graph(array):
 
     return destinations_graph
 
-# This function will visit each vertex in the graph once, and retrun the shortest distance it  can travel to achieve this.
 def get_route(graph, greater=False):
+    '''Visit each vertex in the graph once, and return the shortest distance it  can travel to achieve this.'''
     vertex_objects = list(graph.graph_dict.values()) 
     
     if greater: 
@@ -62,6 +62,7 @@ def get_route(graph, greater=False):
 
     return shortest_distance
 
+# Event: https://adventofcode.com/2015/day/9
 if __name__ == "__main__":
 
     puzzle_input = read_file_return_list('text.txt')
