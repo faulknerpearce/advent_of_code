@@ -36,11 +36,13 @@ def breath_first_search(start_row, start_col, matrix):
         new_col = cur_col + directions[cur_direction][1]
 
         if is_valid_state(new_row, new_col, matrix) and eligible_position(cur_score + 1, new_row, new_col, cur_direction, visited):
+            
             visited[(new_row, new_col, cur_direction)] = cur_score + 1
             heapq.heappush(queue, (cur_score + 1, new_row, new_col, cur_direction))
 
         for direction in directions.keys():
             if direction != cur_direction and eligible_position(cur_score + 1000, cur_row, cur_col, direction, visited):
+                
                 visited[(cur_row, cur_col, direction)] = cur_score + 1000
                 heapq.heappush(queue, (cur_score + 1000, cur_row, cur_col, direction))
 
@@ -48,6 +50,7 @@ def breath_first_search(start_row, start_col, matrix):
 
 # Event: https://adventofcode.com/2024/day/16
 if __name__ == '__main__':
+    
     puzzle_input = read_file_return_2d_list('text.txt')
 
     starting_row, starting_col = get_starting_position(puzzle_input)
