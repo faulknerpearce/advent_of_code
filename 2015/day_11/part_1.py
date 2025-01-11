@@ -1,31 +1,31 @@
-# Increases the given letter by one, wrapping from 'z' to 'a'.
 def increase_letter(letter):
+    '''Increases the given letter by one, wrapping from 'z' to 'a'.'''
     shifted = (1 + (ord(letter) - 97)) % 26
 
     return chr(shifted + 97)
 
-# Finds the index of the rightmost letter that isn't 'z'
 def get_left_index(password):
+    '''Finds the index of the rightmost letter that isn't 'z'''
     for i in range(1, len(password) + 1):
         if password[-i] != 'z':
             return i
 
-# Checks if all letters in the password are 'z'.
 def all_equal_z(password):
+    '''Checks if all letters in the password are 'z'.'''
     for letter in password:
         if letter != 'z':
             return False
     return True
 
-# Resets all letters to 'a' and adds an extra 'a' at the end
 def add_letter(password):
+    '''Resets all letters to 'a' and adds an extra 'a' at the end'''
     for i in range(len(password)):
         password[i] = 'a'
     password.append('a')
     return password
 
-# Creates a new list of 'a's with the same length as the input.
 def reset_letters(password):
+    '''Creates a new list of 'a's with the same length as the input.'''
     new = []
 
     for _ in range(len(password)):
@@ -33,9 +33,8 @@ def reset_letters(password):
     
     return new
 
-# Generates the next password in the sequence.
 def shift_letters(password):
-
+    '''Generates the next password in the sequence.'''
     if all_equal_z(password):
         password = add_letter(password)   
     else:
@@ -49,23 +48,23 @@ def shift_letters(password):
 
     return password
 
-# Checks if the password contains a straight of at least three increasing letters.
-def has_accending(password):
+def has_ascending(password):
+    '''Checks if the password contains a straight of at least three increasing letters.'''
     for i in range(0, len(password) -2, 1):
         if ord(password[i]) == ord(password[i+1]) -1 and ord(password[i+1]) == ord(password[i+2]) -1:
             return True
     return False
 
-# Finds the next index where the letter changes.
 def get_right_index(letter, password, idx):
+    '''Finds the next index where the letter changes.'''
     for i in range(idx, len(password)):
         if password[i] != letter:
             return i -1   
     
     return len(password)
 
-# Checks if the password contains at least two different, non-overlapping pairs of letters.
 def has_two_pairs(password):
+    '''Checks if the password contains at least two different, non-overlapping pairs of letters.'''
     count = 0
     i = 0
 
@@ -84,8 +83,8 @@ def has_two_pairs(password):
 
     return count >= 2
 
-# Checks if the password does not contain 'i', 'o', or 'u'.
 def does_not_contain(password):
+    '''Checks if the password does not contain 'i', 'o', or 'u'.'''
     letters = ['i', 'o', 'u']
 
     for letter in password:
@@ -93,14 +92,15 @@ def does_not_contain(password):
             return False
     return True
 
-# Generates the next valid password.
 def part_one(password):
+    '''Generates the next valid password.'''
     while True:
         password = shift_letters(password)
 
-        if does_not_contain(password) and has_accending(password) and has_two_pairs(password):
+        if does_not_contain(password) and has_ascending(password) and has_two_pairs(password):
             return ''.join(password)
 
+# Event: https://adventofcode.com/2015/day/11
 if __name__ == '__main__':
 
     puzzle_input = ['h', 'x', 'b', 'x', 'w', 'x', 'b', 'a']
