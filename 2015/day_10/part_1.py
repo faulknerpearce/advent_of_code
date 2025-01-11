@@ -1,5 +1,5 @@
-# Converts a sequence by counting consecutive digits and outputting the count followed by the digit.
 def convert_sequence(numbers):
+    '''Converts a sequence by counting consecutive digits and outputting the count followed by the digit.'''
     count = 1
     converted = ''
    
@@ -18,13 +18,14 @@ def convert_sequence(numbers):
 
     return converted
 
-# Repeats the conversion process 40 times and returns the length of the final sequence
 def part_one(numbers):
+    '''Repeats the conversion process 40 times and returns the length of the final sequence'''
     for _ in range(40):
         numbers = convert_sequence(numbers)
 
     return (len(numbers))
 
+# Event: https://adventofcode.com/2015/day/10
 if __name__ == '__main__':
 
     puzzle_input = '1113222113'
