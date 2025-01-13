@@ -51,7 +51,7 @@ def breath_first_search(start_row, start_col, matrix):
 # Event: https://adventofcode.com/2024/day/16
 if __name__ == '__main__':
     
-    puzzle_input = read_file_return_2d_list('text.txt')
+    puzzle_input = read_file_return_2d_list('test.txt')
 
     starting_row, starting_col = get_starting_position(puzzle_input)
 
