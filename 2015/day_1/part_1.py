@@ -3,7 +3,7 @@ def read_file_return_string(file):
     with open(file, encoding='utf-8') as file:
         text = file.read()
         return text
-    
+
 def floor_count(my_string):
     '''Read the directions and returns the floor number and the basement index.'''
     floor = 0
@@ -18,7 +18,7 @@ def floor_count(my_string):
 
 # Event: https://adventofcode.com/2015/day/1 
 if __name__ == "__main__":
-    
+
     puzzle_input = read_file_return_string('text.txt')
 
     answer = floor_count(puzzle_input)
