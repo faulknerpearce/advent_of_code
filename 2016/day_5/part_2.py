@@ -13,7 +13,7 @@ def get_password(message):
             try:
                 index = int(hash_hex[5])
      
-                if index >= 0 and index < len(password) and index not in index_used:  
+                if index >= 0 and index <= 7 and index not in index_used:  
                     password[index] = hash_hex[6]
                     index_used.append(index)
             
