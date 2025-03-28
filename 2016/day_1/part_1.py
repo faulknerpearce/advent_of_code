@@ -36,12 +36,12 @@ def get_distance(instructions, compass):
 
         elif compass.current_point == 'E':
             x += int(instruction[1:])
-        
+      
         elif compass.current_point == 'W':
             x -= int(instruction[1:])
 
     return abs(x) + abs(y)
- 
+
 #________Main Program_________ # 
 if __name__ == "__main__":
 
@@ -52,4 +52,3 @@ if __name__ == "__main__":
     answer = get_distance(puzzle_input, my_compass)
 
     print(f'The answer to part one is: {answer}')
-    
