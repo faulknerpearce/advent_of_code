@@ -1,7 +1,7 @@
 from part_1 import Compass, read_file_return_list
 
-# Processes directions to find the first location visited twice and returns its Manhattan distance from the origin
 def part_two(directions, compass):
+    '''Processes directions to find the first location visited twice and returns its Manhattan distance from the origin.'''
     x = 0 
     y = 0
     visited = set()
@@ -26,7 +26,6 @@ def part_two(directions, compass):
            
             visited.add((x, y))
 
-#________Main Program_________ # 
 if __name__ == "__main__":
 
     my_compass = Compass()
