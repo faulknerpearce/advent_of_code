@@ -40,7 +40,7 @@ def get_digits(current_digit, instructions, array):
 
     return digits
 
-#________Main Program_________ # 
+# Event: https://adventofcode.com/2016/day/2
 if __name__ == "__main__":
     
     keypad_two = [[0, 0, 1, 0, 0], [0, 2, 3, 4, 0], [5, 6, 7, 8, 9], [0, 'A', 'B', 'C', 0], [0, 0, 'D', 0, 0]]
