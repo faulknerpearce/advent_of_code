@@ -15,6 +15,7 @@ def count_valid_triangles_by_column(instructions):
                 total += 1
     return total
 
+# Event: https://adventofcode.com/2016/day/3
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_2D_list('text.txt')
