@@ -41,7 +41,8 @@ def get_distance(instructions, compass):
             x -= int(instruction[1:])
 
     return abs(x) + abs(y)
- 
+
+# Event: https://adventofcode.com/2016/day/1
 if __name__ == "__main__":
 
     my_compass = Compass()
