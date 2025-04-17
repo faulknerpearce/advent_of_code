@@ -42,6 +42,7 @@ def get_digits(current_digit, instructions, array):
 
     return digits
 
+# Event: https://adventofcode.com/2016/day/2
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_list('text.txt')
