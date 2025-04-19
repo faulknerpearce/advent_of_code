@@ -24,6 +24,7 @@ def get_room_id(instructions):
         if 'northpole' in decrypted:
             return room_id
 
+# Event: https://adventofcode.com/2016/day/4
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_2D_list('text.txt')
