@@ -71,6 +71,7 @@ def part_one(instructions):
             total += room_number
     return total 
 
+# Event: https://adventofcode.com/2016/day/4
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_2D_list('text.txt')
