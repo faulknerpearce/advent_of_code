@@ -24,7 +24,7 @@ def get_password(message):
     
     return ''.join(str(char) for char in password) 
 
-#________Main Program_________ #
+# Event: https://adventofcode.com/2016/day/5
 if __name__ == "__main__":
 
     puzzle_input = 'ffykfhsq'
