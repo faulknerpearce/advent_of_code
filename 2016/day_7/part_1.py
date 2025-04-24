@@ -45,7 +45,7 @@ def part_one(strlines):
 
     return count 
             
-#________Main Program_________ #
+# Event: https://adventofcode.com/2016/day/7
 if __name__ == "__main__":
 
     puzzle_input = read_file_return_list('text.txt')
