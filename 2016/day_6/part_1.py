@@ -28,7 +28,7 @@ def get_error_corrected_message(rows, get_maximum=True):
 
     return message
 
-#________Main Program_________ #
+# Event: https://adventofcode.com/2016/day/6
 if __name__ == "__main__":
 
     puzzle_input = read_file_return_list('text.txt')
