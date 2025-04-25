@@ -7,8 +7,8 @@ def read_file_return_2D_list(file):
         instructions = [line.split() for line in format_one.replace('[', ' ').split('\n')]
     return instructions
 
-# Returns the frequency of each letter in a given string.
 def letter_frequencies(letters):
+    '''Returns the frequency of each letter in a given string.'''
     frequencies = {}
 
     for letter in letters:
