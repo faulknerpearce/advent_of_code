@@ -1,6 +1,7 @@
 import re
 
 def read_file_return_2D_list(file):
+    '''Reads a file and returns a two dimensional list'''
     with open(file) as text:
         format_one = re.sub(r'|]', '', text.read())
         instructions = [line.split() for line in format_one.replace('[', ' ').split('\n')]
