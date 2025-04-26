@@ -19,8 +19,8 @@ def letter_frequencies(letters):
                 frequencies.update({letter: 1})
     return frequencies
 
-# Returns the letter with the highest frequency in the given dictionary of letter frequencies.
 def get_most_frequent_letter(letters_dict):
+    '''Returns the letter with the highest frequency in the given dictionary of letter frequencies.'''
     max_count = 0
     max_key = ''
 
