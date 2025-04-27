@@ -67,7 +67,7 @@ def calculate_decompressed_length(the_string, start_index=0):
 
     return length
 
-#________Main Program_________ # 
+# Event: https://adventofcode.com/2016/day/9
 if __name__ == "__main__":
     
     puzzle_input = read_file_return_string('text.txt')
