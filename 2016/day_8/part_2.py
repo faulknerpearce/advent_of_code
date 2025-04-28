@@ -10,6 +10,7 @@ def print_screen(matrix):
         
         print(pixels)
 
+# Event: https://adventofcode.com/2016/day/8
 if __name__ == '__main__':
 
     my_instructions = read_file_return_2D_list('text.txt')
