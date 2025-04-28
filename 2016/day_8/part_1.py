@@ -81,7 +81,8 @@ def part_one(matrix):
         total += row.count('#')
         
     return total
- 
+
+# Event: https://adventofcode.com/2016/day/8
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_2D_list('text.txt')
