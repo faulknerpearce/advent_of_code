@@ -42,8 +42,8 @@ def simulate_robot_swaps(instructions, robots, outputs):
                 if filled_required_output_bins(outputs):
                     return sum_outputs(outputs)
         i += 1             
-                
-#________Main Program_________ # 
+
+# Event: https://adventofcode.com/2016/day/10
 if __name__ == "__main__": 
 
     my_outputs = {}
