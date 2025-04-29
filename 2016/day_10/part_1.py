@@ -88,7 +88,7 @@ def simulate_robot_swaps(instructions, robots):
                     return required_robot
         i += 1
               
-#________Main Program_________ # 
+# Event: https://adventofcode.com/2016/day/10
 if __name__ == "__main__": 
     
     my_instructions = read_file_return_2D_list('text.txt')
