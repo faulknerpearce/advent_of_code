@@ -30,8 +30,8 @@ def get_most_frequent_letter(letters_dict):
             max_key = key 
     return max_key, max_count
 
-# Removes specified letters from the given dictionary of letter frequencies.
 def remove_letters(tied_letters, letters_dict):
+    '''Removes specified letters from the given dictionary of letter frequencies.'''
     for letter in tied_letters:
         letters_dict.pop(letter)
 
