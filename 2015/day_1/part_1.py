@@ -1,6 +1,6 @@
 def read_file_return_string(file):
     '''covert the txt file to a readable string of directions.'''
-    with open(file, encoding='utf-8') as file:
+    with open(file) as file:
         text = file.read()
         return text
 
