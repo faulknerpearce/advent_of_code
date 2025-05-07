@@ -7,6 +7,7 @@ def read_file_return_list(file):
 
 # Finds the row and column indexes of the current digit in a 2D array.
 def get_row_and_col_indexes(current_digit, array):
+    '''Reads a file and returns an array of directions.'''
     for row in range(len(array)):
         if current_digit in array[row]:
             col =  array[row].index(current_digit)
