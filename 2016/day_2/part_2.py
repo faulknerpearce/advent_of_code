@@ -1,7 +1,7 @@
 from part_1 import read_file_return_list, get_row_and_col_indexes, get_digits
 
-# Finds the row and column indexes of the current digit in a 2D array.
 def get_row_and_col_indexes(current_digit, array):
+    '''Finds the row and column indexes of the current digit in a 2D array.'''
     for row in range(len(array)):
         if current_digit in array[row]:
             col =  array[row].index(current_digit)
