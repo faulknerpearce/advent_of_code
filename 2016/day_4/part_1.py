@@ -37,8 +37,8 @@ def remove_letters(tied_letters, letters_dict):
 
     return letters_dict
 
-# Identifies all letters that have the same frequency as the given maximum frequency.
 def get_tied_letters(max_key, max_val, letters_dict):
+    '''Identifies all letters that have the same frequency as the given maximum frequency.'''
     ties = [max_key]
     
     for key in letters_dict.keys():
