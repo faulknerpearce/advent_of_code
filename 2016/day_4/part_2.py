@@ -14,8 +14,8 @@ def decrypt_string(string, decryption_num):
 
     return decrypted
 
-# Finds and returns the room ID for the room containing 'northpole' in its decrypted name.
 def get_room_id(instructions):
+    '''Finds and returns the room ID for the room containing 'northpole' in its decrypted name.'''
 
     for instruction in instructions:
         room_id = instruction[0][-3:]
