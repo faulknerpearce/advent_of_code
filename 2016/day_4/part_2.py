@@ -1,7 +1,7 @@
 from part_1 import read_file_return_2D_list
 
-# Decrypts a string by shifting each letter by a specified number of positions in the alphabet.
 def decrypt_string(string, decryption_num):
+    '''Decrypts a string by shifting each letter by a specified number of positions in the alphabet.'''
     decrypted = ''
 
     for i in range(len(string)):
