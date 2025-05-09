@@ -30,8 +30,8 @@ def get_single_digit(current_digit, instruction, array):
         
     return array[row_index][col_index]
 
-# Returns the resulting password after following the directions provided.
 def get_digits(current_digit, instructions, array):
+    '''Returns the resulting password after following the directions provided.'''
     digits = ''
 
     for instruction in instructions:
