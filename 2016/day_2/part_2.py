@@ -7,8 +7,8 @@ def get_row_and_col_indexes(current_digit, array):
             col =  array[row].index(current_digit)
             return row, col 
 
-# Determines the digit on the keypad after following a sequence of directions.
 def get_single_digit(current_digit, instruction, array):
+    '''Determines the digit on the keypad after following a sequence of directions.'''
     row_index, col_index = get_row_and_col_indexes(current_digit, array)
     
     for letter in instruction:
