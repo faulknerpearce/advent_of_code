@@ -1,5 +1,5 @@
-# Reads a file and returns its content as a 2D list.
 def read_file_return_2D_list(file):
+    '''Reads a file and returns its content as a 2D list.'''
     with open(file) as text:
         instructions = [line.split() for line in text.readlines()]
     return instructions
