@@ -8,8 +8,8 @@ def read_file_return_2D_list(file):
 def is_triangle(a, b, c):
     return (int(a) + int(b)) > int(c) and (int(b) + int(c)) > int(a) and (int(c) + int(a)) > int(b)
 
-# Counts the number of valid triangles in the given instructions, where each row represents a triangle.
 def count_valid_triangles_by_row(instructions):
+    '''Counts the number of valid triangles in the given instructions, where each row represents a triangle.'''
     total = 0 
 
     for instruction in instructions:
