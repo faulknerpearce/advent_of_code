@@ -4,8 +4,8 @@ def read_file_return_2D_list(file):
         instructions = [line.split() for line in text.readlines()]
     return instructions
 
-# Checks if three given sides can form a valid triangle.
 def is_triangle(a, b, c):
+    '''Checks if three given sides can form a valid triangle.'''
     return (int(a) + int(b)) > int(c) and (int(b) + int(c)) > int(a) and (int(c) + int(a)) > int(b)
 
 def count_valid_triangles_by_row(instructions):
