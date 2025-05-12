@@ -1,7 +1,7 @@
 from part_1 import read_file_return_2D_list, is_triangle
 
-# Counts the number of valid triangles in the given instructions by columns, where each set of three rows forms a triangle.
 def count_valid_triangles_by_column(instructions):
+    '''Counts the number of valid triangles in the given instructions by columns, where each set of three rows forms a triangle.'''
     total = 0
 
     for col in range(3):
