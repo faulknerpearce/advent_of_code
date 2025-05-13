@@ -1,5 +1,5 @@
-# Reads a file and returns an array of directions.
 def read_file_return_list(file):
+    '''Reads a file and returns an array of directions.'''
     with open(file) as text:
         string = [line.strip('\n') for line in text.readlines()]
 
