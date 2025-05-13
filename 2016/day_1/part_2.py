@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
     puzzle_input = read_file_return_list('text.txt')
 
-    answer = part_two(puzzle_input, my_compass) 
+    answer = part_two(puzzle_input, my_compass)
 
     print(f'The answer to part two is: {answer}')
     
