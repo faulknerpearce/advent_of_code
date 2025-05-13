@@ -10,7 +10,6 @@ class Compass:
         self.points = ['N', 'E', 'S', 'W']
         self.current_point = self.points[0]
         
-    # Returns the current position of the compass.
     def rotate(self, direction):
         if direction == 'R':
             direction_num = +1
