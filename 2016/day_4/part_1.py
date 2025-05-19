@@ -46,8 +46,8 @@ def get_tied_letters(max_key, max_val, letters_dict):
             ties.append(key)
     return ties
 
-# Generates the room password based on the frequency of letters and the given checksum.
 def get_room_password(possible_room, checksum): 
+    '''Generates the room password based on the frequency of letters and the given checksum.'''
     ltr_dict = letter_frequencies(possible_room)
     password = ''
     
@@ -59,8 +59,8 @@ def get_room_password(possible_room, checksum):
         password += ''.join(sorted(tied_letters))
     return password[:5]
 
-# Calculates the sum of the valid room numbers based on the room passwords and checksums.
 def part_one(instructions):
+    '''Calculates the sum of the valid room numbers based on the room passwords and checksums.'''
     total = 0 
 
     for instruction in instructions:
