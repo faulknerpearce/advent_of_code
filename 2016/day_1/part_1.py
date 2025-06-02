@@ -11,13 +11,11 @@ class Compass:
         self.current_point = self.points[0]
         
     def rotate(self, direction):
-        if direction == 'R':
-            direction_num = +1
-        else:
-            direction_num = -1
-        
-        new_index = (self.points.index(self.current_point) + direction_num) % len(self.points)
-        self.current_point = self.points[new_index]
+        '''Rotates the compass 90 degrees left ('L') or right ('R') based on the given direction.'''
+
+        increment = -1 if direction == 'L' else 1
+
+        self.current_point = self.points[(self.points.index(self.current_point) + increment) % len(self.points)]
  
 def get_distance(instructions, compass):
     '''Calculates the Manhattan distance from the origin based on a set of directions.'''
