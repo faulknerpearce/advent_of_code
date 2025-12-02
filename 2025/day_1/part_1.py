@@ -1,8 +1,10 @@
+# Parse the input file and return a list of instructions
 def read_file_return_list(file):
     with open(file) as data:
 
         return data.read().split('\n')
-    
+
+# Rotate the dial position by the given amount in the specified direction   
 def rotate(curent_position, amount, direction):
 
     if direction == 'R':
@@ -10,7 +12,8 @@ def rotate(curent_position, amount, direction):
     
     else:
         return (curent_position - int(amount)) % 100
-    
+
+# Process instructions and count how many times the dial reaches position 0  
 def part_one(instructions):
     count = 0
     dial_position = 50
@@ -22,7 +25,8 @@ def part_one(instructions):
             count += 1
 
     return count
-        
+ 
+# Event: https://adventofcode.com/2025/day/1       
 if __name__ == '__main__':
 
     puzzle_input = read_file_return_list('text.txt')
